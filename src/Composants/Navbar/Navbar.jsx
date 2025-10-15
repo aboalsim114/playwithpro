@@ -24,7 +24,7 @@ function Navbar() {
                   <circle cx="18" cy="12" r="1"/>
                 </svg>
               </div>
-              <span className="logo-text">NEXUS</span>
+              <span className="logo-text">SAMI</span>
             </div>
           </div>
 

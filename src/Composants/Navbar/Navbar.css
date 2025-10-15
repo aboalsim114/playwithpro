@@ -62,14 +62,17 @@
 /* Main Navbar */
 .minimal-navbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  max-width: 1200px;
   height: 64px;
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
-  border-bottom: 1px solid var(--glass-border);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
   box-shadow: var(--glass-shadow);
   z-index: 1000;
   transition: var(--transition-normal);
@@ -77,20 +80,20 @@
 
 .minimal-navbar:hover {
   background: var(--glass-bg-hover);
-  border-bottom-color: var(--glass-border-hover);
+  border-color: var(--glass-border-hover);
   box-shadow: var(--glass-shadow-hover);
 }
 
 /* Navbar Wrapper */
 .navbar-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--space-6);
   position: relative;
+  z-index: 2;
 }
 
 /* Background Blur Effect */
@@ -425,6 +428,10 @@
 
 /* Responsive Design */
 @media (max-width: 1024px) {
+  .minimal-navbar {
+    width: 98%;
+  }
+  
   .navbar-wrapper {
     padding: 0 var(--space-4);
   }
@@ -439,6 +446,12 @@
 }
 
 @media (max-width: 768px) {
+  .minimal-navbar {
+    width: 100%;
+    top: 0;
+    border-radius: 0;
+  }
+  
   .center-nav {
     display: none;
   }
@@ -483,11 +496,11 @@
 
 @keyframes slideDown {
   from {
-    transform: translateY(-100%);
+    transform: translateX(-50%) translateY(-100%);
     opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
     opacity: 1;
   }
 }

@@ -1,47 +1,29 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import './Navbar.css'
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState('tournaments')
   const [isScrolled, setIsScrolled] = useState(false)
+  const location = useLocation()
 
-  // Navigation items with icons
+  // Navigation items with icons and routes
   const navItems = useMemo(() => [
-    { id: 'tournaments', label: 'Tournois', icon: '🏆' },
-    { id: 'teams', label: 'Équipes', icon: '👥' },
-    { id: 'shop', label: 'Boutique', icon: '🛒' },
-    { id: 'news', label: 'Actualités', icon: '📰' }
+    { id: 'home', label: 'Accueil', icon: '🏠', path: '/' },
+    { id: 'games', label: 'Jeux', icon: '🎮', path: '/games' },
+    { id: 'about', label: 'À Propos', icon: 'ℹ️', path: '/about' },
+    { id: 'contact', label: 'Contact', icon: '📞', path: '/contact' }
   ], [])
 
-  // Handle scroll to update active section and navbar state
+  // Handle scroll to update navbar state
   const handleScroll = useCallback(() => {
     const scrollY = window.scrollY
     setIsScrolled(scrollY > 50)
+  }, [])
 
-    // Find active section based on scroll position
-    const sections = navItems.map(item => document.getElementById(item.id)).filter(Boolean)
-    const currentSection = sections.find(section => {
-      const rect = section.getBoundingClientRect()
-      return rect.top <= 100 && rect.bottom >= 100
-    })
-
-    if (currentSection) {
-      setActiveSection(currentSection.id)
-    }
-  }, [navItems])
-
-  // Smooth scroll to section
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      const offsetTop = element.offsetTop - 100
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      })
-    }
-    setIsMobileMenuOpen(false)
+  // Check if current route is active
+  const isActiveRoute = (path) => {
+    return location.pathname === path
   }
 
   // Toggle mobile menu
@@ -92,7 +74,7 @@ function Navbar() {
         <div className="navbar-wrapper">
           {/* Logo Section */}
           <div className="logo-section">
-            <div className="logo-container" onClick={() => scrollToSection('home')}>
+            <Link to="/" className="logo-container">
               <div className="logo-symbol">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
@@ -108,24 +90,24 @@ function Navbar() {
                   <circle cx="18" cy="12" r="1"/>
                 </svg>
               </div>
-              <span className="logo-text">SAMI</span>
-            </div>
+              <span className="logo-text">PlayWithPro</span>
+            </Link>
           </div>
 
           {/* Center Navigation */}
           <div className="center-nav">
             <div className="nav-items">
               {navItems.map((item, index) => (
-                <button
+                <Link
                   key={item.id}
-                  className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
-                  onClick={() => scrollToSection(item.id)}
+                  to={item.path}
+                  className={`nav-link ${isActiveRoute(item.path) ? 'active' : ''}`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <span className="link-icon">{item.icon}</span>
                   <span className="link-text">{item.label}</span>
                   <div className="link-underline"></div>
-                </button>
+                </Link>
               ))}
             </div>
           </div>
@@ -201,7 +183,7 @@ function Navbar() {
                     <circle cx="18" cy="12" r="1"/>
                   </svg>
                 </div>
-                <span className="logo-text">SAMI</span>
+                <span className="logo-text">PlayWithPro</span>
               </div>
               <button 
                 className="mobile-menu-close"
@@ -218,16 +200,17 @@ function Navbar() {
             <div className="mobile-menu-content">
               <div className="mobile-nav-items">
                 {navItems.map((item, index) => (
-                  <button
+                  <Link
                     key={item.id}
-                    className={`mobile-nav-link ${activeSection === item.id ? 'active' : ''}`}
-                    onClick={() => scrollToSection(item.id)}
+                    to={item.path}
+                    className={`mobile-nav-link ${isActiveRoute(item.path) ? 'active' : ''}`}
+                    onClick={() => setIsMobileMenuOpen(false)}
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <span className="link-icon">{item.icon}</span>
                     <span className="link-text">{item.label}</span>
                     <div className="link-underline"></div>
-                  </button>
+                  </Link>
                 ))}
               </div>
 

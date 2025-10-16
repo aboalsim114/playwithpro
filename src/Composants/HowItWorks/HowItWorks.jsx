@@ -98,142 +98,156 @@ const useIntersectionObserver = (elementRef, threshold = 0.3) => {
 };
 
 /**
- * Dynamic background component with animated elements
+ * Dynamic background component with modern animated elements
  */
 const DynamicBackground = memo(() => {
   return (
     <div className="dynamic-background">
-      <div className="morphing-shapes">
-        {[...Array(6)].map((_, i) => (
+      {/* Floating geometric shapes */}
+      <div className="floating-shapes">
+        {[...Array(8)].map((_, i) => (
           <div 
             key={i} 
-            className="morphing-shape"
+            className={`floating-shape shape-${i + 1}`}
             style={{
-              '--shape-delay': `${i * 0.8}s`,
-              '--shape-duration': `${8 + (i % 3)}s`,
-              '--shape-size': `${100 + (i % 3) * 50}px`
+              '--shape-delay': `${i * 0.5}s`,
+              '--shape-duration': `${12 + (i % 4)}s`,
+              '--shape-size': `${60 + (i % 3) * 40}px`
             }}
           />
         ))}
       </div>
       
-      <div className="energy-waves">
-        <div className="energy-wave wave-1" />
-        <div className="energy-wave wave-2" />
-        <div className="energy-wave wave-3" />
+      {/* Animated gradient orbs */}
+      <div className="gradient-orbs">
+        <div className="orb orb-1" />
+        <div className="orb orb-2" />
+        <div className="orb orb-3" />
+        <div className="orb orb-4" />
       </div>
 
-      <div className="neural-network">
-        {[...Array(20)].map((_, i) => (
+      {/* Particle system */}
+      <div className="particle-system">
+        {[...Array(50)].map((_, i) => (
           <div 
             key={i} 
-            className="neural-node"
+            className="particle"
             style={{
-              '--node-delay': `${i * 0.1}s`,
-              '--node-duration': `${3 + (i % 2)}s`,
-              '--node-x': `${Math.random() * 100}%`,
-              '--node-y': `${Math.random() * 100}%`
+              '--particle-delay': `${i * 0.1}s`,
+              '--particle-duration': `${8 + (i % 3)}s`,
+              '--particle-x': `${Math.random() * 100}%`,
+              '--particle-y': `${Math.random() * 100}%`,
+              '--particle-size': `${2 + Math.random() * 4}px`
             }}
           />
         ))}
+      </div>
+
+      {/* Animated grid */}
+      <div className="animated-grid">
+        <div className="grid-lines">
+          {[...Array(20)].map((_, i) => (
+            <div key={i} className="grid-line" style={{ '--line-delay': `${i * 0.1}s` }} />
+          ))}
+        </div>
+      </div>
+
+      {/* Light rays */}
+      <div className="light-rays">
+        <div className="ray ray-1" />
+        <div className="ray ray-2" />
+        <div className="ray ray-3" />
       </div>
     </div>
   );
 });
 
 /**
- * Section header component
+ * Modern section header component
  */
 const SectionHeader = memo(() => {
   return (
     <header className="how-it-works-header">
-      <div className="header-orb">
-        <div className="orb-core" />
-        <div className="orb-rings">
-          <div className="orb-ring ring-1" />
-          <div className="orb-ring ring-2" />
-          <div className="orb-ring ring-3" />
+      <div className="header-container">
+        <div className="header-badge">
+          <div className="badge-icon">⚡</div>
+          <span className="badge-text">Processus Simple</span>
+        </div>
+        
+        <h2 id="how-it-works-title" className="how-it-works-title">
+          <span className="title-main">{HOW_IT_WORKS_CONTENT.title.text}</span>
+          <span className="title-accent">{HOW_IT_WORKS_CONTENT.title.gradient}</span>
+        </h2>
+        
+        <p className="how-it-works-description">
+          {HOW_IT_WORKS_CONTENT.description}
+        </p>
+
+        <div className="header-decoration">
+          <div className="decoration-line" />
+          <div className="decoration-dot" />
+          <div className="decoration-line" />
         </div>
       </div>
-      
-      <h2 id="how-it-works-title" className="how-it-works-title">
-        <span className="title-text">{HOW_IT_WORKS_CONTENT.title.text}</span>
-        <span className="title-gradient">{HOW_IT_WORKS_CONTENT.title.gradient}</span>
-      </h2>
-      
-      <p className="how-it-works-description">
-        {HOW_IT_WORKS_CONTENT.description}
-      </p>
     </header>
   );
 });
 
 /**
- * Timeline component
+ * Modern floating cards layout
  */
-const Timeline = memo(({ 
+const FloatingCards = memo(({ 
   activeStep, 
   handleStepClick, 
   isVisible, 
   mousePosition, 
   scrollProgress 
 }) => {
-  const timelineRef = useRef(null);
+  const cardsRef = useRef(null);
 
   return (
-    <div className="timeline-container" ref={timelineRef}>
-      <div className="timeline-track">
-        {/* Central Timeline Line */}
-        <div className="timeline-line">
-          <div className="line-progress" />
-          <div className="line-glow" />
-        </div>
-
-        {/* Timeline Steps */}
+    <div className="floating-cards-container" ref={cardsRef}>
+      <div className="cards-grid">
         {STEPS.map((step, index) => (
           <div
             key={step.id}
-            className={`timeline-step ${activeStep === index ? 'active' : ''} ${index < activeStep ? 'completed' : ''} ${isVisible ? 'visible' : ''}`}
+            className={`floating-card ${activeStep === index ? 'active' : ''} ${index < activeStep ? 'completed' : ''} ${isVisible ? 'visible' : ''}`}
             style={{ 
-              '--step-delay': `${index * 0.2}s`,
-              '--step-index': index
+              '--card-delay': `${index * 0.15}s`,
+              '--card-index': index,
+              '--card-x': `${(index % 2) * 50 + 25}%`,
+              '--card-y': `${Math.floor(index / 2) * 50 + 25}%`
             }}
             onClick={() => handleStepClick(index)}
           >
-            <div className="step-connector">
-              <div className="connector-line" />
-              <div className="connector-pulse" />
+            <div className="card-glow" />
+            <div className="card-border" />
+            
+            <div className="card-header">
+              <div className="step-number">{index + 1}</div>
+              <div className="step-icon">
+                {STEP_ICONS[step.icon]}
+              </div>
             </div>
 
-            <div className="step-node">
-              <div className="node-core">
-                <div className="node-icon">
-                  {STEP_ICONS[step.icon]}
-                </div>
-                <div className="node-number">{index + 1}</div>
-              </div>
-              <div className="node-rings">
-                <div className="node-ring ring-1" />
-                <div className="node-ring ring-2" />
-                <div className="node-ring ring-3" />
-              </div>
-              <div className="node-glow" />
+            <div className="card-content">
+              <h3 className="card-title">{step.title}</h3>
+              <p className="card-description">{step.description}</p>
             </div>
 
-            <div className="step-content">
-              <StepCard
-                number={step.number}
-                title={step.title}
-                description={step.description}
-                icon={STEP_ICONS[step.icon]}
-                color={step.color}
-                id={step.id}
-                index={index}
-                isActive={activeStep === index}
-                isCompleted={index < activeStep}
-                mousePosition={mousePosition}
-                scrollProgress={scrollProgress}
-              />
+            <div className="card-footer">
+              <div className="progress-indicator">
+                <div className="progress-bar" />
+              </div>
+            </div>
+
+            <div className="card-effects">
+              <div className="effect-ripple" />
+              <div className="effect-particles">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="effect-particle" style={{ '--particle-delay': `${i * 0.1}s` }} />
+                ))}
+              </div>
             </div>
           </div>
         ))}
@@ -243,12 +257,16 @@ const Timeline = memo(({
 });
 
 /**
- * Progress indicator component
+ * Modern progress indicator component
  */
 const ProgressIndicator = memo(({ activeStep, handleStepClick }) => {
   return (
     <div className="progress-indicator">
       <div className="progress-track">
+        <div className="progress-line">
+          <div className="progress-fill" style={{ width: `${(activeStep / (STEPS.length - 1)) * 100}%` }} />
+        </div>
+        
         {STEPS.map((_, index) => (
           <button
             key={index}
@@ -256,9 +274,11 @@ const ProgressIndicator = memo(({ activeStep, handleStepClick }) => {
             onClick={() => handleStepClick(index)}
             aria-label={`Aller à l'étape ${index + 1}`}
           >
-            <span className="dot-number">{index + 1}</span>
+            <div className="dot-inner">
+              <span className="dot-number">{index + 1}</span>
+            </div>
+            <div className="dot-ring" />
             <div className="dot-glow" />
-            <div className="dot-pulse" />
           </button>
         ))}
       </div>
@@ -269,12 +289,12 @@ const ProgressIndicator = memo(({ activeStep, handleStepClick }) => {
 const HowItWorks = () => {
   const [isHovering, setIsHovering] = useState(false);
   const sectionRef = useRef(null);
-  const timelineRef = useRef(null);
+  const cardsRef = useRef(null);
 
   // Custom hooks
   const { activeStep, handleStepClick } = useStepNavigation();
   const { mousePosition, handleMouseMove } = useMousePosition(sectionRef);
-  const { scrollProgress, handleScroll } = useScrollProgress(timelineRef);
+  const { scrollProgress, handleScroll } = useScrollProgress(cardsRef);
   const isVisible = useIntersectionObserver(sectionRef);
 
   // Event listeners setup
@@ -307,7 +327,7 @@ const HowItWorks = () => {
 
       <div className="how-it-works-container">
         <SectionHeader />
-        <Timeline 
+        <FloatingCards 
           activeStep={activeStep}
           handleStepClick={handleStepClick}
           isVisible={isVisible}

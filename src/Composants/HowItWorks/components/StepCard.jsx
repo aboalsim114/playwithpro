@@ -2,62 +2,45 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * Card background component with animated elements
+ * Modern card background component
  */
 const CardBackground = memo(() => (
   <div className="card-background">
     <div className="bg-gradient" />
-    <div className="bg-mesh" />
-    <div className="bg-particles">
-      <div className="bg-particle particle-1" />
-      <div className="bg-particle particle-2" />
-      <div className="bg-particle particle-3" />
-    </div>
+    <div className="bg-pattern" />
   </div>
 ));
 
 /**
- * Icon container component
+ * Modern icon container component
  */
 const IconContainer = memo(({ color, icon }) => (
-  <div className="header-icon">
+  <div className="icon-wrapper">
     <div className={`icon-container ${color}`}>
-      <div className="icon-background" />
       <div className="icon-content">
         {icon}
       </div>
-      <div className="icon-aura" />
+      <div className="icon-glow" />
     </div>
   </div>
 ));
 
 /**
- * Card header content component
+ * Modern card header content component
  */
 const CardHeaderContent = memo(({ title, index }) => (
   <div className="header-content">
     <h3 className="card-title">
-      {title.split('').map((char, i) => (
-        <span 
-          key={i} 
-          className="title-char"
-          style={{ '--char-delay': `${i * 0.03}s` }}
-        >
-          {char}
-        </span>
-      ))}
+      {title}
     </h3>
     <div className="card-subtitle">
-      <span className="step-number">Étape {index + 1}</span>
-      <div className="step-indicator">
-        <div className="indicator-dot" />
-      </div>
+      <span className="step-label">Étape {index + 1}</span>
     </div>
   </div>
 ));
 
 /**
- * Card features component
+ * Modern card features component
  */
 const CardFeatures = memo(() => (
   <div className="card-features">
@@ -77,47 +60,21 @@ const CardFeatures = memo(() => (
 ));
 
 /**
- * Card effects component
+ * Modern card effects component
  */
 const CardEffects = memo(() => (
   <div className="card-effects">
-    <div className="effect-glow" />
-    <div className="effect-lines">
-      <div className="effect-line line-1" />
-      <div className="effect-line line-2" />
-      <div className="effect-line line-3" />
-    </div>
+    <div className="effect-ripple" />
     <div className="effect-particles">
-      <div className="effect-particle particle-1" />
-      <div className="effect-particle particle-2" />
-      <div className="effect-particle particle-3" />
-      <div className="effect-particle particle-4" />
+      <div className="effect-particle" />
+      <div className="effect-particle" />
+      <div className="effect-particle" />
     </div>
   </div>
 ));
 
 /**
- * Hover overlay component
- */
-const HoverOverlay = memo(() => (
-  <div className="hover-overlay">
-    <div className="overlay-glow" />
-    <div className="overlay-pattern" />
-  </div>
-));
-
-/**
- * Status indicator component
- */
-const StatusIndicator = memo(() => (
-  <div className="status-indicator">
-    <div className="status-ring" />
-    <div className="status-pulse" />
-  </div>
-));
-
-/**
- * StepCard component - displays individual step information with animations
+ * Modern StepCard component - displays individual step information with clean design
  * @param {Object} props - Component props
  * @param {string} props.number - Step number emoji
  * @param {string} props.title - Step title
@@ -146,7 +103,7 @@ const StepCard = ({
 }) => {
   return (
     <div 
-      className={`step-card ${color} ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`} 
+      className={`modern-step-card ${color} ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`} 
       id={id}
       data-index={index}
       style={{
@@ -169,8 +126,6 @@ const StepCard = ({
       </div>
 
       <CardEffects />
-      <HoverOverlay />
-      <StatusIndicator />
     </div>
   );
 };

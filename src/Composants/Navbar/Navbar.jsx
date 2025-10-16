@@ -10,9 +10,8 @@ function Navbar() {
   // Navigation items with icons and routes
   const navItems = useMemo(() => [
     { id: 'home', label: 'Accueil', icon: '🏠', path: '/' },
-    { id: 'games', label: 'Jeux', icon: '🎮', path: '/games' },
-    { id: 'about', label: 'À Propos', icon: 'ℹ️', path: '/about' },
-    { id: 'contact', label: 'Contact', icon: '📞', path: '/contact' }
+    { id: 'inscription', label: 'Inscription', icon: '📝', path: '/inscription' },
+    { id: 'connexion', label: 'Connexion', icon: '🔑', path: '/connexion' }
   ], [])
 
   // Handle scroll to update navbar state

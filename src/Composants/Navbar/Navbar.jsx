@@ -1,18 +1,37 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import './Navbar.css'
+import { useIsAuthenticated, useCurrentUser } from '../../store/hooks'
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const location = useLocation()
+  
+  // Redux state
+  const isAuthenticated = useIsAuthenticated()
+  const currentUser = useCurrentUser()
 
   // Navigation items with icons and routes
-  const navItems = useMemo(() => [
-    { id: 'home', label: 'Accueil', icon: '🏠', path: '/' },
-    { id: 'inscription', label: 'Inscription', icon: '📝', path: '/inscription' },
-    { id: 'connexion', label: 'Connexion', icon: '🔑', path: '/connexion' }
-  ], [])
+  const navItems = useMemo(() => {
+    const baseItems = [
+      { id: 'home', label: 'Accueil', icon: '🏠', path: '/' }
+    ]
+    
+    if (isAuthenticated) {
+      return [
+        ...baseItems,
+        { id: 'profile', label: 'Profil', icon: '👤', path: '/profile' },
+        { id: 'dashboard', label: 'Tableau de bord', icon: '📊', path: '/dashboard' }
+      ]
+    } else {
+      return [
+        ...baseItems,
+        { id: 'inscription', label: 'Inscription', icon: '📝', path: '/inscription' },
+        { id: 'connexion', label: 'Connexion', icon: '🔑', path: '/connexion' }
+      ]
+    }
+  }, [isAuthenticated])
 
   // Handle scroll to update navbar state
   const handleScroll = useCallback(() => {
@@ -139,18 +158,7 @@ function Navbar() {
               <span className="hamburger-line"></span>
             </button>
 
-            {/* User Menu */}
-            <div className="user-menu">
-              <button className="user-avatar" aria-label="User menu">
-                <div className="avatar-circle">
-                  <svg className="avatar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
-                  </svg>
-                </div>
-                <div className="status-indicator"></div>
-              </button>
-            </div>
+          
           </div>
         </div>
 

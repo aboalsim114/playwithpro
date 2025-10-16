@@ -1,4 +1,16 @@
-// How It Works section constants
+/**
+ * @fileoverview Constants for the How It Works section
+ * Contains all static content, steps configuration, and icon definitions
+ */
+
+/**
+ * Main content configuration for the How It Works section
+ * @type {Object}
+ * @property {Object} title - Title configuration with text and gradient parts
+ * @property {string} title.text - Main title text
+ * @property {string} title.gradient - Gradient text part
+ * @property {string} description - Section description
+ */
 export const HOW_IT_WORKS_CONTENT = {
   title: {
     text: "Comment ça",
@@ -7,6 +19,16 @@ export const HOW_IT_WORKS_CONTENT = {
   description: "Découvrez comment rejoindre l'action en seulement 4 étapes simples. De la sélection de votre jeu préféré à l'immersion dans des serveurs privés optimisés."
 };
 
+/**
+ * Step configuration for the timeline
+ * @type {Array<Object>}
+ * @property {string} id - Unique identifier for the step
+ * @property {string} number - Emoji number for the step
+ * @property {string} title - Step title
+ * @property {string} description - Step description
+ * @property {string} icon - Icon key for STEP_ICONS
+ * @property {string} color - Color theme for the step
+ */
 export const STEPS = [
   {
     id: "choose-game",
@@ -42,7 +64,14 @@ export const STEPS = [
   }
 ];
 
-// SVG Icons for steps
+/**
+ * SVG Icons for each step in the timeline
+ * @type {Object}
+ * @property {JSX.Element} gamepad - Gamepad icon for game selection step
+ * @property {JSX.Element} user - User icon for pro selection step
+ * @property {JSX.Element} calendar - Calendar icon for session reservation step
+ * @property {JSX.Element} server - Server icon for private server step
+ */
 export const STEP_ICONS = {
   gamepad: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

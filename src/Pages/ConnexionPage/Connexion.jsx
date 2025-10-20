@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { Formik, Form, Field } from 'formik'
 import './Connexion.css'
 import Navbar from '../../Composants/Navbar/Navbar'
 import { useAuth } from '../../store/hooks'
 import { loginUser, clearError, forgotPassword } from '../../store/slices/authSlice'
-import { validationRules, validateForm, formatApiError } from '../../utils/validation'
+import { formatApiError } from '../../utils/validation'
+import { loginSchema, forgotPasswordSchema, initialValues, getFieldError, hasFieldError } from '../../schemas/validationSchemas'
 
 // Gaming-themed SVG Illustrations
 const GamingIllustrations = () => (
@@ -99,19 +101,10 @@ const GamingIllustrations = () => (
 )
 
 function Connexion() {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    remember: false
-  })
-  
-  const [validationErrors, setValidationErrors] = useState({})
   const [showForgotPassword, setShowForgotPassword] = useState(false)
-  const [forgotPasswordEmail, setForgotPasswordEmail] = useState('')
-  const [forgotPasswordLoading, setForgotPasswordLoading] = useState(false)
   const [forgotPasswordMessage, setForgotPasswordMessage] = useState('')
   
-  const { isAuthenticated, loading, error, dispatch } = useAuth()
+  const { isAuthenticated, error, dispatch } = useAuth()
   const navigate = useNavigate()
 
   // Rediriger si déjà connecté
@@ -126,71 +119,40 @@ function Connexion() {
     dispatch(clearError())
   }, [dispatch])
 
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target
-    const newValue = type === 'checkbox' ? checked : value
-    
-    setFormData(prev => ({
-      ...prev,
-      [name]: newValue
-    }))
-    
-    // Nettoyer l'erreur de validation pour ce champ
-    if (validationErrors[name]) {
-      setValidationErrors(prev => ({
-        ...prev,
-        [name]: null
-      }))
-    }
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    
-    // Validation du formulaire
-    const { errors, isValid } = validateForm(formData, validationRules.login)
-    
-    if (!isValid) {
-      setValidationErrors(errors)
-      return
-    }
-    
-    // Nettoyer les erreurs de validation
-    setValidationErrors({})
-    
+  const handleLoginSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
       await dispatch(loginUser({
-        email: formData.email,
-        password: formData.password,
-        rememberMe: formData.remember
+        email: values.email,
+        password: values.password,
+        rememberMe: values.remember
       })).unwrap()
       
       // La redirection se fera automatiquement via useEffect
     } catch (error) {
       console.error('Erreur de connexion:', error)
-      // L'erreur sera gérée par Redux et affichée dans l'UI
+      
+      // Gérer les erreurs spécifiques aux champs
+      if (error.message?.includes('email')) {
+        setFieldError('email', 'Email ou mot de passe incorrect')
+      } else if (error.message?.includes('password')) {
+        setFieldError('password', 'Email ou mot de passe incorrect')
+      }
+    } finally {
+      setSubmitting(false)
     }
   }
 
-  const handleForgotPassword = async (e) => {
-    e.preventDefault()
-    
-    if (!forgotPasswordEmail) {
-      setForgotPasswordMessage('Veuillez entrer votre adresse email')
-      return
-    }
-    
-    setForgotPasswordLoading(true)
+  const handleForgotPasswordSubmit = async (values, { setSubmitting, resetForm }) => {
     setForgotPasswordMessage('')
     
     try {
-      await dispatch(forgotPassword(forgotPasswordEmail)).unwrap()
+      await dispatch(forgotPassword(values.email)).unwrap()
       setForgotPasswordMessage('Email de réinitialisation envoyé ! Vérifiez votre boîte de réception.')
-      setForgotPasswordEmail('')
+      resetForm()
     } catch (error) {
       setForgotPasswordMessage(formatApiError(error))
     } finally {
-      setForgotPasswordLoading(false)
+      setSubmitting(false)
     }
   }
 
@@ -228,104 +190,104 @@ function Connexion() {
               </div>
             )}
             
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="email">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                    <polyline points="22,6 12,13 2,6"/>
-                  </svg>
-                  Email
-                </label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email" 
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="votre@email.com"
-                  required 
-                  disabled={loading}
-                  className={validationErrors.email ? 'error' : ''}
-                />
-                {validationErrors.email && (
-                  <div className="field-error">
-                    {validationErrors.email}
+            <Formik
+              initialValues={initialValues.login}
+              validationSchema={loginSchema}
+              onSubmit={handleLoginSubmit}
+            >
+              {({ values, errors, touched, isSubmitting, setFieldValue }) => (
+                <Form>
+                  <div className="form-group">
+                    <label htmlFor="email">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                      </svg>
+                      Email
+                    </label>
+                    <Field
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="votre@email.com"
+                      disabled={isSubmitting}
+                      className={hasFieldError(touched, errors, 'email') ? 'error' : ''}
+                    />
+                    {getFieldError(touched, errors, 'email') && (
+                      <div className="field-error">
+                        {getFieldError(touched, errors, 'email')}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              
-              <div className="form-group">
-                <label htmlFor="password">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                    <circle cx="12" cy="16" r="1"/>
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                  </svg>
-                  Mot de passe
-                </label>
-                <input 
-                  type="password" 
-                  id="password" 
-                  name="password" 
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  placeholder="••••••••"
-                  required 
-                  disabled={loading}
-                  className={validationErrors.password ? 'error' : ''}
-                />
-                {validationErrors.password && (
-                  <div className="field-error">
-                    {validationErrors.password}
+                  
+                  <div className="form-group">
+                    <label htmlFor="password">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <circle cx="12" cy="16" r="1"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                      </svg>
+                      Mot de passe
+                    </label>
+                    <Field
+                      type="password"
+                      id="password"
+                      name="password"
+                      placeholder="••••••••"
+                      disabled={isSubmitting}
+                      className={hasFieldError(touched, errors, 'password') ? 'error' : ''}
+                    />
+                    {getFieldError(touched, errors, 'password') && (
+                      <div className="field-error">
+                        {getFieldError(touched, errors, 'password')}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              
-              <div className="form-options">
-                <label className="checkbox-container">
-                  <input 
-                    type="checkbox" 
-                    name="remember" 
-                    checked={formData.remember}
-                    onChange={handleInputChange}
-                    disabled={loading}
-                  />
-                  <span className="checkmark"></span>
-                  Se souvenir de moi
-                </label>
-                <button 
-                  type="button" 
-                  className="forgot-password"
-                  onClick={() => setShowForgotPassword(true)}
-                >
-                  Mot de passe oublié ?
-                </button>
-              </div>
-              
-              <button 
-                type="submit" 
-                className="connexion-btn"
-                disabled={loading}
-                style={{ opacity: loading ? 0.7 : 1 }}
-              >
-                {loading ? (
-                  <>
-                    <div className="loading-spinner"></div>
-                    Connexion...
-                  </>
-                ) : (
-                  <>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
-                      <polyline points="10,17 15,12 10,7"/>
-                      <line x1="15" y1="12" x2="3" y2="12"/>
-                    </svg>
-                    Entrer dans l'arène
-                  </>
-                )}
-              </button>
-            </form>
+                  
+                  <div className="form-options">
+                    <label className="checkbox-container">
+                      <Field
+                        type="checkbox"
+                        name="remember"
+                        disabled={isSubmitting}
+                      />
+                      <span className="checkmark"></span>
+                      Se souvenir de moi
+                    </label>
+                    <button 
+                      type="button" 
+                      className="forgot-password"
+                      onClick={() => setShowForgotPassword(true)}
+                    >
+                      Mot de passe oublié ?
+                    </button>
+                  </div>
+                  
+                  <button 
+                    type="submit" 
+                    className="connexion-btn"
+                    disabled={isSubmitting}
+                    style={{ opacity: isSubmitting ? 0.7 : 1 }}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="loading-spinner"></div>
+                        Connexion...
+                      </>
+                    ) : (
+                      <>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                          <polyline points="10,17 15,12 10,7"/>
+                          <line x1="15" y1="12" x2="3" y2="12"/>
+                        </svg>
+                        Entrer dans l'arène
+                      </>
+                    )}
+                  </button>
+                </Form>
+              )}
+            </Formik>
             
             <div className="connexion-footer">
               <div className="divider">
@@ -375,38 +337,50 @@ function Connexion() {
                 </div>
               )}
               
-              <form onSubmit={handleForgotPassword}>
-                <div className="form-group">
-                  <label htmlFor="forgot-email">Email</label>
-                  <input
-                    type="email"
-                    id="forgot-email"
-                    value={forgotPasswordEmail}
-                    onChange={(e) => setForgotPasswordEmail(e.target.value)}
-                    placeholder="votre@email.com"
-                    required
-                    disabled={forgotPasswordLoading}
-                  />
-                </div>
-                
-                <div className="modal-actions">
-                  <button
-                    type="button"
-                    className="btn-secondary"
-                    onClick={() => setShowForgotPassword(false)}
-                    disabled={forgotPasswordLoading}
-                  >
-                    Annuler
-                  </button>
-                  <button
-                    type="submit"
-                    className="btn-primary"
-                    disabled={forgotPasswordLoading}
-                  >
-                    {forgotPasswordLoading ? 'Envoi...' : 'Envoyer'}
-                  </button>
-                </div>
-              </form>
+              <Formik
+                initialValues={initialValues.forgotPassword}
+                validationSchema={forgotPasswordSchema}
+                onSubmit={handleForgotPasswordSubmit}
+              >
+                {({ errors, touched, isSubmitting }) => (
+                  <Form>
+                    <div className="form-group">
+                      <label htmlFor="forgot-email">Email</label>
+                      <Field
+                        type="email"
+                        id="forgot-email"
+                        name="email"
+                        placeholder="votre@email.com"
+                        disabled={isSubmitting}
+                        className={hasFieldError(touched, errors, 'email') ? 'error' : ''}
+                      />
+                      {getFieldError(touched, errors, 'email') && (
+                        <div className="field-error">
+                          {getFieldError(touched, errors, 'email')}
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="modal-actions">
+                      <button
+                        type="button"
+                        className="btn-secondary"
+                        onClick={() => setShowForgotPassword(false)}
+                        disabled={isSubmitting}
+                      >
+                        Annuler
+                      </button>
+                      <button
+                        type="submit"
+                        className="btn-primary"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? 'Envoi...' : 'Envoyer'}
+                      </button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
             </div>
           </div>
         </div>

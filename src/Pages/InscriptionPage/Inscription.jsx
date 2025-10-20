@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { Formik, Form, Field } from 'formik'
 import './Inscription.css'
 import Navbar from '../../Composants/Navbar/Navbar'
 import { useAuth } from '../../store/hooks'
 import { registerUser, clearError } from '../../store/slices/authSlice'
-import { validationRules, validateForm, formatApiError } from '../../utils/validation'
+import { formatApiError } from '../../utils/validation'
+import { registerSchema, initialValues, getFieldError, hasFieldError } from '../../schemas/validationSchemas'
 
 // Gaming-themed SVG Illustrations
 const GamingIllustrations = () => (
@@ -93,22 +95,10 @@ const GamingIllustrations = () => (
 )
 
 function Inscription() {
-  const [formData, setFormData] = useState({
-    name: '',
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    age: '',
-    phone: '',
-    terms: false
-  })
-  
-  const [validationErrors, setValidationErrors] = useState({})
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   
-  const { isAuthenticated, loading, error, dispatch } = useAuth()
+  const { isAuthenticated, error, dispatch } = useAuth()
   const navigate = useNavigate()
 
   // Rediriger si déjà connecté
@@ -123,52 +113,31 @@ function Inscription() {
     dispatch(clearError())
   }, [dispatch])
 
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target
-    const newValue = type === 'checkbox' ? checked : value
-    
-    setFormData(prev => ({
-      ...prev,
-      [name]: newValue
-    }))
-    
-    // Nettoyer l'erreur de validation pour ce champ
-    if (validationErrors[name]) {
-      setValidationErrors(prev => ({
-        ...prev,
-        [name]: null
-      }))
-    }
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    
-    // Validation du formulaire
-    const { errors, isValid } = validateForm(formData, validationRules.register)
-    
-    if (!isValid) {
-      setValidationErrors(errors)
-      return
-    }
-    
-    // Nettoyer les erreurs de validation
-    setValidationErrors({})
-    
+  const handleRegisterSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
       await dispatch(registerUser({
-        name: formData.name,
-        username: formData.username,
-        email: formData.email,
-        password: formData.password,
-        age: parseInt(formData.age),
-        phone: formData.phone || undefined
+        name: values.name,
+        username: values.username,
+        email: values.email,
+        password: values.password,
+        age: parseInt(values.age),
+        phone: values.phone || undefined
       })).unwrap()
       
       // La redirection se fera automatiquement via useEffect
     } catch (error) {
       console.error('Erreur d\'inscription:', error)
-      // L'erreur sera gérée par Redux et affichée dans l'UI
+      
+      // Gérer les erreurs spécifiques aux champs
+      if (error.message?.includes('email')) {
+        setFieldError('email', 'Cette adresse email est déjà utilisée')
+      } else if (error.message?.includes('username')) {
+        setFieldError('username', 'Ce nom d\'utilisateur est déjà pris')
+      } else if (error.message?.includes('name')) {
+        setFieldError('name', 'Erreur avec le nom')
+      }
+    } finally {
+      setSubmitting(false)
     }
   }
 
@@ -206,282 +175,268 @@ function Inscription() {
               </div>
             )}
             
-            <form onSubmit={handleSubmit}>
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="name">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                      <circle cx="12" cy="7" r="4"/>
-                    </svg>
-                    Nom complet
-                  </label>
-                  <input 
-                    type="text" 
-                    id="name" 
-                    name="name" 
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder="Votre nom complet"
-                    required 
-                    disabled={loading}
-                    className={validationErrors.name ? 'error' : ''}
-                  />
-                  {validationErrors.name && (
-                    <div className="field-error">
-                      {validationErrors.name}
-                    </div>
-                  )}
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="username">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                      <circle cx="12" cy="7" r="4"/>
-                      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
-                    Nom d'utilisateur
-                  </label>
-                  <input 
-                    type="text" 
-                    id="username" 
-                    name="username" 
-                    value={formData.username}
-                    onChange={handleInputChange}
-                    placeholder="Votre pseudo gaming"
-                    required 
-                    disabled={loading}
-                    className={validationErrors.username ? 'error' : ''}
-                  />
-                  {validationErrors.username && (
-                    <div className="field-error">
-                      {validationErrors.username}
-                    </div>
-                  )}
-                </div>
-              </div>
-              
-              <div className="form-group">
-                <label htmlFor="email">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                    <polyline points="22,6 12,13 2,6"/>
-                  </svg>
-                  Email
-                </label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email" 
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="votre@email.com"
-                  required 
-                  disabled={loading}
-                  className={validationErrors.email ? 'error' : ''}
-                />
-                {validationErrors.email && (
-                  <div className="field-error">
-                    {validationErrors.email}
-                  </div>
-                )}
-              </div>
-              
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="password">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                      <circle cx="12" cy="16" r="1"/>
-                      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                    </svg>
-                    Mot de passe
-                  </label>
-                  <div className="password-input">
-                    <input 
-                      type={showPassword ? "text" : "password"}
-                      id="password" 
-                      name="password" 
-                      value={formData.password}
-                      onChange={handleInputChange}
-                      placeholder="••••••••"
-                      required 
-                      disabled={loading}
-                      className={validationErrors.password ? 'error' : ''}
-                    />
-                    <button
-                      type="button"
-                      className="password-toggle"
-                      onClick={() => setShowPassword(!showPassword)}
-                      disabled={loading}
-                    >
-                      {showPassword ? (
+            <Formik
+              initialValues={initialValues.register}
+              validationSchema={registerSchema}
+              onSubmit={handleRegisterSubmit}
+            >
+              {({ values, errors, touched, isSubmitting }) => (
+                <Form>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="name">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
-                          <line x1="1" y1="1" x2="23" y2="23"/>
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                          <circle cx="12" cy="7" r="4"/>
                         </svg>
-                      ) : (
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                          <circle cx="12" cy="12" r="3"/>
-                        </svg>
+                        Nom complet
+                      </label>
+                      <Field
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Votre nom complet"
+                        disabled={isSubmitting}
+                        className={hasFieldError(touched, errors, 'name') ? 'error' : ''}
+                      />
+                      {getFieldError(touched, errors, 'name') && (
+                        <div className="field-error">
+                          {getFieldError(touched, errors, 'name')}
+                        </div>
                       )}
-                    </button>
-                  </div>
-                  {validationErrors.password && (
-                    <div className="field-error">
-                      {validationErrors.password}
                     </div>
-                  )}
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="confirmPassword">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                      <circle cx="12" cy="16" r="1"/>
-                      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                    </svg>
-                    Confirmer
-                  </label>
-                  <div className="password-input">
-                    <input 
-                      type={showConfirmPassword ? "text" : "password"}
-                      id="confirmPassword" 
-                      name="confirmPassword" 
-                      value={formData.confirmPassword}
-                      onChange={handleInputChange}
-                      placeholder="••••••••"
-                      required 
-                      disabled={loading}
-                      className={validationErrors.confirmPassword ? 'error' : ''}
-                    />
-                    <button
-                      type="button"
-                      className="password-toggle"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      disabled={loading}
-                    >
-                      {showConfirmPassword ? (
+                    
+                    <div className="form-group">
+                      <label htmlFor="username">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
-                          <line x1="1" y1="1" x2="23" y2="23"/>
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                          <circle cx="12" cy="7" r="4"/>
+                          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                         </svg>
-                      ) : (
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                          <circle cx="12" cy="12" r="3"/>
-                        </svg>
+                        Nom d'utilisateur
+                      </label>
+                      <Field
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Votre pseudo gaming"
+                        disabled={isSubmitting}
+                        className={hasFieldError(touched, errors, 'username') ? 'error' : ''}
+                      />
+                      {getFieldError(touched, errors, 'username') && (
+                        <div className="field-error">
+                          {getFieldError(touched, errors, 'username')}
+                        </div>
                       )}
-                    </button>
+                    </div>
                   </div>
-                  {validationErrors.confirmPassword && (
-                    <div className="field-error">
-                      {validationErrors.confirmPassword}
-                    </div>
-                  )}
-                </div>
-              </div>
               
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="age">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <circle cx="12" cy="12" r="10"/>
-                      <polyline points="12,6 12,12 16,14"/>
-                    </svg>
-                    Âge
-                  </label>
-                  <input 
-                    type="number" 
-                    id="age" 
-                    name="age" 
-                    value={formData.age}
-                    onChange={handleInputChange}
-                    placeholder="18"
-                    min="13"
-                    max="120"
-                    required 
-                    disabled={loading}
-                    className={validationErrors.age ? 'error' : ''}
-                  />
-                  {validationErrors.age && (
-                    <div className="field-error">
-                      {validationErrors.age}
-                    </div>
-                  )}
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="phone">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                    </svg>
-                    Téléphone (optionnel)
-                  </label>
-                  <input 
-                    type="tel" 
-                    id="phone" 
-                    name="phone" 
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    placeholder="+33 6 12 34 56 78"
-                    disabled={loading}
-                    className={validationErrors.phone ? 'error' : ''}
-                  />
-                  {validationErrors.phone && (
-                    <div className="field-error">
-                      {validationErrors.phone}
-                    </div>
-                  )}
-                </div>
-              </div>
-              
-              <div className="form-group">
-                <label className="checkbox-container">
-                  <input 
-                    type="checkbox" 
-                    name="terms" 
-                    checked={formData.terms}
-                    onChange={handleInputChange}
-                    disabled={loading}
-                    required
-                  />
-                  <span className="checkmark"></span>
-                  J'accepte les <Link to="/conditions" className="terms-link">conditions d'utilisation</Link> et la <Link to="/privacy" className="terms-link">politique de confidentialité</Link>
-                </label>
-                {validationErrors.terms && (
-                  <div className="field-error">
-                    {validationErrors.terms}
+                  <div className="form-group">
+                    <label htmlFor="email">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                      </svg>
+                      Email
+                    </label>
+                    <Field
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="votre@email.com"
+                      disabled={isSubmitting}
+                      className={hasFieldError(touched, errors, 'email') ? 'error' : ''}
+                    />
+                    {getFieldError(touched, errors, 'email') && (
+                      <div className="field-error">
+                        {getFieldError(touched, errors, 'email')}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
               
-              <button 
-                type="submit" 
-                className="inscription-btn"
-                disabled={loading}
-                style={{ opacity: loading ? 0.7 : 1 }}
-              >
-                {loading ? (
-                  <>
-                    <div className="loading-spinner"></div>
-                    Création du compte...
-                  </>
-                ) : (
-                  <>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                      <circle cx="9" cy="7" r="4"/>
-                      <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
-                    Rejoindre l'équipe
-                  </>
-                )}
-              </button>
-            </form>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="password">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                          <circle cx="12" cy="16" r="1"/>
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                        Mot de passe
+                      </label>
+                      <div className="password-input">
+                        <Field
+                          type={showPassword ? "text" : "password"}
+                          id="password"
+                          name="password"
+                          placeholder="••••••••"
+                          disabled={isSubmitting}
+                          className={hasFieldError(touched, errors, 'password') ? 'error' : ''}
+                        />
+                        <button
+                          type="button"
+                          className="password-toggle"
+                          onClick={() => setShowPassword(!showPassword)}
+                          disabled={isSubmitting}
+                        >
+                          {showPassword ? (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                              <line x1="1" y1="1" x2="23" y2="23"/>
+                            </svg>
+                          ) : (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                              <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                          )}
+                        </button>
+                      </div>
+                      {getFieldError(touched, errors, 'password') && (
+                        <div className="field-error">
+                          {getFieldError(touched, errors, 'password')}
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="form-group">
+                      <label htmlFor="confirmPassword">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                          <circle cx="12" cy="16" r="1"/>
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                        Confirmer
+                      </label>
+                      <div className="password-input">
+                        <Field
+                          type={showConfirmPassword ? "text" : "password"}
+                          id="confirmPassword"
+                          name="confirmPassword"
+                          placeholder="••••••••"
+                          disabled={isSubmitting}
+                          className={hasFieldError(touched, errors, 'confirmPassword') ? 'error' : ''}
+                        />
+                        <button
+                          type="button"
+                          className="password-toggle"
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          disabled={isSubmitting}
+                        >
+                          {showConfirmPassword ? (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                              <line x1="1" y1="1" x2="23" y2="23"/>
+                            </svg>
+                          ) : (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                              <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                          )}
+                        </button>
+                      </div>
+                      {getFieldError(touched, errors, 'confirmPassword') && (
+                        <div className="field-error">
+                          {getFieldError(touched, errors, 'confirmPassword')}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+              
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="age">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <circle cx="12" cy="12" r="10"/>
+                          <polyline points="12,6 12,12 16,14"/>
+                        </svg>
+                        Âge
+                      </label>
+                      <Field
+                        type="number"
+                        id="age"
+                        name="age"
+                        placeholder="18"
+                        min="13"
+                        max="120"
+                        disabled={isSubmitting}
+                        className={hasFieldError(touched, errors, 'age') ? 'error' : ''}
+                      />
+                      {getFieldError(touched, errors, 'age') && (
+                        <div className="field-error">
+                          {getFieldError(touched, errors, 'age')}
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="form-group">
+                      <label htmlFor="phone">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                        Téléphone (optionnel)
+                      </label>
+                      <Field
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="+33 6 12 34 56 78"
+                        disabled={isSubmitting}
+                        className={hasFieldError(touched, errors, 'phone') ? 'error' : ''}
+                      />
+                      {getFieldError(touched, errors, 'phone') && (
+                        <div className="field-error">
+                          {getFieldError(touched, errors, 'phone')}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+              
+                  <div className="form-group">
+                    <label className="checkbox-container">
+                      <Field
+                        type="checkbox"
+                        name="terms"
+                        disabled={isSubmitting}
+                        className={hasFieldError(touched, errors, 'terms') ? 'error' : ''}
+                      />
+                      <span className="checkmark"></span>
+                      J'accepte les <Link to="/conditions" className="terms-link">conditions d'utilisation</Link> et la <Link to="/privacy" className="terms-link">politique de confidentialité</Link>
+                    </label>
+                    {getFieldError(touched, errors, 'terms') && (
+                      <div className="field-error">
+                        {getFieldError(touched, errors, 'terms')}
+                      </div>
+                    )}
+                  </div>
+                  
+                  <button 
+                    type="submit" 
+                    className="inscription-btn"
+                    disabled={isSubmitting}
+                    style={{ opacity: isSubmitting ? 0.7 : 1 }}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="loading-spinner"></div>
+                        Création du compte...
+                      </>
+                    ) : (
+                      <>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                          <circle cx="9" cy="7" r="4"/>
+                          <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                        Rejoindre l'équipe
+                      </>
+                    )}
+                  </button>
+                </Form>
+              )}
+            </Formik>
             
             <div className="inscription-footer">
               <div className="divider">

@@ -3,7 +3,8 @@ import { useNavigate, Link } from 'react-router-dom'
 import './Connexion.css'
 import Navbar from '../../Composants/Navbar/Navbar'
 import { useAuth } from '../../store/hooks'
-import { loginUser, clearError } from '../../store/slices/authSlice'
+import { loginUser, clearError, forgotPassword } from '../../store/slices/authSlice'
+import { validationRules, validateForm, formatApiError } from '../../utils/validation'
 
 // Gaming-themed SVG Illustrations
 const GamingIllustrations = () => (
@@ -104,6 +105,12 @@ function Connexion() {
     remember: false
   })
   
+  const [validationErrors, setValidationErrors] = useState({})
+  const [showForgotPassword, setShowForgotPassword] = useState(false)
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState('')
+  const [forgotPasswordLoading, setForgotPasswordLoading] = useState(false)
+  const [forgotPasswordMessage, setForgotPasswordMessage] = useState('')
+  
   const { isAuthenticated, loading, error, dispatch } = useAuth()
   const navigate = useNavigate()
 
@@ -121,28 +128,69 @@ function Connexion() {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target
+    const newValue = type === 'checkbox' ? checked : value
+    
     setFormData(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: newValue
     }))
+    
+    // Nettoyer l'erreur de validation pour ce champ
+    if (validationErrors[name]) {
+      setValidationErrors(prev => ({
+        ...prev,
+        [name]: null
+      }))
+    }
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     
-    if (!formData.email || !formData.password) {
+    // Validation du formulaire
+    const { errors, isValid } = validateForm(formData, validationRules.login)
+    
+    if (!isValid) {
+      setValidationErrors(errors)
       return
     }
-
+    
+    // Nettoyer les erreurs de validation
+    setValidationErrors({})
+    
     try {
       await dispatch(loginUser({
         email: formData.email,
-        password: formData.password
+        password: formData.password,
+        rememberMe: formData.remember
       })).unwrap()
       
       // La redirection se fera automatiquement via useEffect
     } catch (error) {
       console.error('Erreur de connexion:', error)
+      // L'erreur sera gérée par Redux et affichée dans l'UI
+    }
+  }
+
+  const handleForgotPassword = async (e) => {
+    e.preventDefault()
+    
+    if (!forgotPasswordEmail) {
+      setForgotPasswordMessage('Veuillez entrer votre adresse email')
+      return
+    }
+    
+    setForgotPasswordLoading(true)
+    setForgotPasswordMessage('')
+    
+    try {
+      await dispatch(forgotPassword(forgotPasswordEmail)).unwrap()
+      setForgotPasswordMessage('Email de réinitialisation envoyé ! Vérifiez votre boîte de réception.')
+      setForgotPasswordEmail('')
+    } catch (error) {
+      setForgotPasswordMessage(formatApiError(error))
+    } finally {
+      setForgotPasswordLoading(false)
     }
   }
 
@@ -168,14 +216,15 @@ function Connexion() {
           <div className="connexion-form">
             {error && (
               <div className="error-message" style={{
-                backgroundColor: '#fee',
-                color: '#c33',
-                padding: '10px',
-                borderRadius: '4px',
+                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                color: '#EF4444',
+                padding: '12px',
+                borderRadius: '8px',
                 marginBottom: '20px',
-                border: '1px solid #fcc'
+                border: '1px solid rgba(239, 68, 68, 0.3)',
+                backdropFilter: 'blur(10px)'
               }}>
-                {error}
+                {formatApiError(error)}
               </div>
             )}
             
@@ -197,7 +246,13 @@ function Connexion() {
                   placeholder="votre@email.com"
                   required 
                   disabled={loading}
+                  className={validationErrors.email ? 'error' : ''}
                 />
+                {validationErrors.email && (
+                  <div className="field-error">
+                    {validationErrors.email}
+                  </div>
+                )}
               </div>
               
               <div className="form-group">
@@ -218,7 +273,13 @@ function Connexion() {
                   placeholder="••••••••"
                   required 
                   disabled={loading}
+                  className={validationErrors.password ? 'error' : ''}
                 />
+                {validationErrors.password && (
+                  <div className="field-error">
+                    {validationErrors.password}
+                  </div>
+                )}
               </div>
               
               <div className="form-options">
@@ -233,7 +294,13 @@ function Connexion() {
                   <span className="checkmark"></span>
                   Se souvenir de moi
                 </label>
-                <button type="button" className="forgot-password">Mot de passe oublié ?</button>
+                <button 
+                  type="button" 
+                  className="forgot-password"
+                  onClick={() => setShowForgotPassword(true)}
+                >
+                  Mot de passe oublié ?
+                </button>
               </div>
               
               <button 
@@ -284,6 +351,66 @@ function Connexion() {
           </div>
         </div>
       </div>
+
+      {/* Modal de réinitialisation de mot de passe */}
+      {showForgotPassword && (
+        <div className="modal-overlay" onClick={() => setShowForgotPassword(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>Mot de passe oublié</h3>
+              <button 
+                className="modal-close"
+                onClick={() => setShowForgotPassword(false)}
+              >
+                ×
+              </button>
+            </div>
+            
+            <div className="modal-body">
+              <p>Entrez votre adresse email pour recevoir un lien de réinitialisation.</p>
+              
+              {forgotPasswordMessage && (
+                <div className={`message ${forgotPasswordMessage.includes('envoyé') ? 'success' : 'error'}`}>
+                  {forgotPasswordMessage}
+                </div>
+              )}
+              
+              <form onSubmit={handleForgotPassword}>
+                <div className="form-group">
+                  <label htmlFor="forgot-email">Email</label>
+                  <input
+                    type="email"
+                    id="forgot-email"
+                    value={forgotPasswordEmail}
+                    onChange={(e) => setForgotPasswordEmail(e.target.value)}
+                    placeholder="votre@email.com"
+                    required
+                    disabled={forgotPasswordLoading}
+                  />
+                </div>
+                
+                <div className="modal-actions">
+                  <button
+                    type="button"
+                    className="btn-secondary"
+                    onClick={() => setShowForgotPassword(false)}
+                    disabled={forgotPasswordLoading}
+                  >
+                    Annuler
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn-primary"
+                    disabled={forgotPasswordLoading}
+                  >
+                    {forgotPasswordLoading ? 'Envoi...' : 'Envoyer'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

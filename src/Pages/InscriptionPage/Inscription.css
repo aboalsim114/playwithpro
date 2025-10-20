@@ -1,10 +1,12 @@
 /* ===== CSS VARIABLES ===== */
 :root {
-  /* Color Palette - Matching existing design */
+  /* Color Palette - Gaming Theme */
   --primary-purple: #9B5FFF;
   --primary-blue: #3B82F6;
   --primary-cyan: #00FFFF;
   --primary-violet: #9B5FFF;
+  --accent-orange: #FF6B35;
+  --accent-green: #00FF88;
   --dark-gray: #1F2937;
   --light-gray: #D1D5DB;
   --white: #FFFFFF;
@@ -14,21 +16,26 @@
   /* Background Colors */
   --bg-primary: #0A0F1E;
   --bg-secondary: #141C36;
+  --bg-tertiary: #1E293B;
   --text-primary: #E0E7FF;
+  --text-secondary: #94A3B8;
   
   /* Glass Morphism System */
   --glass-bg: rgba(31, 41, 55, 0.1);
   --glass-bg-light: rgba(31, 41, 55, 0.3);
   --glass-bg-medium: rgba(31, 41, 55, 0.4);
+  --glass-bg-heavy: rgba(31, 41, 55, 0.6);
   --glass-border: rgba(255, 255, 255, 0.2);
   --glass-border-light: rgba(255, 255, 255, 0.3);
   --glass-backdrop: blur(20px);
   --glass-backdrop-light: blur(10px);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --glass-shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.3);
   
   /* Animation System */
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-fast: all 0.2s ease;
+  --transition-slow: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   
   /* Spacing Scale */
   --spacing-xs: 8px;
@@ -38,6 +45,7 @@
   --spacing-xl: 24px;
   --spacing-2xl: 32px;
   --spacing-3xl: 40px;
+  --spacing-4xl: 48px;
   
   /* Border Radius Scale */
   --radius-sm: 6px;
@@ -49,11 +57,11 @@
 /* ===== MAIN LAYOUT ===== */
 .inscription-page {
   min-height: 100vh;
-  background: radial-gradient(ellipse at center, 
-    rgba(139, 79, 255, 0.3) 0%, 
-    rgba(59, 130, 246, 0.2) 25%, 
-    rgba(31, 41, 55, 0.8) 50%, 
-    rgba(17, 24, 39, 0.95) 100%);
+  background: 
+    radial-gradient(ellipse at 20% 20%, rgba(139, 79, 255, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(0, 255, 255, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 40% 60%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #0A0F1E 0%, #141C36 50%, #1E293B 100%);
   position: relative;
   overflow: hidden;
   padding: 120px var(--spacing-lg) var(--spacing-3xl) var(--spacing-lg);
@@ -63,8 +71,138 @@
   animation: fadeInUp 0.8s ease-out;
 }
 
+/* ===== GAMING ILLUSTRATIONS ===== */
+.gaming-illustrations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Floating Gaming Elements */
+.floating-element {
+  position: absolute;
+  color: var(--primary-cyan);
+  opacity: 0.6;
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-element svg {
+  width: 24px;
+  height: 24px;
+  filter: drop-shadow(0 0 10px currentColor);
+}
+
+.controller-1 {
+  top: 15%;
+  left: 10%;
+  animation-delay: 0s;
+  animation-duration: 8s;
+}
+
+.rocket-1 {
+  top: 25%;
+  right: 15%;
+  color: var(--accent-orange);
+  animation-delay: 2s;
+  animation-duration: 7s;
+}
+
+.diamond-1 {
+  bottom: 30%;
+  left: 20%;
+  color: var(--primary-purple);
+  animation-delay: 4s;
+  animation-duration: 9s;
+}
+
+.sword-1 {
+  top: 60%;
+  right: 25%;
+  color: var(--accent-green);
+  animation-delay: 1s;
+  animation-duration: 6s;
+}
+
+/* Neural Network Background */
+.neural-network {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+}
+
+.neural-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.neural-nodes circle {
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.neural-nodes circle:nth-child(odd) {
+  animation-delay: 0s;
+}
+
+.neural-nodes circle:nth-child(even) {
+  animation-delay: 2s;
+}
+
+.neural-connections line {
+  stroke-dasharray: 5, 5;
+  animation: dash 3s linear infinite;
+}
+
+/* Energy Waves */
+.energy-waves {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(0, 255, 255, 0.1) 25%, 
+    rgba(155, 95, 255, 0.1) 50%, 
+    rgba(0, 255, 255, 0.1) 75%, 
+    transparent 100%);
+  animation: wave 8s linear infinite;
+}
+
+.wave-1 {
+  animation-delay: 0s;
+  opacity: 0.3;
+}
+
+.wave-2 {
+  animation-delay: 2s;
+  opacity: 0.2;
+  height: 80px;
+}
+
+.wave-3 {
+  animation-delay: 4s;
+  opacity: 0.1;
+  height: 60px;
+}
+
 .inscription-container {
-  max-width: 500px;
+  max-width: 600px;
   width: 100%;
   margin: 0 auto;
   position: relative;
@@ -74,13 +212,32 @@
   border: 1px solid var(--glass-border-light);
   border-radius: var(--radius-lg);
   padding: var(--spacing-3xl);
-  box-shadow: var(--glass-shadow);
+  box-shadow: var(--glass-shadow-heavy);
+  animation: slideInUp 0.8s ease-out 0.2s both;
 }
 
 /* ===== HEADER ===== */
 .inscription-header {
   text-align: center;
   margin-bottom: var(--spacing-3xl);
+}
+
+.header-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--primary-cyan), var(--primary-violet));
+  border-radius: 50%;
+  margin-bottom: var(--spacing-lg);
+  animation: iconPulse 2s ease-in-out infinite;
+}
+
+.header-icon svg {
+  width: 28px;
+  height: 28px;
+  color: var(--white);
 }
 
 .inscription-header h1 {
@@ -91,18 +248,28 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin: 0 0 var(--spacing-md) 0;
+  animation: textGlow 3s ease-in-out infinite;
 }
 
 .inscription-header p {
-  color: var(--light-gray);
+  color: var(--text-secondary);
   font-size: 1.125rem;
   margin: 0;
+  animation: fadeInUp 0.8s ease-out 0.4s both;
 }
 
 /* ===== FORM ===== */
 .inscription-form {
   position: relative;
   z-index: 2;
+  animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
 }
 
 .form-group {
@@ -110,11 +277,20 @@
 }
 
 .form-group label {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
   color: var(--text-primary);
   font-size: 0.95rem;
   font-weight: 500;
   margin-bottom: var(--spacing-sm);
+}
+
+.form-group label svg {
+  width: 16px;
+  height: 16px;
+  color: var(--primary-cyan);
+  opacity: 0.8;
 }
 
 .form-group input {
@@ -128,16 +304,148 @@
   backdrop-filter: var(--glass-backdrop-light);
   transition: var(--transition-smooth);
   box-sizing: border-box;
+  position: relative;
 }
 
 .form-group input:focus {
   outline: none;
   border-color: var(--primary-cyan);
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  background: var(--glass-bg-medium);
 }
 
 .form-group input::placeholder {
-  color: var(--light-gray);
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.form-group input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Password Input Container */
+.password-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input input {
+  padding-right: 50px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: var(--spacing-md);
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-smooth);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle:hover {
+  color: var(--primary-cyan);
+  background: var(--glass-bg-light);
+}
+
+.password-toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.password-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ===== CHECKBOX ===== */
+.checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  transition: var(--transition-smooth);
+  line-height: 1.4;
+}
+
+.checkbox-container:hover {
+  color: var(--primary-cyan);
+}
+
+.checkbox-container input[type="checkbox"] {
+  display: none;
+}
+
+.checkmark {
+  width: 18px;
+  height: 18px;
+  background: var(--glass-bg-light);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  margin-right: var(--spacing-sm);
+  margin-top: 2px;
+  position: relative;
+  transition: var(--transition-smooth);
+  flex-shrink: 0;
+}
+
+.checkbox-container input[type="checkbox"]:checked + .checkmark {
+  background: linear-gradient(135deg, var(--primary-cyan), var(--primary-violet));
+  border-color: var(--primary-cyan);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.checkbox-container input[type="checkbox"]:checked + .checkmark::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid var(--white);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  animation: checkmark 0.3s ease-out;
+}
+
+.terms-link {
+  color: var(--primary-cyan);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition-smooth);
+}
+
+.terms-link:hover {
+  color: var(--primary-violet);
+  text-decoration: underline;
+}
+
+/* ===== FIELD ERRORS ===== */
+.field-error {
+  color: var(--error-red);
+  font-size: 0.875rem;
+  margin-top: var(--spacing-xs);
+  padding-left: var(--spacing-sm);
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.form-group input.error {
+  border-color: var(--error-red);
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.form-group input.error:focus {
+  border-color: var(--error-red);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
 }
 
 /* ===== BUTTON ===== */
@@ -155,6 +463,11 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+  margin-bottom: var(--spacing-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
 }
 
 .inscription-btn::before {
@@ -177,6 +490,133 @@
   box-shadow: 0 8px 25px rgba(0, 255, 255, 0.4);
 }
 
+.inscription-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.inscription-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.loading-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid var(--white);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* ===== FOOTER ===== */
+.inscription-footer {
+  text-align: center;
+  animation: fadeInUp 0.8s ease-out 0.8s both;
+}
+
+.divider {
+  position: relative;
+  margin: var(--spacing-xl) 0;
+  text-align: center;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+}
+
+.divider span {
+  background: var(--bg-primary);
+  padding: 0 var(--spacing-md);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  position: relative;
+  z-index: 1;
+}
+
+.inscription-footer p {
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-lg) 0;
+}
+
+.inscription-footer a {
+  color: var(--primary-cyan);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.inscription-footer a:hover {
+  color: var(--primary-violet);
+  text-decoration: underline;
+}
+
+/* ===== SOCIAL LOGIN ===== */
+.social-login {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.social-btn {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--glass-bg-light);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  backdrop-filter: var(--glass-backdrop-light);
+}
+
+.social-btn:hover {
+  background: var(--glass-bg-medium);
+  border-color: var(--primary-cyan);
+  transform: translateY(-1px);
+}
+
+.social-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.social-btn.discord:hover {
+  border-color: #5865F2;
+  color: #5865F2;
+}
+
+.social-btn.steam:hover {
+  border-color: #171a21;
+  color: #c7d5e0;
+}
+
+/* ===== ERROR MESSAGE ===== */
+.error-message {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--error-red);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-lg);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  backdrop-filter: var(--glass-backdrop-light);
+  animation: shake 0.5s ease-in-out;
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .inscription-page {
@@ -195,6 +635,19 @@
   .inscription-header p {
     font-size: 1rem;
   }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .social-login {
+    flex-direction: column;
+  }
+  
+  .floating-element {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
@@ -210,6 +663,16 @@
   .inscription-header h1 {
     font-size: 1.75rem;
   }
+  
+  .header-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .header-icon svg {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 /* ===== ANIMATIONS ===== */
@@ -221,5 +684,151 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-5deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(3deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -10;
+  }
+}
+
+@keyframes wave {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+  }
+}
+
+@keyframes textGlow {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes checkmark {
+  0% {
+    transform: scale(0) rotate(45deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(45deg);
+  }
+  100% {
+    transform: scale(1) rotate(45deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+/* ===== PERFORMANCE OPTIMIZATIONS ===== */
+.inscription-page * {
+  will-change: auto;
+}
+
+.floating-element,
+.neural-nodes circle,
+.neural-connections line,
+.wave {
+  will-change: transform, opacity;
+}
+
+.inscription-btn,
+.form-group input,
+.social-btn {
+  will-change: transform, box-shadow;
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .floating-element,
+  .neural-network,
+  .energy-waves {
+    display: none;
+  }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
   }
 }

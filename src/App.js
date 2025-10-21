@@ -5,6 +5,7 @@ import Navbar from './Composants/Navbar/Navbar';
 import Home from './Pages/HomePage/Home';
 import Inscription from './Pages/InscriptionPage/Inscription';
 import Connexion from './Pages/ConnexionPage/Connexion';
+import DashboardUser from './Pages/DashboardUser/DashboardUser'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/inscription" element={<Inscription />} />
         <Route path="/connexion" element={<Connexion />} />
+        <Route path="/dash-user" element={<DashboardUser />} />
       </Routes>
     </div>
   );

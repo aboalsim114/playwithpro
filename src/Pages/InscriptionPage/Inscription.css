@@ -1,3 +1,16 @@
+/* ===== GLOBAL STYLES ===== */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
 /* ===== CSS VARIABLES ===== */
 :root {
   /* Color Palette - Gaming Theme */
@@ -64,201 +77,211 @@
     linear-gradient(135deg, #0A0F1E 0%, #141C36 50%, #1E293B 100%);
   position: relative;
   overflow: hidden;
-  padding: 120px var(--spacing-lg) var(--spacing-3xl) var(--spacing-lg);
+  padding: 20px;
+  margin-top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   animation: fadeInUp 0.8s ease-out;
-}
-
-/* ===== GAMING ILLUSTRATIONS ===== */
-.gaming-illustrations {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
+  box-sizing: border-box;
 }
 
-/* Floating Gaming Elements */
-.floating-element {
-  position: absolute;
-  color: var(--primary-cyan);
-  opacity: 0.6;
-  animation: float 6s ease-in-out infinite;
-}
-
-.floating-element svg {
-  width: 24px;
-  height: 24px;
-  filter: drop-shadow(0 0 10px currentColor);
-}
-
-.controller-1 {
-  top: 15%;
-  left: 10%;
-  animation-delay: 0s;
-  animation-duration: 8s;
-}
-
-.rocket-1 {
-  top: 25%;
-  right: 15%;
-  color: var(--accent-orange);
-  animation-delay: 2s;
-  animation-duration: 7s;
-}
-
-.diamond-1 {
-  bottom: 30%;
-  left: 20%;
-  color: var(--primary-purple);
-  animation-delay: 4s;
-  animation-duration: 9s;
-}
-
-.sword-1 {
-  top: 60%;
-  right: 25%;
-  color: var(--accent-green);
-  animation-delay: 1s;
-  animation-duration: 6s;
-}
-
-/* Neural Network Background */
-.neural-network {
-  position: absolute;
-  top: 0;
-  left: 0;
+/* ===== GRID LAYOUT ===== */
+.inscription-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  min-height: auto;
   width: 100%;
-  height: 100%;
-  opacity: 0.1;
-}
-
-.neural-svg {
-  width: 100%;
-  height: 100%;
-}
-
-.neural-nodes circle {
-  animation: pulse 4s ease-in-out infinite;
-}
-
-.neural-nodes circle:nth-child(odd) {
-  animation-delay: 0s;
-}
-
-.neural-nodes circle:nth-child(even) {
-  animation-delay: 2s;
-}
-
-.neural-connections line {
-  stroke-dasharray: 5, 5;
-  animation: dash 3s linear infinite;
-}
-
-/* Energy Waves */
-.energy-waves {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
-}
-
-.wave {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 200%;
-  height: 100px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(0, 255, 255, 0.1) 25%, 
-    rgba(155, 95, 255, 0.1) 50%, 
-    rgba(0, 255, 255, 0.1) 75%, 
-    transparent 100%);
-  animation: wave 8s linear infinite;
-}
-
-.wave-1 {
-  animation-delay: 0s;
-  opacity: 0.3;
-}
-
-.wave-2 {
-  animation-delay: 2s;
-  opacity: 0.2;
-  height: 80px;
-}
-
-.wave-3 {
-  animation-delay: 4s;
-  opacity: 0.1;
-  height: 60px;
-}
-
-.inscription-container {
-  max-width: 600px;
-  width: 100%;
+  max-width: 1000px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
-  background: var(--glass-bg);
+  box-sizing: border-box;
+}
+
+/* ===== BRANDING SECTION (LEFT) ===== */
+.branding-section {
+  background: linear-gradient(135deg, 
+    rgba(155, 95, 255, 0.15) 0%, 
+    rgba(0, 255, 255, 0.08) 50%, 
+    rgba(59, 130, 246, 0.15) 100%);
   backdrop-filter: var(--glass-backdrop);
-  border: 1px solid var(--glass-border-light);
+  border: 2px solid var(--glass-border);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-3xl);
-  box-shadow: var(--glass-shadow-heavy);
-  animation: slideInUp 0.8s ease-out 0.2s both;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 25px;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  box-shadow: var(--glass-shadow);
+  min-height: 500px;
 }
 
-/* ===== HEADER ===== */
-.inscription-header {
+.branding-content {
+  max-width: 500px;
   text-align: center;
-  margin-bottom: var(--spacing-3xl);
+  animation: slideInLeft 0.8s ease-out 0.2s both;
 }
 
-.header-icon {
+.branding-header {
+  margin-bottom: var(--spacing-4xl);
+}
+
+.branding-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   background: linear-gradient(135deg, var(--primary-cyan), var(--primary-violet));
   border-radius: 50%;
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
   animation: iconPulse 2s ease-in-out infinite;
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
 }
 
-.header-icon svg {
-  width: 28px;
-  height: 28px;
+.branding-icon svg {
+  width: 36px;
+  height: 36px;
   color: var(--white);
 }
 
-.inscription-header h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
+.branding-header h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
   background: linear-gradient(135deg, var(--primary-cyan), var(--primary-violet));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin: 0 0 var(--spacing-md) 0;
+  margin: 0 0 15px 0;
   animation: textGlow 3s ease-in-out infinite;
+  line-height: 1.2;
 }
 
-.inscription-header p {
+.branding-header p {
   color: var(--text-secondary);
-  font-size: 1.125rem;
-  margin: 0;
+  font-size: 1rem;
+  margin: 0 0 25px 0;
+  line-height: 1.5;
   animation: fadeInUp 0.8s ease-out 0.4s both;
 }
 
-/* ===== FORM ===== */
+/* ===== FEATURES LIST ===== */
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 18px;
+  background: var(--glass-bg-light);
+  backdrop-filter: var(--glass-backdrop-light);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  transition: var(--transition-smooth);
+  animation: fadeInUp 0.8s ease-out both;
+  margin-bottom: 10px;
+}
+
+.feature-item:nth-child(1) { animation-delay: 0.6s; }
+.feature-item:nth-child(2) { animation-delay: 0.8s; }
+.feature-item:nth-child(3) { animation-delay: 1s; }
+
+.feature-item:hover {
+  transform: translateY(-5px);
+  background: var(--glass-bg-medium);
+  border-color: var(--primary-cyan);
+  box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+}
+
+.feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--primary-cyan), var(--primary-violet));
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.feature-icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--white);
+}
+
+.feature-text h3 {
+  color: var(--text-primary);
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.feature-text p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ===== FORM SECTION (RIGHT) ===== */
+.form-section {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-backdrop);
+  border: 2px solid var(--glass-border-light);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 25px;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  box-shadow: var(--glass-shadow);
+  min-height: 500px;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 500px;
+  animation: slideInRight 0.8s ease-out 0.4s both;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.form-header h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 15px 0;
+  background: linear-gradient(135deg, var(--primary-cyan), var(--primary-violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.form-header p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin: 0 0 20px 0;
+}
+
+/* ===== FORM STYLES ===== */
 .inscription-form {
   position: relative;
   z-index: 2;
@@ -268,12 +291,12 @@
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-xl);
+  gap: 18px;
+  margin-bottom: 20px;
 }
 
 .form-group {
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: 18px;
   position: relative;
 }
 
@@ -305,12 +328,12 @@
 
 .form-group input {
   width: 100%;
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: 12px 16px;
   background: var(--glass-bg-light);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-md);
   color: var(--white);
-  font-size: 1rem;
+  font-size: 0.95rem;
   backdrop-filter: var(--glass-backdrop-light);
   transition: var(--transition-smooth);
   box-sizing: border-box;
@@ -322,6 +345,7 @@
   border-color: var(--primary-cyan);
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
   background: var(--glass-bg-medium);
+  transform: translateY(-1px);
 }
 
 .form-group input::placeholder {
@@ -471,30 +495,6 @@
   box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
 }
 
-/* Indicateurs de validation en temps réel */
-.form-group input.validating {
-  border-color: var(--accent-orange);
-  box-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
-}
-
-.form-group input.valid {
-  border-color: var(--success-green);
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
-}
-
-/* Animation de validation */
-@keyframes shake {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-2px);
-  }
-  75% {
-    transform: translateX(2px);
-  }
-}
-
 /* ===== BUTTON ===== */
 .inscription-btn {
   width: 100%;
@@ -557,8 +557,8 @@
   animation: spin 1s linear infinite;
 }
 
-/* ===== FOOTER ===== */
-.inscription-footer {
+/* ===== FORM FOOTER ===== */
+.form-footer {
   text-align: center;
   animation: fadeInUp 0.8s ease-out 0.8s both;
 }
@@ -588,12 +588,12 @@
   z-index: 1;
 }
 
-.inscription-footer p {
+.form-footer p {
   color: var(--text-secondary);
   margin: 0 0 var(--spacing-lg) 0;
 }
 
-.inscription-footer a {
+.form-footer a {
   color: var(--primary-cyan);
   text-decoration: none;
   font-weight: 500;
@@ -601,7 +601,7 @@
   position: relative;
 }
 
-.inscription-footer a:hover {
+.form-footer a:hover {
   color: var(--primary-violet);
   text-decoration: underline;
 }
@@ -664,32 +664,222 @@
   animation: shake 0.5s ease-in-out;
 }
 
+/* ===== GAMING ILLUSTRATIONS ===== */
+.gaming-illustrations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Floating Gaming Elements */
+.floating-element {
+  position: absolute;
+  color: var(--primary-cyan);
+  opacity: 0.6;
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-element svg {
+  width: 24px;
+  height: 24px;
+  filter: drop-shadow(0 0 10px currentColor);
+}
+
+.controller-1 {
+  top: 15%;
+  left: 10%;
+  animation-delay: 0s;
+  animation-duration: 8s;
+}
+
+.rocket-1 {
+  top: 25%;
+  right: 15%;
+  color: var(--accent-orange);
+  animation-delay: 2s;
+  animation-duration: 7s;
+}
+
+.diamond-1 {
+  bottom: 30%;
+  left: 20%;
+  color: var(--primary-purple);
+  animation-delay: 4s;
+  animation-duration: 9s;
+}
+
+.sword-1 {
+  top: 60%;
+  right: 25%;
+  color: var(--accent-green);
+  animation-delay: 1s;
+  animation-duration: 6s;
+}
+
+/* Neural Network Background */
+.neural-network {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+}
+
+.neural-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.neural-nodes circle {
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.neural-nodes circle:nth-child(odd) {
+  animation-delay: 0s;
+}
+
+.neural-nodes circle:nth-child(even) {
+  animation-delay: 2s;
+}
+
+.neural-connections line {
+  stroke-dasharray: 5, 5;
+  animation: dash 3s linear infinite;
+}
+
+/* Energy Waves */
+.energy-waves {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(0, 255, 255, 0.1) 25%, 
+    rgba(155, 95, 255, 0.1) 50%, 
+    rgba(0, 255, 255, 0.1) 75%, 
+    transparent 100%);
+  animation: wave 8s linear infinite;
+}
+
+.wave-1 {
+  animation-delay: 0s;
+  opacity: 0.3;
+}
+
+.wave-2 {
+  animation-delay: 2s;
+  opacity: 0.2;
+  height: 80px;
+}
+
+.wave-3 {
+  animation-delay: 4s;
+  opacity: 0.1;
+  height: 60px;
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
-@media (max-width: 768px) {
-  .inscription-page {
-    padding: var(--spacing-lg) var(--spacing-md);
+
+/* Large Desktop (1400px+) */
+@media (min-width: 1400px) {
+  .inscription-grid {
+    max-width: 1600px;
   }
   
-  .inscription-container {
-    max-width: 95%;
-    padding: var(--spacing-xl);
+  .branding-content {
+    max-width: 600px;
   }
   
-  .inscription-header h1 {
+  .form-container {
+    max-width: 600px;
+  }
+}
+
+/* Desktop (1200px - 1399px) */
+@media (max-width: 1399px) {
+  .inscription-grid {
+    max-width: 1200px;
+  }
+}
+
+/* Tablet Landscape (1024px - 1199px) */
+@media (max-width: 1199px) {
+  .inscription-grid {
+    max-width: 1000px;
+  }
+  
+  .branding-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .form-header h2 {
     font-size: 2rem;
   }
-  
-  .inscription-header p {
-    font-size: 1rem;
+}
+
+/* Tablet Portrait (768px - 1023px) */
+@media (max-width: 1023px) {
+  .inscription-page {
+    padding: 15px 10px;
+    margin-top: 0;
   }
   
-  .form-row {
+  .inscription-grid {
     grid-template-columns: 1fr;
-    gap: 0;
+    max-width: 700px;
+    gap: 20px;
   }
   
-  .social-login {
+  .branding-section {
+    padding: 25px 20px;
+    margin: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--glass-border);
+    min-height: 400px;
+  }
+  
+  .form-section {
+    padding: 25px 20px;
+    margin: 0;
+    min-height: auto;
+  }
+  
+  .branding-content {
+    max-width: 100%;
+  }
+  
+  .form-container {
+    max-width: 100%;
+  }
+  
+  .features-list {
+    flex-direction: row;
+    gap: var(--spacing-lg);
+    overflow-x: auto;
+    padding-bottom: var(--spacing-sm);
+  }
+  
+  .feature-item {
+    min-width: 200px;
     flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-md);
   }
   
   .floating-element {
@@ -697,28 +887,120 @@
   }
 }
 
-@media (max-width: 480px) {
+/* Mobile Landscape (481px - 767px) */
+@media (max-width: 767px) {
   .inscription-page {
-    padding: var(--spacing-md) var(--spacing-sm);
+    padding: 12px 8px;
+    margin-top: 0;
   }
   
-  .inscription-container {
-    max-width: 100%;
-    padding: var(--spacing-lg);
+  .inscription-grid {
+    min-height: auto;
+    gap: 15px;
   }
   
-  .inscription-header h1 {
+  .branding-section {
+    padding: 20px 15px;
+    margin: 0;
+    min-height: 350px;
+  }
+  
+  .form-section {
+    padding: 20px 15px;
+    margin: 0;
+    min-height: auto;
+  }
+  
+  .branding-header h1 {
+    font-size: 2rem;
+  }
+  
+  .branding-header p {
+    font-size: 1.125rem;
+  }
+  
+  .form-header h2 {
     font-size: 1.75rem;
   }
   
-  .header-icon {
-    width: 50px;
-    height: 50px;
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
   
-  .header-icon svg {
-    width: 24px;
-    height: 24px;
+  .features-list {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  .feature-item {
+    flex-direction: row;
+    text-align: left;
+    min-width: auto;
+  }
+  
+  .social-login {
+    flex-direction: column;
+  }
+}
+
+/* Mobile Portrait (320px - 480px) */
+@media (max-width: 480px) {
+  .inscription-page {
+    padding: 10px 5px;
+    margin-top: 0;
+  }
+  
+  .branding-section {
+    padding: 15px 10px;
+    margin: 0;
+    min-height: 300px;
+  }
+  
+  .form-section {
+    padding: 15px 10px;
+    margin: 0;
+    min-height: auto;
+  }
+  
+  .branding-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .branding-header p {
+    font-size: 1rem;
+  }
+  
+  .form-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .branding-icon {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .branding-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .feature-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .feature-text h3 {
+    font-size: 1rem;
+  }
+  
+  .feature-text p {
+    font-size: 0.875rem;
   }
 }
 
@@ -731,6 +1013,28 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
@@ -853,7 +1157,8 @@
 
 .inscription-btn,
 .form-group input,
-.social-btn {
+.social-btn,
+.feature-item {
   will-change: transform, box-shadow;
 }
 
@@ -951,10 +1256,6 @@
   transition: var(--transition-smooth), box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.form-group input:focus {
-  transform: translateY(-1px);
-}
-
 /* Styles pour les états de validation */
 .form-group.validating input {
   border-color: var(--accent-orange);
@@ -980,18 +1281,6 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes checkmark {
-  0% {
-    transform: scale(0) rotate(0deg);
-  }
-  50% {
-    transform: scale(1.2) rotate(0deg);
-  }
-  100% {
-    transform: scale(1) rotate(0deg);
   }
 }
 

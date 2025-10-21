@@ -6,6 +6,8 @@ import { useIsAuthenticated, useCurrentUser } from '../../store/hooks'
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isInitialized, setIsInitialized] = useState(false)
+  const [shouldAnimate, setShouldAnimate] = useState(false)
   const location = useLocation()
   
   // Redux state
@@ -61,7 +63,38 @@ function Navbar() {
     }
   }
 
-  // Add event listeners
+  // Check if this is a page refresh or first load
+  useEffect(() => {
+    const hasBeenLoaded = sessionStorage.getItem('navbar-loaded')
+    
+    if (!hasBeenLoaded) {
+      // First load - allow animations
+      setShouldAnimate(true)
+      sessionStorage.setItem('navbar-loaded', 'true')
+    } else {
+      // Page refresh - skip animations
+      setShouldAnimate(false)
+      setIsInitialized(true)
+    }
+  }, [])
+
+  // Add event listeners and check initial scroll position
+  useEffect(() => {
+    // Check initial scroll position on mount
+    const initialScrollY = window.scrollY
+    setIsScrolled(initialScrollY > 50)
+    
+    // Mark as initialized after animations complete (only if animating)
+    if (shouldAnimate) {
+      const initTimer = setTimeout(() => {
+        setIsInitialized(true)
+      }, 800) // Wait for all animations to complete (0.6s + buffer)
+      
+      return () => clearTimeout(initTimer)
+    }
+  }, [shouldAnimate])
+  
+  // Add scroll and keyboard event listeners
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true })
     document.addEventListener('keydown', handleKeyDown)
@@ -88,7 +121,7 @@ function Navbar() {
   return (
     <>
       {/* Minimalist Glass Navbar */}
-      <nav className={`minimal-navbar ${isScrolled ? 'scrolled' : ''}`}>
+      <nav className={`minimal-navbar ${isScrolled ? 'scrolled' : ''} ${shouldAnimate ? 'animate' : 'no-animate'}`}>
         <div className="navbar-wrapper">
           {/* Logo Section */}
           <div className="logo-section">
@@ -119,7 +152,7 @@ function Navbar() {
                 <Link
                   key={item.id}
                   to={item.path}
-                  className={`nav-link ${isActiveRoute(item.path) ? 'active' : ''}`}
+                  className={`nav-link ${isActiveRoute(item.path) ? 'active' : ''} ${shouldAnimate ? 'animate' : 'no-animate'}`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <span className="link-icon">{item.icon}</span>
@@ -210,7 +243,7 @@ function Navbar() {
                   <Link
                     key={item.id}
                     to={item.path}
-                    className={`mobile-nav-link ${isActiveRoute(item.path) ? 'active' : ''}`}
+                    className={`mobile-nav-link ${isActiveRoute(item.path) ? 'active' : ''} ${shouldAnimate ? 'animate' : 'no-animate'}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >

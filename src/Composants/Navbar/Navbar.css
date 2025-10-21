@@ -91,6 +91,11 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
+/* Smooth transition for scrolled state when not animating */
+.minimal-navbar.no-animate.scrolled {
+  transition: var(--transition-normal);
+}
+
 /* Navbar Wrapper */
 .navbar-wrapper {
   width: 100%;
@@ -230,7 +235,15 @@
   background: transparent;
   border: none;
   border-radius: 8px;
+}
+
+/* Animation only on first load, not on refresh */
+.nav-link.animate {
   animation: fadeInUp 0.6s ease-out both;
+}
+
+.nav-link.no-animate {
+  animation: none;
 }
 
 .nav-link:hover {
@@ -571,7 +584,15 @@
   transition: var(--transition-fast);
   cursor: pointer;
   position: relative;
+}
+
+/* Animation only on first load, not on refresh */
+.mobile-nav-link.animate {
   animation: fadeInUp 0.6s ease-out both;
+}
+
+.mobile-nav-link.no-animate {
+  animation: none;
 }
 
 .mobile-nav-link:hover {
@@ -843,9 +864,13 @@
   }
 }
 
-/* Animation on Load */
-.minimal-navbar {
+/* Animation on Load - Only when should animate */
+.minimal-navbar.animate {
   animation: slideDown 0.6s ease-out;
+}
+
+.minimal-navbar.no-animate {
+  animation: none;
 }
 
 @keyframes slideDown {

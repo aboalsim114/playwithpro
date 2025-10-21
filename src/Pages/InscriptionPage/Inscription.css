@@ -99,6 +99,7 @@ html, body {
   position: relative;
   z-index: 1;
   box-sizing: border-box;
+  margin-top : 120px
 }
 
 /* ===== BRANDING SECTION (LEFT) ===== */

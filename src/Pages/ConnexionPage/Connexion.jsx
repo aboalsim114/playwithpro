@@ -178,64 +178,53 @@ function Connexion() {
               <div className="video-hologram">
                 <video 
                   className="cyber-video"
-                  src="/models/m4.mp4"
                   autoPlay 
                   muted 
                   loop 
                   playsInline
-                  preload="metadata"
-                  crossOrigin="anonymous"
-                  poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 1080'%3E%3Cdefs%3E%3ClinearGradient id='cyber' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300FFFF;stop-opacity:0.3'/%3E%3Cstop offset='50%25' style='stop-color:%23FF00FF;stop-opacity:0.2'/%3E%3Cstop offset='100%25' style='stop-color:%2300FF00;stop-opacity:0.1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23cyber)'/%3E%3C/svg%3E"
+                  preload="auto"
+                  controls={false}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    backgroundColor: '#000'
+                  }}
                   onError={(e) => {
-                    console.log('Erreur de chargement vidéo m4.mp4, tentative avec csgo-legends:', e);
-                    e.target.src = '/models/csgo-legends.3840x2160.mp4';
+                    console.log('Erreur de chargement vidéo:', e);
+                    console.log('Current src:', e.target.src);
+                    // Essayer les fallbacks un par un
+                    const currentSrc = e.target.src;
+                    if (currentSrc.includes('cristiano-ronaldo')) {
+                      console.log('Tentative fallback vers m4.mp4');
+                      e.target.src = '/models/m4.mp4';
+                    } else if (currentSrc.includes('m4.mp4')) {
+                      console.log('Tentative fallback vers csgo-legends');
+                      e.target.src = '/models/csgo-legends.3840x2160.mp4';
+                    } else {
+                      console.log('Tous les fallbacks ont échoué');
+                    }
                   }}
                   onLoadStart={() => {
-                    console.log('Début du chargement de la vidéo m4.mp4');
+                    console.log('Début du chargement vidéo');
                   }}
                   onCanPlay={() => {
-                    console.log('Vidéo m4.mp4 prête à être lue');
-                    // Masquer le message de chargement
+                    console.log('Vidéo prête à être lue');
                     const videoContainer = document.querySelector('.video-hologram');
                     if (videoContainer) {
                       videoContainer.style.setProperty('--video-loaded', '1');
                     }
                   }}
-                  onLoadedData={() => {
-                    console.log('Données vidéo m4.mp4 chargées');
-                  }}
                   onPlay={() => {
-                    console.log('Vidéo m4.mp4 en cours de lecture');
+                    console.log('Vidéo en cours de lecture');
                   }}
-                  onWaiting={() => {
-                    console.log('Vidéo en attente de données');
-                  }}
-                  onStalled={() => {
-                    console.log('Chargement vidéo interrompu');
-                  }}
-                  onSuspend={() => {
-                    console.log('Chargement vidéo suspendu');
-                  }}
-                  onAbort={() => {
-                    console.log('Chargement vidéo interrompu par l\'utilisateur');
-                  }}
-                  onEmptied={() => {
-                    console.log('Vidéo vidée de ses données');
-                  }}
-                  onRateChange={() => {
-                    console.log('Vitesse de lecture changée');
-                  }}
-                  onSeeking={() => {
-                    console.log('Recherche dans la vidéo');
-                  }}
-                  onSeeked={() => {
-                    console.log('Recherche terminée');
-                  }}
-                  onTimeUpdate={() => {
-                    // Optionnel : log périodique pour debug
-                    // console.log('Temps de lecture:', e.target.currentTime);
+                  onLoadedData={() => {
+                    console.log('Données vidéo chargées');
                   }}
                 >
+                  <source src="https://motionbgs.com/media/3151/cristiano-ronaldo.960x540.mp4" type="video/mp4" />
+                  <source src="/models/m4.mp4" type="video/mp4" />
+                  <source src="/models/csgo-legends.3840x2160.mp4" type="video/mp4" />
                   Votre navigateur ne supporte pas la lecture vidéo.
                 </video>
                 

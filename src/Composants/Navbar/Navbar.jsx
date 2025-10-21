@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import './Navbar.css'
 import { useIsAuthenticated, useCurrentUser } from '../../store/hooks'
@@ -8,7 +8,9 @@ function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isInitialized, setIsInitialized] = useState(false)
   const [shouldAnimate, setShouldAnimate] = useState(false)
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const location = useLocation()
+  const userMenuRef = useRef(null)
   
   // Redux state
   const isAuthenticated = useIsAuthenticated()
@@ -16,22 +18,13 @@ function Navbar() {
 
   // Navigation items with icons and routes
   const navItems = useMemo(() => {
-    const baseItems = [
-      { id: 'home', label: 'Accueil', icon: '🏠', path: '/' }
-    ]
-    
     if (isAuthenticated) {
       return [
-        ...baseItems,
         { id: 'profile', label: 'Profil', icon: '👤', path: '/profile' },
         { id: 'dashboard', label: 'Tableau de bord', icon: '📊', path: '/dashboard' }
       ]
     } else {
-      return [
-        ...baseItems,
-        { id: 'inscription', label: 'Inscription', icon: '📝', path: '/inscription' },
-        { id: 'connexion', label: 'Connexion', icon: '🔑', path: '/connexion' }
-      ]
+      return []
     }
   }, [isAuthenticated])
 
@@ -56,10 +49,21 @@ function Navbar() {
     setIsMobileMenuOpen(false)
   }
 
+  // Toggle user menu
+  const toggleUserMenu = () => {
+    setIsUserMenuOpen(!isUserMenuOpen)
+  }
+
+  // Close user menu when clicking outside
+  const closeUserMenu = () => {
+    setIsUserMenuOpen(false)
+  }
+
   // Handle escape key
   const handleKeyDown = (e) => {
     if (e.key === 'Escape') {
       setIsMobileMenuOpen(false)
+      setIsUserMenuOpen(false)
     }
   }
 
@@ -104,6 +108,23 @@ function Navbar() {
       document.removeEventListener('keydown', handleKeyDown)
     }
   }, [handleScroll])
+
+  // Handle click outside user menu
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setIsUserMenuOpen(false)
+      }
+    }
+
+    if (isUserMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isUserMenuOpen])
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -177,6 +198,89 @@ function Navbar() {
                 className="search-input"
                 aria-label="Rechercher"
               />
+            </div>
+
+            {/* User Avatar */}
+            <div className="user-menu" ref={userMenuRef}>
+              <button 
+                className="user-avatar"
+                onClick={toggleUserMenu}
+                aria-label="User menu"
+                aria-expanded={isUserMenuOpen}
+              >
+                <div className="avatar-circle">
+                  {isAuthenticated && currentUser?.avatar ? (
+                    <img 
+                      src={currentUser.avatar} 
+                      alt="User avatar" 
+                      className="avatar-image"
+                    />
+                  ) : (
+                    <svg className="avatar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                      <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                  )}
+                </div>
+                <div className="status-indicator"></div>
+              </button>
+
+              {/* User Dropdown Menu */}
+              {isUserMenuOpen && (
+                <div className="user-dropdown">
+                  <div className="dropdown-content">
+                    {isAuthenticated ? (
+                      <>
+                        <div className="user-info">
+                          <div className="user-name">{currentUser?.name || 'Utilisateur'}</div>
+                          <div className="user-email">{currentUser?.email || ''}</div>
+                        </div>
+                        <div className="dropdown-divider"></div>
+                        <Link 
+                          to="/profile" 
+                          className="dropdown-item"
+                          onClick={closeUserMenu}
+                        >
+                          <span className="item-icon">👤</span>
+                          <span className="item-text">Mon Profil</span>
+                        </Link>
+                        <Link 
+                          to="/dashboard" 
+                          className="dropdown-item"
+                          onClick={closeUserMenu}
+                        >
+                          <span className="item-icon">📊</span>
+                          <span className="item-text">Tableau de bord</span>
+                        </Link>
+                        <div className="dropdown-divider"></div>
+                        <button className="dropdown-item logout-item">
+                          <span className="item-icon">🚪</span>
+                          <span className="item-text">Déconnexion</span>
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <Link 
+                          to="/connexion" 
+                          className="dropdown-item"
+                          onClick={closeUserMenu}
+                        >
+                          <span className="item-icon">🔑</span>
+                          <span className="item-text">Connexion</span>
+                        </Link>
+                        <Link 
+                          to="/inscription" 
+                          className="dropdown-item"
+                          onClick={closeUserMenu}
+                        >
+                          <span className="item-icon">📝</span>
+                          <span className="item-text">Inscription</span>
+                        </Link>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Menu Toggle for Mobile */}
@@ -271,16 +375,56 @@ function Navbar() {
             </div>
 
             <div className="mobile-menu-footer">
-              <button className="mobile-user-button">
-                <div className="avatar-circle">
-                  <svg className="avatar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
-                  </svg>
+              {isAuthenticated ? (
+                <div className="mobile-user-section">
+                  <div className="mobile-user-info">
+                    <div className="avatar-circle">
+                      {currentUser?.avatar ? (
+                        <img 
+                          src={currentUser.avatar} 
+                          alt="User avatar" 
+                          className="avatar-image"
+                        />
+                      ) : (
+                        <svg className="avatar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                          <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                      )}
+                    </div>
+                    <div className="user-details">
+                      <div className="user-name">{currentUser?.name || 'Utilisateur'}</div>
+                      <div className="user-email">{currentUser?.email || ''}</div>
+                    </div>
+                    <div className="status-indicator"></div>
+                  </div>
+                  <div className="mobile-user-actions">
+                    <Link to="/profile" className="mobile-user-action" onClick={closeMobileMenu}>
+                      <span className="action-icon">👤</span>
+                      <span>Mon Profil</span>
+                    </Link>
+                    <Link to="/dashboard" className="mobile-user-action" onClick={closeMobileMenu}>
+                      <span className="action-icon">📊</span>
+                      <span>Tableau de bord</span>
+                    </Link>
+                    <button className="mobile-user-action logout-action">
+                      <span className="action-icon">🚪</span>
+                      <span>Déconnexion</span>
+                    </button>
+                  </div>
                 </div>
-                <span>Mon Profil</span>
-                <div className="status-indicator"></div>
-              </button>
+              ) : (
+                <div className="mobile-auth-section">
+                  <Link to="/connexion" className="mobile-auth-button" onClick={closeMobileMenu}>
+                    <span className="auth-icon">🔑</span>
+                    <span>Connexion</span>
+                  </Link>
+                  <Link to="/inscription" className="mobile-auth-button" onClick={closeMobileMenu}>
+                    <span className="auth-icon">📝</span>
+                    <span>Inscription</span>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>

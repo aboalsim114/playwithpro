@@ -239,7 +239,7 @@ function Inscription() {
 
   return (
     <div>
-      <Navbar />
+    
       <div className="inscription-page">
         <GamingIllustrations />
         <div className="inscription-grid">

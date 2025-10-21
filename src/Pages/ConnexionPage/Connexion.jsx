@@ -158,7 +158,7 @@ function Connexion() {
 
   return (
     <div>
-      <Navbar />
+    
       <div className="connexion-page">
         <GamingIllustrations />
         <div className="connexion-container">

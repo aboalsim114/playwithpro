@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
 import './Inscription.css'
-import Navbar from '../../Composants/Navbar/Navbar'
 import { useAuth } from '../../store/hooks'
 import { registerUser, clearError } from '../../store/slices/authSlice'
 import { formatApiError } from '../../utils/validation'
@@ -12,10 +11,8 @@ import UsernameSuggestions from '../../Composants/UsernameSuggestions/UsernameSu
 import { 
   createRealTimeValidator, 
   createBlurValidator, 
-  createDeferredValidator,
   validateUsername,
   validateEmail,
-  validatePassword,
   validateName,
   validateAge,
   validatePhone
@@ -162,13 +159,6 @@ function Inscription() {
     phone: createBlurValidator(validatePhone)
   }
 
-  const deferredValidators = {
-    username: createDeferredValidator(validateUsername, 1000),
-    email: createDeferredValidator(validateEmail, 1000),
-    name: createDeferredValidator(validateName, 1000),
-    age: createDeferredValidator(validateAge, 1000),
-    phone: createDeferredValidator(validatePhone, 1000)
-  }
 
   const handleRegisterSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
@@ -243,65 +233,114 @@ function Inscription() {
       <div className="inscription-page">
         <GamingIllustrations />
         <div className="inscription-grid">
-          {/* Section gauche - Branding et informations */}
-          <div className="branding-section">
-            <div className="branding-content">
-              <div className="branding-header">
-                <div className="branding-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                    <circle cx="9" cy="7" r="4"/>
-                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                  </svg>
-                </div>
-                <h1>Rejoins l'Élite</h1>
-                <p>Crée ton compte et deviens un champion du gaming compétitif</p>
+          {/* Section gauche - Design futuriste avec vidéo */}
+          <div className="futuristic-video-section">
+            <div className="cyber-container">
+              {/* Grille cyberpunk en arrière-plan */}
+              <div className="cyber-grid">
+                <div className="grid-line horizontal line-1"></div>
+                <div className="grid-line horizontal line-2"></div>
+                <div className="grid-line horizontal line-3"></div>
+                <div className="grid-line vertical line-4"></div>
+                <div className="grid-line vertical line-5"></div>
+                <div className="grid-line vertical line-6"></div>
               </div>
               
-              <div className="features-list">
-                <div className="feature-item">
-                  <div className="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M9 12l2 2 4-4"/>
-                      <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/>
-                      <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"/>
-                      <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3"/>
-                      <path d="M12 21c0-1 1-3 3-3s3 2 3 3-1 3-3 3-3-2-3-3"/>
-                    </svg>
-                  </div>
-                  <div className="feature-text">
-                    <h3>Tournois Épiques</h3>
-                    <p>Participe à des compétitions de haut niveau</p>
-                  </div>
-                </div>
+              {/* Vidéo principale */}
+              <div className="video-hologram">
+                <video 
+                  className="cyber-video"
+                  autoPlay 
+                  muted 
+                  loop 
+                  playsInline
+                  poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 1080'%3E%3Cdefs%3E%3ClinearGradient id='cyber' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300FFFF;stop-opacity:0.3'/%3E%3Cstop offset='50%25' style='stop-color:%23FF00FF;stop-opacity:0.2'/%3E%3Cstop offset='100%25' style='stop-color:%2300FF00;stop-opacity:0.1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23cyber)'/%3E%3C/svg%3E"
+                  onError={(e) => {
+                    console.log('Erreur de chargement vidéo:', e);
+                    e.target.src = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+                  }}
+                >
+                  <source src="/videos/csgo-legends.3840x2160.mp4" type="video/mp4" />
+                  <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+                  Votre navigateur ne supporte pas la lecture vidéo.
+                </video>
                 
-                <div className="feature-item">
-                  <div className="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                      <circle cx="9" cy="7" r="4"/>
-                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
-                  </div>
-                  <div className="feature-text">
-                    <h3>Communauté Active</h3>
-                    <p>Rejoins des milliers de joueurs passionnés</p>
-                  </div>
-                </div>
+                {/* Effet de scan */}
+                <div className="scan-line"></div>
                 
-                <div className="feature-item">
-                  <div className="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                    </svg>
-                  </div>
-                  <div className="feature-text">
-                    <h3>Récompenses Uniques</h3>
-                    <p>Débloque des récompenses exclusives</p>
+                {/* Hologramme overlay */}
+                <div className="hologram-overlay">
+                  <div className="data-stream">
+                    <div className="data-line line-1"></div>
+                    <div className="data-line line-2"></div>
+                    <div className="data-line line-3"></div>
+                    <div className="data-line line-4"></div>
+                    <div className="data-line line-5"></div>
                   </div>
                 </div>
+              </div>
+              
+              {/* Contenu futuriste */}
+              <div className="cyber-content">
+                <div className="neon-frame">
+                  <div className="corner corner-tl"></div>
+                  <div className="corner corner-tr"></div>
+                  <div className="corner corner-bl"></div>
+                  <div className="corner corner-br"></div>
+                  
+                  <div className="content-inner">
+                    <div className="cyber-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                      </svg>
+                    </div>
+                    
+                    <div className="cyber-text">
+                      <h2 className="neon-title">
+                        <span className="glitch" data-text="JOIN THE MATRIX">JOIN THE MATRIX</span>
+                      </h2>
+                      <p className="cyber-subtitle">Enter the digital realm of competitive gaming</p>
+                    </div>
+                    
+                    <div className="stats-grid">
+                      <div className="stat-item">
+                        <div className="stat-number">10K+</div>
+                        <div className="stat-label">Players</div>
+                      </div>
+                      <div className="stat-item">
+                        <div className="stat-number">500+</div>
+                        <div className="stat-label">Tournaments</div>
+                      </div>
+                      <div className="stat-item">
+                        <div className="stat-number">24/7</div>
+                        <div className="stat-label">Active</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Effets cyberpunk */}
+              <div className="cyber-effects">
+                <div className="glitch-effect glitch-1"></div>
+                <div className="glitch-effect glitch-2"></div>
+                <div className="glitch-effect glitch-3"></div>
+              </div>
+              
+              {/* Particules énergétiques */}
+              <div className="energy-particles">
+                <div className="energy-dot dot-1"></div>
+                <div className="energy-dot dot-2"></div>
+                <div className="energy-dot dot-3"></div>
+                <div className="energy-dot dot-4"></div>
+                <div className="energy-dot dot-5"></div>
+                <div className="energy-dot dot-6"></div>
+                <div className="energy-dot dot-7"></div>
+                <div className="energy-dot dot-8"></div>
+                <div className="energy-dot dot-9"></div>
+                <div className="energy-dot dot-10"></div>
               </div>
             </div>
           </div>

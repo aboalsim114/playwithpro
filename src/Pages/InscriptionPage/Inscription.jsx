@@ -613,23 +613,7 @@ function Inscription() {
                     </div>
                   </div>
               
-                  <div className="form-group">
-                    <label className="checkbox-container">
-                      <Field
-                        type="checkbox"
-                        name="terms"
-                        disabled={isSubmitting}
-                        className={hasFieldError(touched, errors, 'terms') ? 'error' : ''}
-                      />
-                      <span className="checkmark"></span>
-                      J'accepte les <Link to="/conditions" className="terms-link">conditions d'utilisation</Link> et la <Link to="/privacy" className="terms-link">politique de confidentialité</Link>
-                    </label>
-                    {getFieldError(touched, errors, 'terms') && (
-                      <div className="field-error">
-                        {getFieldError(touched, errors, 'terms')}
-                      </div>
-                    )}
-                  </div>
+                 
                   
                   <button 
                     type="submit" 

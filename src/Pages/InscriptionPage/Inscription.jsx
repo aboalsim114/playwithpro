@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
 import './Inscription.css'
@@ -7,6 +7,19 @@ import { useAuth } from '../../store/hooks'
 import { registerUser, clearError } from '../../store/slices/authSlice'
 import { formatApiError } from '../../utils/validation'
 import { registerSchema, initialValues, getFieldError, hasFieldError } from '../../schemas/validationSchemas'
+import PasswordStrengthIndicator from '../../Composants/PasswordStrengthIndicator/PasswordStrengthIndicator'
+import UsernameSuggestions from '../../Composants/UsernameSuggestions/UsernameSuggestions'
+import { 
+  createRealTimeValidator, 
+  createBlurValidator, 
+  createDeferredValidator,
+  validateUsername,
+  validateEmail,
+  validatePassword,
+  validateName,
+  validateAge,
+  validatePhone
+} from '../../utils/validationUtils'
 
 // Gaming-themed SVG Illustrations
 const GamingIllustrations = () => (
@@ -97,9 +110,13 @@ const GamingIllustrations = () => (
 function Inscription() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [showUsernameSuggestions, setShowUsernameSuggestions] = useState(false)
+  const [usernameFocused, setUsernameFocused] = useState(false)
+  const [existingUsernames] = useState(['admin', 'test', 'user', 'gamer', 'player']) // Simulé
   
   const { isAuthenticated, error, dispatch } = useAuth()
   const navigate = useNavigate()
+  const usernameInputRef = useRef(null)
 
   // Rediriger si déjà connecté
   useEffect(() => {
@@ -112,6 +129,46 @@ function Inscription() {
   useEffect(() => {
     dispatch(clearError())
   }, [dispatch])
+
+  // Gérer la fermeture des suggestions quand on clique ailleurs
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (usernameInputRef.current && !usernameInputRef.current.contains(event.target)) {
+        setShowUsernameSuggestions(false)
+        setUsernameFocused(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
+  // Créer les validateurs avec debounce
+  const realTimeValidators = {
+    username: createRealTimeValidator(validateUsername, 500),
+    email: createRealTimeValidator(validateEmail, 500),
+    name: createRealTimeValidator(validateName, 500),
+    age: createRealTimeValidator(validateAge, 500),
+    phone: createRealTimeValidator(validatePhone, 500)
+  }
+
+  const blurValidators = {
+    username: createBlurValidator(validateUsername),
+    email: createBlurValidator(validateEmail),
+    name: createBlurValidator(validateName),
+    age: createBlurValidator(validateAge),
+    phone: createBlurValidator(validatePhone)
+  }
+
+  const deferredValidators = {
+    username: createDeferredValidator(validateUsername, 1000),
+    email: createDeferredValidator(validateEmail, 1000),
+    name: createDeferredValidator(validateName, 1000),
+    age: createDeferredValidator(validateAge, 1000),
+    phone: createDeferredValidator(validatePhone, 1000)
+  }
 
   const handleRegisterSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
@@ -138,6 +195,45 @@ function Inscription() {
       }
     } finally {
       setSubmitting(false)
+    }
+  }
+
+  const handleUsernameSuggestionSelect = (suggestion, setFieldValue) => {
+    setFieldValue('username', suggestion)
+    setShowUsernameSuggestions(false)
+    setUsernameFocused(false)
+  }
+
+  const handleFieldChange = (fieldName, value, setFieldValue, setFieldError, setFieldTouched) => {
+    setFieldValue(fieldName, value)
+    
+    // Validation en temps réel avec debounce
+    if (realTimeValidators[fieldName]) {
+      realTimeValidators[fieldName](value, setFieldError, setFieldTouched)
+    }
+  }
+
+  const handleFieldBlur = (fieldName, value, setFieldError, setFieldTouched) => {
+    // Validation au blur
+    if (blurValidators[fieldName]) {
+      blurValidators[fieldName](value, setFieldError, setFieldTouched)
+    }
+    
+    // Gérer les suggestions de nom d'utilisateur
+    if (fieldName === 'username') {
+      setUsernameFocused(false)
+      if (value && value.length >= 2) {
+        setShowUsernameSuggestions(true)
+      } else {
+        setShowUsernameSuggestions(false)
+      }
+    }
+  }
+
+  const handleFieldFocus = (fieldName) => {
+    if (fieldName === 'username') {
+      setUsernameFocused(true)
+      setShowUsernameSuggestions(true)
     }
   }
 
@@ -180,7 +276,7 @@ function Inscription() {
               validationSchema={registerSchema}
               onSubmit={handleRegisterSubmit}
             >
-              {({ values, errors, touched, isSubmitting }) => (
+              {({ values, errors, touched, isSubmitting, setFieldValue, setFieldError, setFieldTouched }) => (
                 <Form>
                   <div className="form-row">
                     <div className="form-group">
@@ -198,6 +294,8 @@ function Inscription() {
                         placeholder="Votre nom complet"
                         disabled={isSubmitting}
                         className={hasFieldError(touched, errors, 'name') ? 'error' : ''}
+                        onChange={(e) => handleFieldChange('name', e.target.value, setFieldValue, setFieldError, setFieldTouched)}
+                        onBlur={(e) => handleFieldBlur('name', e.target.value, setFieldError, setFieldTouched)}
                       />
                       {getFieldError(touched, errors, 'name') && (
                         <div className="field-error">
@@ -206,7 +304,7 @@ function Inscription() {
                       )}
                     </div>
                     
-                    <div className="form-group">
+                    <div className="form-group username-group">
                       <label htmlFor="username">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
@@ -215,14 +313,25 @@ function Inscription() {
                         </svg>
                         Nom d'utilisateur
                       </label>
-                      <Field
-                        type="text"
-                        id="username"
-                        name="username"
-                        placeholder="Votre pseudo gaming"
-                        disabled={isSubmitting}
-                        className={hasFieldError(touched, errors, 'username') ? 'error' : ''}
-                      />
+                      <div className="username-input-container" ref={usernameInputRef}>
+                        <Field
+                          type="text"
+                          id="username"
+                          name="username"
+                          placeholder="Votre pseudo gaming"
+                          disabled={isSubmitting}
+                          className={hasFieldError(touched, errors, 'username') ? 'error' : ''}
+                          onChange={(e) => handleFieldChange('username', e.target.value, setFieldValue, setFieldError, setFieldTouched)}
+                          onBlur={(e) => handleFieldBlur('username', e.target.value, setFieldError, setFieldTouched)}
+                          onFocus={() => handleFieldFocus('username')}
+                        />
+                        <UsernameSuggestions
+                          username={values.username}
+                          onSuggestionSelect={(suggestion) => handleUsernameSuggestionSelect(suggestion, setFieldValue)}
+                          isVisible={showUsernameSuggestions && usernameFocused}
+                          existingUsernames={existingUsernames}
+                        />
+                      </div>
                       {getFieldError(touched, errors, 'username') && (
                         <div className="field-error">
                           {getFieldError(touched, errors, 'username')}
@@ -246,6 +355,8 @@ function Inscription() {
                       placeholder="votre@email.com"
                       disabled={isSubmitting}
                       className={hasFieldError(touched, errors, 'email') ? 'error' : ''}
+                      onChange={(e) => handleFieldChange('email', e.target.value, setFieldValue, setFieldError, setFieldTouched)}
+                      onBlur={(e) => handleFieldBlur('email', e.target.value, setFieldError, setFieldTouched)}
                     />
                     {getFieldError(touched, errors, 'email') && (
                       <div className="field-error">
@@ -272,6 +383,8 @@ function Inscription() {
                           placeholder="••••••••"
                           disabled={isSubmitting}
                           className={hasFieldError(touched, errors, 'password') ? 'error' : ''}
+                          onChange={(e) => handleFieldChange('password', e.target.value, setFieldValue, setFieldError, setFieldTouched)}
+                          onBlur={(e) => handleFieldBlur('password', e.target.value, setFieldError, setFieldTouched)}
                         />
                         <button
                           type="button"
@@ -292,6 +405,10 @@ function Inscription() {
                           )}
                         </button>
                       </div>
+                      <PasswordStrengthIndicator 
+                        password={values.password} 
+                        showFeedback={true}
+                      />
                       {getFieldError(touched, errors, 'password') && (
                         <div className="field-error">
                           {getFieldError(touched, errors, 'password')}
@@ -316,6 +433,8 @@ function Inscription() {
                           placeholder="••••••••"
                           disabled={isSubmitting}
                           className={hasFieldError(touched, errors, 'confirmPassword') ? 'error' : ''}
+                          onChange={(e) => handleFieldChange('confirmPassword', e.target.value, setFieldValue, setFieldError, setFieldTouched)}
+                          onBlur={(e) => handleFieldBlur('confirmPassword', e.target.value, setFieldError, setFieldTouched)}
                         />
                         <button
                           type="button"
@@ -362,6 +481,8 @@ function Inscription() {
                         max="120"
                         disabled={isSubmitting}
                         className={hasFieldError(touched, errors, 'age') ? 'error' : ''}
+                        onChange={(e) => handleFieldChange('age', e.target.value, setFieldValue, setFieldError, setFieldTouched)}
+                        onBlur={(e) => handleFieldBlur('age', e.target.value, setFieldError, setFieldTouched)}
                       />
                       {getFieldError(touched, errors, 'age') && (
                         <div className="field-error">
@@ -384,6 +505,8 @@ function Inscription() {
                         placeholder="+33 6 12 34 56 78"
                         disabled={isSubmitting}
                         className={hasFieldError(touched, errors, 'phone') ? 'error' : ''}
+                        onChange={(e) => handleFieldChange('phone', e.target.value, setFieldValue, setFieldError, setFieldTouched)}
+                        onBlur={(e) => handleFieldBlur('phone', e.target.value, setFieldError, setFieldTouched)}
                       />
                       {getFieldError(touched, errors, 'phone') && (
                         <div className="field-error">

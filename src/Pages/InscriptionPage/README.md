@@ -31,7 +31,11 @@ Le formulaire d'inscription de PlayWithPro est entièrement configuré avec Redu
 - Responsive design complet
 
 ### ✅ Fonctionnalités avancées
-- Validation en temps réel
+- **Validation en temps réel avancée** avec debouncing (500ms)
+- **Validation au blur** (quand l'utilisateur quitte le champ)
+- **Validation différée** (évite la validation à chaque frappe - 1000ms)
+- **Indicateurs visuels de force du mot de passe** en temps réel
+- **Suggestions automatiques** pour les noms d'utilisateur disponibles
 - Affichage/masquage des mots de passe
 - Gestion des états de chargement
 - Protection contre les erreurs réseau
@@ -45,14 +49,23 @@ src/Pages/InscriptionPage/
 ├── Inscription.css          # Styles avec thème gaming
 └── README.md               # Cette documentation
 
+src/Composants/
+├── PasswordStrengthIndicator/
+│   ├── PasswordStrengthIndicator.jsx
+│   └── PasswordStrengthIndicator.css
+└── UsernameSuggestions/
+    ├── UsernameSuggestions.jsx
+    └── UsernameSuggestions.css
+
+src/utils/
+├── validation.js           # Utilitaires de validation (partagé)
+└── validationUtils.js      # Nouveaux utilitaires de validation avancée
+
 src/services/
 └── authService.js          # Service API d'authentification (partagé)
 
 src/store/slices/
 └── authSlice.js            # Slice Redux pour l'authentification (partagé)
-
-src/utils/
-└── validation.js           # Utilitaires de validation (partagé)
 
 src/config/
 └── authConfig.js           # Configuration d'authentification (partagé)
@@ -74,6 +87,12 @@ src/config/
 
 ## Validation
 
+### Types de validation
+- **Validation en temps réel** : Avec debouncing de 500ms pour éviter les appels trop fréquents
+- **Validation au blur** : Validation immédiate quand l'utilisateur quitte le champ
+- **Validation différée** : Validation avec délai de 1000ms pour les champs moins critiques
+- **Validation de force du mot de passe** : Calcul en temps réel avec indicateurs visuels
+
 ### Règles de validation
 - **Nom** : Lettres, espaces, tirets et apostrophes uniquement
 - **Nom d'utilisateur** : Lettres, chiffres et underscores uniquement
@@ -86,14 +105,16 @@ src/config/
   - Au moins un chiffre
   - Au moins un caractère spécial
   - Pas de mots de passe communs
+  - **Indicateur de force** : Faible, Moyen, Fort, Très fort
 - **Âge** : Entre 13 et 120 ans
 - **Téléphone** : Format international (optionnel)
 
 ### Messages d'erreur
 - Messages personnalisés en français
-- Validation en temps réel
-- Indicateurs visuels d'erreur
+- Validation en temps réel avec debouncing
+- Indicateurs visuels d'erreur avec animations
 - Formatage automatique des erreurs API
+- **Suggestions de noms d'utilisateur** : Génération automatique de variantes disponibles
 
 ## Interface utilisateur
 
@@ -256,6 +277,18 @@ export const validationMessages = {
 - **Âge insuffisant** : L'utilisateur doit avoir au moins 13 ans
 
 ## Changelog
+
+### Version 1.1.0 - Validation Avancée
+- ✅ **Validation en temps réel avancée** avec debouncing (500ms)
+- ✅ **Validation au blur** (quand l'utilisateur quitte le champ)
+- ✅ **Validation différée** (évite la validation à chaque frappe - 1000ms)
+- ✅ **Indicateur de force du mot de passe** en temps réel avec feedback visuel
+- ✅ **Suggestions automatiques** pour les noms d'utilisateur disponibles
+- ✅ Composants réutilisables (PasswordStrengthIndicator, UsernameSuggestions)
+- ✅ Utilitaires de validation avancés (validationUtils.js)
+- ✅ Animations et transitions améliorées
+- ✅ Gestion des états de validation (validating, valid, invalid)
+- ✅ Interface utilisateur optimisée pour l'expérience utilisateur
 
 ### Version 1.0.0
 - ✅ Configuration complète avec Redux

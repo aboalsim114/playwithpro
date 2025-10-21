@@ -274,6 +274,16 @@
 
 .form-group {
   margin-bottom: var(--spacing-xl);
+  position: relative;
+}
+
+/* Groupe spécial pour le nom d'utilisateur avec suggestions */
+.username-group {
+  position: relative;
+}
+
+.username-input-container {
+  position: relative;
 }
 
 .form-group label {
@@ -435,17 +445,54 @@
   margin-top: var(--spacing-xs);
   padding-left: var(--spacing-sm);
   animation: fadeInUp 0.3s ease-out;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.field-error::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: var(--error-red);
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .form-group input.error {
   border-color: var(--error-red);
   box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
   background: rgba(239, 68, 68, 0.05);
+  animation: shake 0.5s ease-in-out;
 }
 
 .form-group input.error:focus {
   border-color: var(--error-red);
   box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+}
+
+/* Indicateurs de validation en temps réel */
+.form-group input.validating {
+  border-color: var(--accent-orange);
+  box-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
+}
+
+.form-group input.valid {
+  border-color: var(--success-green);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+/* Animation de validation */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  75% {
+    transform: translateX(2px);
+  }
 }
 
 /* ===== BUTTON ===== */
@@ -830,5 +877,159 @@
   :root {
     --text-primary: #F1F5F9;
     --text-secondary: #94A3B8;
+  }
+}
+
+/* ===== NOUVELLES FONCTIONNALITÉS DE VALIDATION ===== */
+
+/* Styles pour les indicateurs de validation en temps réel */
+.validation-indicator {
+  position: absolute;
+  right: var(--spacing-md);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.validation-indicator svg {
+  width: 16px;
+  height: 16px;
+}
+
+.validation-indicator.validating {
+  color: var(--accent-orange);
+  animation: pulse 1s infinite;
+}
+
+.validation-indicator.valid {
+  color: var(--success-green);
+  animation: checkmark 0.3s ease-out;
+}
+
+.validation-indicator.invalid {
+  color: var(--error-red);
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Styles pour les suggestions de nom d'utilisateur */
+.username-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--glass-bg-heavy);
+  backdrop-filter: var(--glass-backdrop);
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--glass-shadow-heavy);
+  z-index: 1000;
+  margin-top: 4px;
+  animation: slideDown 0.3s ease-out;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Styles pour l'indicateur de force du mot de passe */
+.password-strength-container {
+  margin-top: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: var(--glass-bg-light);
+  border-radius: var(--radius-sm);
+  backdrop-filter: var(--glass-backdrop-light);
+  border: 1px solid var(--glass-border);
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* Amélioration des transitions pour les champs */
+.form-group input {
+  transition: var(--transition-smooth), box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.form-group input:focus {
+  transform: translateY(-1px);
+}
+
+/* Styles pour les états de validation */
+.form-group.validating input {
+  border-color: var(--accent-orange);
+  box-shadow: 0 0 15px rgba(255, 107, 53, 0.2);
+}
+
+.form-group.valid input {
+  border-color: var(--success-green);
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+}
+
+.form-group.invalid input {
+  border-color: var(--error-red);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+}
+
+/* Animation pour les nouveaux éléments */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes checkmark {
+  0% {
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(0deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Responsive pour les nouvelles fonctionnalités */
+@media (max-width: 768px) {
+  .username-suggestions {
+    max-height: 250px;
+  }
+  
+  .validation-indicator {
+    right: var(--spacing-sm);
+    width: 18px;
+    height: 18px;
+  }
+  
+  .validation-indicator svg {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .password-strength-container {
+    padding: var(--spacing-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .username-suggestions {
+    max-height: 200px;
+  }
+  
+  .validation-indicator {
+    right: var(--spacing-xs);
+    width: 16px;
+    height: 16px;
+  }
+  
+  .validation-indicator svg {
+    width: 12px;
+    height: 12px;
   }
 }

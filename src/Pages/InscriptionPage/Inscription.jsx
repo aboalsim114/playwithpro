@@ -280,47 +280,7 @@ function Inscription() {
                 </div>
               </div>
               
-              {/* Contenu futuriste */}
-              <div className="cyber-content">
-                <div className="neon-frame">
-                  <div className="corner corner-tl"></div>
-                  <div className="corner corner-tr"></div>
-                  <div className="corner corner-bl"></div>
-                  <div className="corner corner-br"></div>
-                  
-                  <div className="content-inner">
-                    <div className="cyber-icon">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                        <path d="M2 17l10 5 10-5"/>
-                        <path d="M2 12l10 5 10-5"/>
-                      </svg>
-                    </div>
-                    
-                    <div className="cyber-text">
-                      <h2 className="neon-title">
-                        <span className="glitch" data-text="JOIN THE MATRIX">JOIN THE MATRIX</span>
-                      </h2>
-                      <p className="cyber-subtitle">Enter the digital realm of competitive gaming</p>
-                    </div>
-                    
-                    <div className="stats-grid">
-                      <div className="stat-item">
-                        <div className="stat-number">10K+</div>
-                        <div className="stat-label">Players</div>
-                      </div>
-                      <div className="stat-item">
-                        <div className="stat-number">500+</div>
-                        <div className="stat-label">Tournaments</div>
-                      </div>
-                      <div className="stat-item">
-                        <div className="stat-number">24/7</div>
-                        <div className="stat-label">Active</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+             
               
               {/* Effets cyberpunk */}
               <div className="cyber-effects">

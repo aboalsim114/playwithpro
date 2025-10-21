@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
 import './Connexion.css'
-import Navbar from '../../Composants/Navbar/Navbar'
 import { useAuth } from '../../store/hooks'
 import { loginUser, clearError, forgotPassword } from '../../store/slices/authSlice'
 import { formatApiError } from '../../utils/validation'
@@ -157,25 +156,118 @@ function Connexion() {
   }
 
   return (
-    <div>
+   
     
       <div className="connexion-page">
         <GamingIllustrations />
-        <div className="connexion-container">
-          <div className="connexion-header">
-            <div className="header-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                <path d="M6 21v-2a4 4 0 0 1 4-4h.5"/>
-              </svg>
+        <div className="connexion-grid">
+          {/* Section gauche - Design futuriste avec vidéo */}
+          <div className="futuristic-video-section">
+            <div className="cyber-container">
+              {/* Grille cyberpunk en arrière-plan */}
+              <div className="cyber-grid">
+                <div className="grid-line horizontal line-1"></div>
+                <div className="grid-line horizontal line-2"></div>
+                <div className="grid-line horizontal line-3"></div>
+                <div className="grid-line vertical line-4"></div>
+                <div className="grid-line vertical line-5"></div>
+                <div className="grid-line vertical line-6"></div>
+              </div>
+              
+              {/* Vidéo principale */}
+              <div className="video-hologram">
+                <video 
+                  className="cyber-video"
+                  src="/models/m4.mp4"
+                  autoPlay 
+                  muted 
+                  loop 
+                  playsInline
+                  preload="metadata"
+                  crossOrigin="anonymous"
+                  poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 1080'%3E%3Cdefs%3E%3ClinearGradient id='cyber' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300FFFF;stop-opacity:0.3'/%3E%3Cstop offset='50%25' style='stop-color:%23FF00FF;stop-opacity:0.2'/%3E%3Cstop offset='100%25' style='stop-color:%2300FF00;stop-opacity:0.1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23cyber)'/%3E%3C/svg%3E"
+                  onError={(e) => {
+                    console.log('Erreur de chargement vidéo m4.mp4, tentative avec csgo-legends:', e);
+                    e.target.src = '/models/csgo-legends.3840x2160.mp4';
+                  }}
+                  onLoadStart={() => {
+                    console.log('Début du chargement de la vidéo m4.mp4');
+                  }}
+                  onCanPlay={() => {
+                    console.log('Vidéo m4.mp4 prête à être lue');
+                    // Masquer le message de chargement
+                    const videoContainer = document.querySelector('.video-hologram');
+                    if (videoContainer) {
+                      videoContainer.style.setProperty('--video-loaded', '1');
+                    }
+                  }}
+                  onLoadedData={() => {
+                    console.log('Données vidéo m4.mp4 chargées');
+                  }}
+                  onPlay={() => {
+                    console.log('Vidéo m4.mp4 en cours de lecture');
+                  }}
+                  onWaiting={() => {
+                    console.log('Vidéo en attente de données');
+                  }}
+                  onStalled={() => {
+                    console.log('Chargement vidéo interrompu');
+                  }}
+                  onSuspend={() => {
+                    console.log('Chargement vidéo suspendu');
+                  }}
+                  onAbort={() => {
+                    console.log('Chargement vidéo interrompu par l\'utilisateur');
+                  }}
+                  onEmptied={() => {
+                    console.log('Vidéo vidée de ses données');
+                  }}
+                  onRateChange={() => {
+                    console.log('Vitesse de lecture changée');
+                  }}
+                  onSeeking={() => {
+                    console.log('Recherche dans la vidéo');
+                  }}
+                  onSeeked={() => {
+                    console.log('Recherche terminée');
+                  }}
+                  onTimeUpdate={() => {
+                    // Optionnel : log périodique pour debug
+                    // console.log('Temps de lecture:', e.target.currentTime);
+                  }}
+                >
+                  Votre navigateur ne supporte pas la lecture vidéo.
+                </video>
+                
+                {/* Effet de scan */}
+                <div className="scan-line"></div>
+                
+                {/* Hologramme overlay */}
+                <div className="hologram-overlay">
+                  <div className="data-stream">
+                    <div className="data-line line-1"></div>
+                    <div className="data-line line-2"></div>
+                    <div className="data-line line-3"></div>
+                    <div className="data-line line-4"></div>
+                    <div className="data-line line-5"></div>
+                  </div>
+                </div>
+              </div>
+              
+              
+             
             </div>
-            <h1>Connexion</h1>
-            <p>Rejoins l'élite du gaming compétitif</p>
           </div>
           
-          <div className="connexion-form">
+          {/* Section droite - Formulaire */}
+          <div className="form-section">
+            <div className="form-container">
+              <div className="form-header">
+                <h2>Se connecter</h2>
+                <p>Accède à ton compte gaming</p>
+              </div>
+              
+              <div className="connexion-form">
             {error && (
               <div className="error-message" style={{
                 backgroundColor: 'rgba(239, 68, 68, 0.1)',
@@ -308,6 +400,7 @@ function Connexion() {
                   </svg>
                   Steam
                 </button>
+              </div>
               </div>
             </div>
           </div>

@@ -1,6 +1,20 @@
-# Getting Started with Create React App
+# PlayWithPro
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## 🐳 Docker
+
+Ce projet est entièrement dockerisé ! Consultez le [Guide Docker](DOCKER_GUIDE.md) pour plus d'informations.
+
+### Démarrage rapide avec Docker
+
+```bash
+# Développement
+./scripts/docker-dev.sh
+
+# Production
+./scripts/docker-prod.sh
+```
 
 ## Available Scripts
 

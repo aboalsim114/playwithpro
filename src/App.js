@@ -5,9 +5,14 @@ import Navbar from './Composants/Navbar/Navbar';
 import Home from './Pages/HomePage/Home';
 import Inscription from './Pages/InscriptionPage/Inscription';
 import Connexion from './Pages/ConnexionPage/Connexion';
-import DashboardUser from './Pages/DashboardUser/DashboardUser'
+import DashboardUser from './Pages/DashboardUser/DashboardUser';
+import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
+import { useAuthInitialization } from './hooks/useAuthInitialization';
 
 function App() {
+  // Initialiser l'authentification au démarrage de l'app
+  useAuthInitialization();
+
   return (
     <div>
       <Navbar />

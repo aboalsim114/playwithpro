@@ -109,7 +109,7 @@ function Connexion() {
   // Rediriger si déjà connecté
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/')
+      navigate('/dash-user')
     }
   }, [isAuthenticated, navigate])
 

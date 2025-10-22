@@ -16,6 +16,7 @@ function DashboardUser() {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [currentGame, setCurrentGame] = useState('CS2');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
  
 
   useEffect(() => {
@@ -31,6 +32,12 @@ function DashboardUser() {
       ...prev,
       [key]: !prev[key]
     }));
+  };
+
+  const handleNavClick = (navItem) => {
+    setActiveNav(navItem);
+    // Close mobile menu when navigating
+    setIsMobileMenuOpen(false);
   };
 
   if (isLoading) {
@@ -49,8 +56,19 @@ function DashboardUser() {
       {/* Skip to main content for accessibility */}
       <a href="#main-content" className="skip-link">Skip to main content</a>
       
+      {/* Mobile Menu Toggle */}
+      <button 
+        className="mobile-menu-toggle"
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        aria-label="Toggle mobile menu"
+      >
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      
       {/* ===== SIDEBAR ===== */}
-      <aside className="sidebar">
+      <aside className={`sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
           <h2 className="sidebar-title">🎮 PLAY-WITH-PRO</h2>
           <div className="user-type-selector">
@@ -69,7 +87,7 @@ function DashboardUser() {
             <div className="nav-section-title">Gaming</div>
             <button 
               className={`nav-item ${activeNav === 'dashboard' ? 'active' : ''}`}
-              onClick={() => setActiveNav('dashboard')}
+              onClick={() => handleNavClick('dashboard')}
             >
               <svg className="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
@@ -79,7 +97,7 @@ function DashboardUser() {
             </button>
             <button 
               className={`nav-item ${activeNav === 'matches' ? 'active' : ''}`}
-              onClick={() => setActiveNav('matches')}
+              onClick={() => handleNavClick('matches')}
             >
               <svg className="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -88,7 +106,7 @@ function DashboardUser() {
             </button>
             <button 
               className={`nav-item ${activeNav === 'coaching' ? 'active' : ''}`}
-              onClick={() => setActiveNav('coaching')}
+              onClick={() => handleNavClick('coaching')}
             >
               <svg className="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
@@ -97,7 +115,7 @@ function DashboardUser() {
             </button>
             <button 
               className={`nav-item ${activeNav === 'rankings' ? 'active' : ''}`}
-              onClick={() => setActiveNav('rankings')}
+              onClick={() => handleNavClick('rankings')}
             >
               <svg className="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -110,7 +128,7 @@ function DashboardUser() {
             <div className="nav-section-title">Features</div>
             <button 
               className={`nav-item ${activeNav === 'chat' ? 'active' : ''}`}
-              onClick={() => setActiveNav('chat')}
+              onClick={() => handleNavClick('chat')}
             >
               <svg className="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -119,7 +137,7 @@ function DashboardUser() {
             </button>
             <button 
               className={`nav-item ${activeNav === 'replays' ? 'active' : ''}`}
-              onClick={() => setActiveNav('replays')}
+              onClick={() => handleNavClick('replays')}
             >
               <svg className="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -128,7 +146,7 @@ function DashboardUser() {
             </button>
             <button 
               className={`nav-item ${activeNav === 'payments' ? 'active' : ''}`}
-              onClick={() => setActiveNav('payments')}
+              onClick={() => handleNavClick('payments')}
             >
               <svg className="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
@@ -137,7 +155,7 @@ function DashboardUser() {
             </button>
             <button 
               className={`nav-item ${activeNav === 'profile' ? 'active' : ''}`}
-              onClick={() => setActiveNav('profile')}
+              onClick={() => handleNavClick('profile')}
             >
               <svg className="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -229,22 +247,25 @@ function DashboardUser() {
           </div>
         </div>
 
-        {/* Cards Grid */}
-        <div className="cards-grid">
-          {/* Welcome Card */}
-          <div className="card welcome-card">
-            <h2 className="welcome-title">Ready to Game!</h2>
-            <p className="welcome-subtitle">Welcome back, Mark! Ready for your next match?</p>
-            <button className="welcome-button">Find Match</button>
+        {/* Flexible Content Grid */}
+        <div className="content-grid">
+          {/* Welcome Card - Full width on mobile, half on desktop */}
+          <div className="card welcome-card grid-item grid-item--welcome">
+            <h2 className="welcome-title">🎮 Ready to Play with Pros!</h2>
+            <p className="welcome-subtitle">Welcome back, Mark! Book a session with professional players or get personalized coaching.</p>
+            <div className="welcome-actions">
+              <button className="welcome-button primary">Find Pro Player</button>
+              <button className="welcome-button secondary">Book Coaching</button>
+            </div>
           </div>
 
-          {/* Gaming Stats Card */}
-          <div className="card car-info-card">
-            <div className="car-info-header">
-              <h3 className="car-info-title">Gaming Performance</h3>
-              <p className="car-info-subtitle">Your stats for {currentGame} this week</p>
+          {/* E-Sport Stats Card - Responsive grid */}
+          <div className="card gaming-stats-card grid-item grid-item--stats">
+            <div className="stats-header">
+              <h3 className="stats-title">🏆 E-Sport Performance</h3>
+              <p className="stats-subtitle">Your {currentGame} stats and progress this week</p>
             </div>
-            <div className="car-stats">
+            <div className="stats-grid">
               <div className="stat-item">
                 <svg className="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -297,8 +318,8 @@ function DashboardUser() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 <div className="stat-content">
-                  <h4>Matches Played</h4>
-                  <p>47</p>
+                  <h4>Sessions Booked</h4>
+                  <p>12</p>
                 </div>
               </div>
               
@@ -307,35 +328,35 @@ function DashboardUser() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <div className="stat-content">
-                  <h4>Play Time</h4>
-                  <p>23h 45m</p>
+                  <h4>Coaching Hours</h4>
+                  <p>8.5h</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Profile Info Card */}
-          <div className="card profile-info-card">
-            <h3 className="profile-info-title">Profile Informations</h3>
+          {/* Player Profile Card - Responsive */}
+          <div className="card profile-info-card grid-item grid-item--profile">
+            <h3 className="profile-info-title">👤 Player Profile</h3>
             <p className="profile-info-description">
-              Hi, I'm Mark Johnson, Decisions: If you can't decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
+              Hi, I'm Mark Johnson, an avid gamer looking to improve my skills and play with professional players. I'm passionate about competitive gaming and always seeking to learn from the best.
             </p>
             <div className="profile-details">
               <div className="profile-detail">
-                <span className="profile-detail-label">Full Name:</span>
-                <span className="profile-detail-value">Mark Johnson</span>
+                <span className="profile-detail-label">Gaming Name:</span>
+                <span className="profile-detail-value">MarkJ_Pro</span>
               </div>
               <div className="profile-detail">
-                <span className="profile-detail-label">Mobile:</span>
-                <span className="profile-detail-value">(44) 123 1234 123</span>
+                <span className="profile-detail-label">Main Game:</span>
+                <span className="profile-detail-value">{currentGame}</span>
               </div>
               <div className="profile-detail">
-                <span className="profile-detail-label">Email:</span>
-                <span className="profile-detail-value">mark@simmmple.com</span>
+                <span className="profile-detail-label">Rank:</span>
+                <span className="profile-detail-value">Gold III</span>
               </div>
               <div className="profile-detail">
-                <span className="profile-detail-label">Location:</span>
-                <span className="profile-detail-value">United States</span>
+                <span className="profile-detail-label">Region:</span>
+                <span className="profile-detail-value">Europe</span>
               </div>
             </div>
             <div className="social-links">
@@ -358,11 +379,11 @@ function DashboardUser() {
           </div>
         </div>
 
-        {/* Available Matches Section */}
+        {/* Available Pro Players Section - Flexible Grid */}
         <div className="matches-section">
           <div className="card matches-card">
-            <h3 className="matches-title">Available Matches</h3>
-            <p className="matches-subtitle">Book a session with professional players</p>
+            <h3 className="matches-title">🏆 Available Pro Players</h3>
+            <p className="matches-subtitle">Book a session with professional e-sport players</p>
             <div className="matches-grid">
               <div className="match-card">
                 <div className="match-header">
@@ -373,6 +394,7 @@ function DashboardUser() {
                       <p>CS2 Pro • Rank: Global Elite</p>
                       <div className="pro-rating">⭐⭐⭐⭐⭐ 4.9</div>
                     </div>
+
                   </div>
                   <div className="match-price">$25/h</div>
                 </div>
@@ -381,7 +403,7 @@ function DashboardUser() {
                   <button className="time-option">30 min - $12</button>
                   <button className="time-option">1h - $25</button>
                 </div>
-                <button className="book-match-btn">Book Match</button>
+                <button className="book-match-btn">Book Session</button>
               </div>
               
               <div className="match-card">
@@ -401,7 +423,7 @@ function DashboardUser() {
                   <button className="time-option">30 min - $15</button>
                   <button className="time-option">1h - $30</button>
                 </div>
-                <button className="book-match-btn">Book Match</button>
+                <button className="book-match-btn">Book Session</button>
               </div>
               
               <div className="match-card">
@@ -421,143 +443,26 @@ function DashboardUser() {
                   <button className="time-option">30 min - $25</button>
                   <button className="time-option">1h - $50</button>
                 </div>
-                <button className="book-match-btn">Book Match</button>
+                <button className="book-match-btn">Book Session</button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Settings and Projects Section */}
+        {/* Settings and Coaching Section - Flexible Grid */}
         <div className="settings-section">
-          {/* Platform Settings */}
-          <div className="card settings-card">
-            <h3 className="settings-title">Gaming Settings</h3>
-            
-            <div className="settings-group">
-              <div className="settings-group-title">Notifications</div>
-              <div className="setting-item">
-                <span className="setting-label">Match notifications</span>
-                <div 
-                  className={`toggle ${settings.matchAlerts ? 'active' : ''}`}
-                  onClick={() => toggleSetting('matchAlerts')}
-                >
-                  <div className="toggle-handle"></div>
-                </div>
-              </div>
-              <div className="setting-item">
-                <span className="setting-label">Chat sounds</span>
-                <div 
-                  className={`toggle ${settings.chatSounds ? 'active' : ''}`}
-                  onClick={() => toggleSetting('chatSounds')}
-                >
-                  <div className="toggle-handle"></div>
-                </div>
-              </div>
-              <div className="setting-item">
-                <span className="setting-label">Coaching reminders</span>
-                <div 
-                  className={`toggle ${settings.coachingReminders ? 'active' : ''}`}
-                  onClick={() => toggleSetting('coachingReminders')}
-                >
-                  <div className="toggle-handle"></div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="settings-group">
-              <div className="settings-group-title">Gaming</div>
-              <div className="setting-item">
-                <span className="setting-label">Stream alerts</span>
-                <div 
-                  className={`toggle ${settings.streamAlerts ? 'active' : ''}`}
-                  onClick={() => toggleSetting('streamAlerts')}
-                >
-                  <div className="toggle-handle"></div>
-                </div>
-              </div>
-              <div className="setting-item">
-                <span className="setting-label">Payment alerts</span>
-                <div 
-                  className={`toggle ${settings.paymentAlerts ? 'active' : ''}`}
-                  onClick={() => toggleSetting('paymentAlerts')}
-                >
-                  <div className="toggle-handle"></div>
-                </div>
-              </div>
-              <div className="setting-item">
-                <span className="setting-label">Ranking updates</span>
-                <div 
-                  className={`toggle ${settings.rankingUpdates ? 'active' : ''}`}
-                  onClick={() => toggleSetting('rankingUpdates')}
-                >
-                  <div className="toggle-handle"></div>
-                </div>
-              </div>
-              <div className="setting-item">
-                <span className="setting-label">Replay notifications</span>
-                <div 
-                  className={`toggle ${settings.replayNotifications ? 'active' : ''}`}
-                  onClick={() => toggleSetting('replayNotifications')}
-                >
-                  <div className="toggle-handle"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+        
 
-          {/* Projects Card */}
-          <div className="card projects-card">
-            <div className="projects-header">
-              <h3 className="projects-title">Projects</h3>
-              <p className="projects-subtitle">Architects design houses</p>
-            </div>
-            <div className="projects-grid">
-              <div className="project-card">
-                <div className="project-image"></div>
-                <h4 className="project-title">Modern</h4>
-                <p className="project-description">As Uber works through a huge amount of internal management turmoil.</p>
-                <button className="project-button">VIEW ALL</button>
-                <div className="project-team">
-                  <div className="team-avatar">A</div>
-                  <div className="team-avatar">B</div>
-                  <div className="team-avatar">C</div>
-                </div>
-              </div>
-              
-              <div className="project-card">
-                <div className="project-image"></div>
-                <h4 className="project-title">Scandinavian</h4>
-                <p className="project-description">Music is something that every person has his or her own specific opinion about.</p>
-                <button className="project-button">VIEW ALL</button>
-                <div className="project-team">
-                  <div className="team-avatar">D</div>
-                  <div className="team-avatar">E</div>
-                  <div className="team-avatar">F</div>
-                </div>
-              </div>
-              
-              <div className="project-card">
-                <div className="project-image"></div>
-                <h4 className="project-title">Minimalist</h4>
-                <p className="project-description">Different people have different taste, and various types of music.</p>
-                <button className="project-button">VIEW ALL</button>
-                <div className="project-team">
-                  <div className="team-avatar">G</div>
-                  <div className="team-avatar">H</div>
-                  <div className="team-avatar">I</div>
-                </div>
-              </div>
-            </div>
-          </div>
+         
         </div>
 
         {/* Footer */}
         <footer className="dashboard-footer">
-          <div className="footer-text">© 2021, Made with ❤️ by Simmmple & Creative Tim for a better web.</div>
+          <div className="footer-text">© 2024, Made with ❤️ by PLAY-WITH-PRO - Connecting gamers with professionals</div>
           <div className="footer-links">
-            <button className="footer-link">Marketplace</button>
-            <button className="footer-link">Blog</button>
-            <button className="footer-link">License</button>
+            <button className="footer-link">Pro Players</button>
+            <button className="footer-link">Coaching</button>
+            <button className="footer-link">Support</button>
           </div>
         </footer>
       </main>

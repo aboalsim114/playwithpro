@@ -184,14 +184,35 @@ function DashboardUser() {
         <header className="dashboard-header">
           <div className="breadcrumb">Gaming / {userType === 'player' ? 'Player Dashboard' : userType === 'pro' ? 'Pro Dashboard' : 'Streamer Dashboard'}</div>
           <div className="search-bar">
+            <div className="search-container">
+              <div className="search-icon-wrapper">
+                <div className="search-icon-container">
             <svg className="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    <circle cx="11" cy="11" r="8" strokeWidth="2.5"/>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="m21 21-4.35-4.35"/>
+                    <circle cx="11" cy="11" r="3" fill="currentColor" opacity="0.3"/>
             </svg>
+                  <div className="search-icon-glow"></div>
+                </div>
+              </div>
             <input 
               type="text" 
               className="search-input" 
               placeholder="Search players, pros, or games..." 
             />
+              <div className="search-actions">
+                <button className="search-filter-btn" title="Filters">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                  </svg>
+                </button>
+                <button className="search-clear-btn" title="Clear">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
           </div>
           <div className="header-actions">
             <div className="game-selector">
@@ -258,124 +279,353 @@ function DashboardUser() {
 
         {/* User Banner */}
         <div className="user-banner">
-          <div className="user-info">
-            <div className="user-avatar-large">MJ</div>
-            <div className="user-details">
-              <h3>Mark Johnson</h3>
-              <p>mark@playwithpro.com</p>
-              <div className="user-badges">
-                <span className={`badge ${userType}`}>
-                  {userType === 'player' ? '👾 Player' : userType === 'pro' ? '🏆 Pro Player' : '🎥 Streamer'}
-                </span>
-                <span className="rank-badge">Rank: Gold III</span>
-              </div>
+          <div className="user-banner-background">
+            <div className="user-banner-pattern"></div>
+            <div className="user-banner-glow"></div>
+            
+            {/* Enhanced Floating Particles */}
+            <div className="floating-particles">
+              <div className="particle particle-1"></div>
+              <div className="particle particle-2"></div>
+              <div className="particle particle-3"></div>
+              <div className="particle particle-4"></div>
+              <div className="particle particle-5"></div>
+              <div className="particle particle-6"></div>
+              <div className="particle particle-7"></div>
+              <div className="particle particle-8"></div>
+              <div className="particle particle-9"></div>
+              <div className="particle particle-10"></div>
+            </div>
+            
+            {/* Enhanced Geometric Shapes */}
+            <div className="geometric-shapes">
+              <div className="shape shape-1"></div>
+              <div className="shape shape-2"></div>
+              <div className="shape shape-3"></div>
+              <div className="shape shape-4"></div>
+              <div className="shape shape-5"></div>
+              <div className="shape shape-6"></div>
+              <div className="shape shape-7"></div>
+            </div>
+            
+            {/* Data Streams */}
+            <div className="data-streams">
+              <div className="data-stream stream-1"></div>
+              <div className="data-stream stream-2"></div>
+              <div className="data-stream stream-3"></div>
+              <div className="data-stream stream-4"></div>
+            </div>
+            
+            {/* Holographic Grid */}
+            <div className="holographic-grid">
+              <div className="grid-line grid-line-1"></div>
+              <div className="grid-line grid-line-2"></div>
+              <div className="grid-line grid-line-3"></div>
+              <div className="grid-line grid-line-4"></div>
+              <div className="grid-line grid-line-5"></div>
+            </div>
+            
+            {/* Energy Waves */}
+            <div className="energy-waves">
+              <div className="wave wave-1"></div>
+              <div className="wave wave-2"></div>
+              <div className="wave wave-3"></div>
+              <div className="wave wave-4"></div>
+            </div>
+            
+            {/* Neural Network */}
+            <div className="neural-network">
+              <div className="neural-node node-1"></div>
+              <div className="neural-node node-2"></div>
+              <div className="neural-node node-3"></div>
+              <div className="neural-node node-4"></div>
+              <div className="neural-node node-5"></div>
+              <div className="neural-connection connection-1"></div>
+              <div className="neural-connection connection-2"></div>
+              <div className="neural-connection connection-3"></div>
+              <div className="neural-connection connection-4"></div>
+            </div>
+            
+            {/* Quantum Dots */}
+            <div className="quantum-dots">
+              <div className="quantum-dot dot-1"></div>
+              <div className="quantum-dot dot-2"></div>
+              <div className="quantum-dot dot-3"></div>
+              <div className="quantum-dot dot-4"></div>
+              <div className="quantum-dot dot-5"></div>
+              <div className="quantum-dot dot-6"></div>
+            </div>
+            
+            {/* Holographic Orbs */}
+            <div className="holographic-orbs">
+              <div className="orb orb-1"></div>
+              <div className="orb orb-2"></div>
+              <div className="orb orb-3"></div>
             </div>
           </div>
+          
+          <div className="user-clean-card">
+            <div className="clean-header">
+              <div className="clean-avatar">
+                <div className="avatar-circle">MJ</div>
+                <div className="avatar-status"></div>
+              </div>
+              
+              <div className="clean-info">
+                <h1 className="clean-name">Mark Johnson</h1>
+                <p className="clean-title">Joueur Professionnel</p>
+                <div className="clean-meta">
+                  <span className="meta-badge">Niveau 42</span>
+                  <span className="meta-badge">Or III</span>
+                  <span className="meta-badge">Amérique du Nord</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="clean-stats">
+              <div className="stat-row">
+                <div className="stat">
+                  <div className="stat-value">127</div>
+                  <div className="stat-label">Matchs</div>
+                </div>
+                <div className="stat">
+                  <div className="stat-value">89%</div>
+                  <div className="stat-label">Taux de Victoire</div>
+                </div>
+                <div className="stat">
+                  <div className="stat-value">4.8</div>
+                  <div className="stat-label">Note</div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="clean-actions">
+              <button className="clean-btn primary">Message</button>
+              <button className="clean-btn secondary">Voir le Profil</button>
+            </div>
+          </div>
+          
           <div className="user-stats">
-            <div className="stat-item">
+            <div className="stats-header">
+              <h4 className="stats-title">Performance</h4>
+              <div className="stats-period">Ce Mois</div>
+            </div>
+            
+            <div className="stats-grid">
+              <div className="stat-card">
+                <div className="stat-icon">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                </div>
+                <div className="stat-content">
               <span className="stat-value">127</span>
-              <span className="stat-label">Matches</span>
+              <span className="stat-label">Matchs</span>
+                  <div className="stat-trend positive">+12%</div>
+                </div>
+              </div>
+              
+              <div className="stat-card">
+                <div className="stat-icon">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
             </div>
-            <div className="stat-item">
+                <div className="stat-content">
               <span className="stat-value">89%</span>
-              <span className="stat-label">Win Rate</span>
+              <span className="stat-label">Taux de Victoire</span>
+                  <div className="stat-trend positive">+5%</div>
+                </div>
+              </div>
+              
+              <div className="stat-card">
+                <div className="stat-icon">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                  </svg>
             </div>
-            <div className="stat-item">
+                <div className="stat-content">
               <span className="stat-value">4.8</span>
-              <span className="stat-label">Rating</span>
+              <span className="stat-label">Note</span>
+                  <div className="stat-trend positive">+0.3</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Flexible Content Grid */}
-        <div className="content-grid">
-          {/* Welcome Card - Full width on mobile, half on desktop */}
-          <div className="card welcome-card grid-item grid-item--welcome">
-            <h2 className="welcome-title">🎮 Ready to Play with Pros!</h2>
-            <p className="welcome-subtitle">Welcome back, Mark! Book a session with professional players or get personalized coaching.</p>
-            <div className="welcome-actions">
-              <button className="welcome-button primary">Find Pro Player</button>
-              <button className="welcome-button secondary">Book Coaching</button>
-            </div>
-          </div>
-
-          {/* E-Sport Stats Card - Responsive grid */}
-          <div className="card gaming-stats-card grid-item grid-item--stats">
-            <div className="stats-header">
-              <h3 className="stats-title">🏆 E-Sport Performance</h3>
-              <p className="stats-subtitle">Your {currentGame} stats and progress this week</p>
-            </div>
-            <div className="stats-grid">
-              <div className="stat-item">
-                <svg className="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-                <div className="stat-content">
-                  <h4>Win Rate</h4>
-                  <p>89%</p>
-                  <div className="stat-progress">
-                    <div className="stat-progress-bar" style={{width: '89%'}}></div>
-                  </div>
+        {/* Alternance 1-2-1-2 Layout */}
+        <div className="flexible-content">
+          {/* 1 GRID - Section pleine largeur */}
+          <div className="content-row full-width">
+            <div className="welcome-section">
+              <div className="welcome-card">
+                <div className="welcome-header">
+                  <h2 className="welcome-title">🎮 Prêt à Jouer avec les Pros !</h2>
+                  <p className="welcome-subtitle">Bon retour, Mark ! Réserve une session avec des joueurs professionnels ou reçois un coaching personnalisé.</p>
                 </div>
-              </div>
-              
-              <div className="stat-item">
-                <svg className="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-                <div className="stat-content">
-                  <h4>K/D Ratio</h4>
-                  <p>2.4</p>
-                </div>
-              </div>
-              
-              <div className="stat-item">
-                <svg className="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-                <div className="stat-content">
-                  <h4>Rank Progress</h4>
-                  <p>76%</p>
-                  <div className="stat-progress">
-                    <div className="stat-progress-bar" style={{width: '76%'}}></div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="stat-item">
-                <svg className="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-                <div className="stat-content">
-                  <h4>Avg Score</h4>
-                  <p>1,247</p>
-                </div>
-              </div>
-              
-              <div className="stat-item">
-                <svg className="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <div className="stat-content">
-                  <h4>Sessions Booked</h4>
-                  <p>12</p>
-                </div>
-              </div>
-              
-              <div className="stat-item">
-                <svg className="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <div className="stat-content">
-                  <h4>Coaching Hours</h4>
-                  <p>8.5h</p>
+                <div className="welcome-actions">
+                  <button className="action-button primary">
+                    <span className="button-icon">👥</span>
+                    <span className="button-text">Trouver un Pro</span>
+                  </button>
+                  <button className="action-button secondary">
+                    <span className="button-icon">🎯</span>
+                    <span className="button-text">Réserver Coaching</span>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-
-         
+          
+          {/* 2 GRID - Deux sections côte à côte */}
+          <div className="content-row two-columns">
+            <div className="content-column">
+              <div className="quick-stats-section">
+                <div className="quick-stats-card">
+                  <h3 className="quick-stats-title">📊 Aperçu Rapide</h3>
+                  <div className="quick-stats-grid">
+                    <div className="quick-stat">
+                      <div className="stat-icon">🏆</div>
+                      <div className="stat-info">
+                        <div className="stat-value">89%</div>
+                        <div className="stat-label">Victoires</div>
+                      </div>
+                    </div>
+                    <div className="quick-stat">
+                      <div className="stat-icon">⚡</div>
+                      <div className="stat-info">
+                        <div className="stat-value">127</div>
+                        <div className="stat-label">Matchs</div>
+                      </div>
+                    </div>
+                    <div className="quick-stat">
+                      <div className="stat-icon">⭐</div>
+                      <div className="stat-info">
+                        <div className="stat-value">4.8</div>
+                        <div className="stat-label">Note</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="content-column">
+              <div className="pro-players-section">
+                <div className="pro-players-card">
+                  <div className="pro-players-header">
+                    <h3 className="pro-players-title">⭐ Joueurs Pro Recommandés</h3>
+                    <p className="pro-players-subtitle">Découvrez les meilleurs joueurs pour votre niveau</p>
+                  </div>
+                  
+                  <div className="pro-players-list">
+                    <div className="pro-player-item">
+                      <div className="player-avatar">
+                        <div className="avatar-img">AL</div>
+                        <div className="player-status online"></div>
+                      </div>
+                      <div className="player-details">
+                        <h4 className="player-name">Alex Legend</h4>
+                        <p className="player-game">Valorant • Immortal 3</p>
+                        <div className="player-rating">
+                          <div className="stars">⭐⭐⭐⭐⭐</div>
+                          <span className="rating-text">4.9/5</span>
+                        </div>
+                      </div>
+                      <div className="player-actions">
+                        <button className="book-button">Réserver</button>
+                        <span className="price">25€/h</span>
+                      </div>
+                    </div>
+                    
+                    <div className="pro-player-item">
+                      <div className="player-avatar">
+                        <div className="avatar-img">SM</div>
+                        <div className="player-status online"></div>
+                      </div>
+                      <div className="player-details">
+                        <h4 className="player-name">Sarah Master</h4>
+                        <p className="player-game">League of Legends • Challenger</p>
+                        <div className="player-rating">
+                          <div className="stars">⭐⭐⭐⭐⭐</div>
+                          <span className="rating-text">4.8/5</span>
+                        </div>
+                      </div>
+                      <div className="player-actions">
+                        <button className="book-button">Réserver</button>
+                        <span className="price">30€/h</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="pro-players-footer">
+                    <button className="view-all-button">Voir Tous les Pros</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+       
+          
+        
+          
+          {/* Bottom Row - Additional Content */}
+          <div className="content-row bottom-row">
+            <div className="recent-activity-section">
+              <div className="activity-card">
+                <h3 className="activity-title">📈 Activité Récente</h3>
+                <div className="activity-list">
+                  <div className="activity-item">
+                    <div className="activity-icon">🎮</div>
+                    <div className="activity-content">
+                      <div className="activity-text">Session avec Alex Legend</div>
+                      <div className="activity-time">Il y a 2 heures</div>
+                    </div>
+                  </div>
+                  <div className="activity-item">
+                    <div className="activity-icon">🏆</div>
+                    <div className="activity-content">
+                      <div className="activity-text">Nouveau rang atteint</div>
+                      <div className="activity-time">Il y a 1 jour</div>
+                    </div>
+                  </div>
+                  <div className="activity-item">
+                    <div className="activity-icon">⭐</div>
+                    <div className="activity-content">
+                      <div className="activity-text">Évaluation reçue</div>
+                      <div className="activity-time">Il y a 3 jours</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="achievements-section">
+              <div className="achievements-card">
+                <h3 className="achievements-title">🏅 Récompenses</h3>
+                <div className="achievements-grid">
+                  <div className="achievement-item">
+                    <div className="achievement-icon">🥇</div>
+                    <div className="achievement-name">Champion</div>
+                  </div>
+                  <div className="achievement-item">
+                    <div className="achievement-icon">⚡</div>
+                    <div className="achievement-name">Rapide</div>
+                  </div>
+                  <div className="achievement-item">
+                    <div className="achievement-icon">🎯</div>
+                    <div className="achievement-name">Précis</div>
+                  </div>
+                  <div className="achievement-item">
+                    <div className="achievement-icon">🔥</div>
+                    <div className="achievement-name">Série</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
      
@@ -389,9 +639,9 @@ function DashboardUser() {
 
         {/* Footer */}
         <footer className="dashboard-footer">
-          <div className="footer-text">© 2024, Made with ❤️ by PLAY-WITH-PRO - Connecting gamers with professionals</div>
+          <div className="footer-text">© 2024, Fait avec ❤️ par PLAY-WITH-PRO - Connecter les joueurs avec les professionnels</div>
           <div className="footer-links">
-            <button className="footer-link">Pro Players</button>
+            <button className="footer-link">Joueurs Pro</button>
             <button className="footer-link">Coaching</button>
             <button className="footer-link">Support</button>
           </div>

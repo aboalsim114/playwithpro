@@ -17,6 +17,7 @@ function DashboardUser() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentGame, setCurrentGame] = useState('CS2');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isGameDropdownOpen, setIsGameDropdownOpen] = useState(false);
  
 
   useEffect(() => {
@@ -194,19 +195,58 @@ function DashboardUser() {
           </div>
           <div className="header-actions">
             <div className="game-selector">
-              <select 
-                value={currentGame} 
-                onChange={(e) => setCurrentGame(e.target.value)}
-                className="game-select"
-              >
-                <option value="CS2">CS2</option>
-                <option value="Valorant">Valorant</option>
-                <option value="LoL">League of Legends</option>
-                <option value="Fortnite">Fortnite</option>
-                <option value="Apex">Apex Legends</option>
-                <option value="FIFA">FIFA</option>
-                <option value="COD">Call of Duty</option>
-              </select>
+              <div className="game-dropdown">
+                <button 
+                  className="game-dropdown-trigger"
+                  onClick={() => setIsGameDropdownOpen(!isGameDropdownOpen)}
+                >
+                  <div className="game-current">
+                    <span className="game-emoji">
+                      {currentGame === 'CS2' && '🔫'}
+                      {currentGame === 'Valorant' && '🎯'}
+                      {currentGame === 'LoL' && '⚔️'}
+                      {currentGame === 'Fortnite' && '🏗️'}
+                      {currentGame === 'Apex' && '🚀'}
+                      {currentGame === 'FIFA' && '⚽'}
+                      {currentGame === 'COD' && '💥'}
+                    </span>
+                    <span className="game-name">{currentGame}</span>
+                  </div>
+                  <svg className={`dropdown-arrow ${isGameDropdownOpen ? 'open' : ''}`} width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div className={`game-dropdown-menu ${isGameDropdownOpen ? 'open' : ''}`}>
+                  <div className="game-option" onClick={() => {setCurrentGame('CS2'); setIsGameDropdownOpen(false);}}>
+                    <span className="game-emoji">🔫</span>
+                    <span className="game-text">CS2</span>
+                  </div>
+                  <div className="game-option" onClick={() => {setCurrentGame('Valorant'); setIsGameDropdownOpen(false);}}>
+                    <span className="game-emoji">🎯</span>
+                    <span className="game-text">Valorant</span>
+                  </div>
+                  <div className="game-option" onClick={() => {setCurrentGame('LoL'); setIsGameDropdownOpen(false);}}>
+                    <span className="game-emoji">⚔️</span>
+                    <span className="game-text">League of Legends</span>
+                  </div>
+                  <div className="game-option" onClick={() => {setCurrentGame('Fortnite'); setIsGameDropdownOpen(false);}}>
+                    <span className="game-emoji">🏗️</span>
+                    <span className="game-text">Fortnite</span>
+                  </div>
+                  <div className="game-option" onClick={() => {setCurrentGame('Apex'); setIsGameDropdownOpen(false);}}>
+                    <span className="game-emoji">🚀</span>
+                    <span className="game-text">Apex Legends</span>
+                  </div>
+                  <div className="game-option" onClick={() => {setCurrentGame('FIFA'); setIsGameDropdownOpen(false);}}>
+                    <span className="game-emoji">⚽</span>
+                    <span className="game-text">FIFA</span>
+                  </div>
+                  <div className="game-option" onClick={() => {setCurrentGame('COD'); setIsGameDropdownOpen(false);}}>
+                    <span className="game-emoji">💥</span>
+                    <span className="game-text">Call of Duty</span>
+                  </div>
+                </div>
+              </div>
             </div>
           
             <svg className="header-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">

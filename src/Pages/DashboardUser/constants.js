@@ -24,16 +24,15 @@ export const NAV_SECTIONS = {
       { id: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
       { id: 'matches', label: 'Matches', icon: 'matches' },
       { id: 'coaching', label: 'Coaching', icon: 'coaching' },
-      { id: 'rankings', label: 'Rankings', icon: 'rankings' }
     ]
   },
   FEATURES: {
     title: 'Features',
     items: [
       { id: 'chat', label: 'Chat', icon: 'chat' },
-      { id: 'replays', label: 'Replays', icon: 'replays' },
       { id: 'payments', label: 'Payments', icon: 'payments' },
-      { id: 'profile', label: 'Profile', icon: 'profile' }
+      { id: 'profile', label: 'Profile', icon: 'profile' },
+      { id: 'logout', label: 'Déconnexion', icon: 'logout' },
     ]
   }
 };
@@ -85,5 +84,8 @@ export const SVG_ICONS = {
   ),
   profile: (
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+  ),
+  logout: (
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
   )
 };

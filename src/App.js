@@ -7,6 +7,7 @@ import Inscription from './Pages/InscriptionPage/Inscription';
 import Connexion from './Pages/ConnexionPage/Connexion';
 import DashboardUser from './Pages/DashboardUser/DashboardUser';
 import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
+import UserProfile from './Pages/UserProfile/UserProfile'
 import { useAuthInitialization } from './hooks/useAuthInitialization';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/inscription" element={<Inscription />} />
         <Route path="/connexion" element={<Connexion />} />
         <Route path="/dash-user" element={<DashboardUser />} />
+        <Route path="/user/:id" element={<UserProfile />} />
       </Routes>
     </div>
   );

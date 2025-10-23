@@ -512,57 +512,34 @@ function DashboardUser() {
             </div>
             
             <div className="content-column">
-              <div className="pro-players-section">
-                <div className="pro-players-card">
-                  <div className="pro-players-header">
-                    <h3 className="pro-players-title">⭐ Joueurs Pro Recommandés</h3>
-                    <p className="pro-players-subtitle">Découvrez les meilleurs joueurs pour votre niveau</p>
+              <div className="gaming-pro-section">
+                {/* Gaming Background Effects */}
+                <div className="gaming-background">
+                  <div className="cyber-grid"></div>
+                  <div className="neon-particles">
+                    <div className="particle particle-1"></div>
+                    <div className="particle particle-2"></div>
+                    <div className="particle particle-3"></div>
+                    <div className="particle particle-4"></div>
+                    <div className="particle particle-5"></div>
+                    <div className="particle particle-6"></div>
+                    <div className="particle particle-7"></div>
+                    <div className="particle particle-8"></div>
                   </div>
-                  
-                  <div className="pro-players-list">
-                    <div className="pro-player-item">
-                      <div className="player-avatar">
-                        <div className="avatar-img">AL</div>
-                        <div className="player-status online"></div>
-                      </div>
-                      <div className="player-details">
-                        <h4 className="player-name">Alex Legend</h4>
-                        <p className="player-game">Valorant • Immortal 3</p>
-                        <div className="player-rating">
-                          <div className="stars">⭐⭐⭐⭐⭐</div>
-                          <span className="rating-text">4.9/5</span>
-                        </div>
-                      </div>
-                      <div className="player-actions">
-                        <button className="book-button">Réserver</button>
-                        <span className="price">25€/h</span>
-                      </div>
-                    </div>
-                    
-                    <div className="pro-player-item">
-                      <div className="player-avatar">
-                        <div className="avatar-img">SM</div>
-                        <div className="player-status online"></div>
-                      </div>
-                      <div className="player-details">
-                        <h4 className="player-name">Sarah Master</h4>
-                        <p className="player-game">League of Legends • Challenger</p>
-                        <div className="player-rating">
-                          <div className="stars">⭐⭐⭐⭐⭐</div>
-                          <span className="rating-text">4.8/5</span>
-                        </div>
-                      </div>
-                      <div className="player-actions">
-                        <button className="book-button">Réserver</button>
-                        <span className="price">30€/h</span>
-                      </div>
-                    </div>
+                  <div className="energy-waves">
+                    <div className="wave wave-1"></div>
+                    <div className="wave wave-2"></div>
+                    <div className="wave wave-3"></div>
                   </div>
-                  
-                  <div className="pro-players-footer">
-                    <button className="view-all-button">Voir Tous les Pros</button>
+                  <div className="holographic-lines">
+                    <div className="line line-1"></div>
+                    <div className="line line-2"></div>
+                    <div className="line line-3"></div>
+                    <div className="line line-4"></div>
                   </div>
                 </div>
+
+            
               </div>
             </div>
           </div>
@@ -571,61 +548,7 @@ function DashboardUser() {
           
         
           
-          {/* Bottom Row - Additional Content */}
-          <div className="content-row bottom-row">
-            <div className="recent-activity-section">
-              <div className="activity-card">
-                <h3 className="activity-title">📈 Activité Récente</h3>
-                <div className="activity-list">
-                  <div className="activity-item">
-                    <div className="activity-icon">🎮</div>
-                    <div className="activity-content">
-                      <div className="activity-text">Session avec Alex Legend</div>
-                      <div className="activity-time">Il y a 2 heures</div>
-                    </div>
-                  </div>
-                  <div className="activity-item">
-                    <div className="activity-icon">🏆</div>
-                    <div className="activity-content">
-                      <div className="activity-text">Nouveau rang atteint</div>
-                      <div className="activity-time">Il y a 1 jour</div>
-                    </div>
-                  </div>
-                  <div className="activity-item">
-                    <div className="activity-icon">⭐</div>
-                    <div className="activity-content">
-                      <div className="activity-text">Évaluation reçue</div>
-                      <div className="activity-time">Il y a 3 jours</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="achievements-section">
-              <div className="achievements-card">
-                <h3 className="achievements-title">🏅 Récompenses</h3>
-                <div className="achievements-grid">
-                  <div className="achievement-item">
-                    <div className="achievement-icon">🥇</div>
-                    <div className="achievement-name">Champion</div>
-                  </div>
-                  <div className="achievement-item">
-                    <div className="achievement-icon">⚡</div>
-                    <div className="achievement-name">Rapide</div>
-                  </div>
-                  <div className="achievement-item">
-                    <div className="achievement-icon">🎯</div>
-                    <div className="achievement-name">Précis</div>
-                  </div>
-                  <div className="achievement-item">
-                    <div className="achievement-icon">🔥</div>
-                    <div className="achievement-name">Série</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        
         </div>
 
      

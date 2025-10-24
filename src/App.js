@@ -2,6 +2,7 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 
 import PublicLayout from './Components/PublicLayout';
+import PrivateLayout from './Components/PrivateLayout';
 import Home from './Pages/HomePage/Home';
 import Inscription from './Pages/InscriptionPage/Inscription';
 import Connexion from './Pages/ConnexionPage/Connexion';
@@ -30,10 +31,18 @@ function App() {
           </PublicLayout>
         } />
         
-        {/* Pages protégées avec Sidebar (DashboardUser) */}
+        {/* Pages protégées avec Sidebar */}
         <Route element={<PrivateRoute />}>
-          <Route path="/dash-user" element={<DashboardUser />} />
-          <Route path="/user/:id" element={<UserProfile />} />
+          <Route path="/dash-user" element={
+            <PrivateLayout>
+              <DashboardUser />
+            </PrivateLayout>
+          } />
+          <Route path="/user/:id" element={
+            <PrivateLayout>
+              <UserProfile />
+            </PrivateLayout>
+          } />
         </Route>
       </Routes>
     </div>

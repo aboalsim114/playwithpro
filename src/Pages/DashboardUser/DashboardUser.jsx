@@ -41,8 +41,13 @@ function DashboardUser() {
         onGameSelect={selectGame}
       />
 
+      <br />
+      <br />
+
       {/* User Banner */}
       <UserBanner />
+      <br />
+      <br />
 
       {/* Flexible Content Layout */}
       <div className="flexible-content">

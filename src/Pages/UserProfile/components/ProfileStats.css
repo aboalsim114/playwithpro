@@ -1,4 +1,4 @@
-/* ===== PROFILE STATS COMPONENT ===== */
+/* ===== ENHANCED PROFILE STATS COMPONENT ===== */
 
 .profile-stats {
   background: var(--glass-bg);
@@ -8,6 +8,45 @@
   padding: 2rem;
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-medium);
+}
+
+.stats-bg-effects {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stats-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(1px 1px at 20px 30px, rgba(0, 255, 136, 0.3), transparent),
+    radial-gradient(1px 1px at 40px 70px, rgba(255, 107, 53, 0.3), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(0, 212, 255, 0.3), transparent);
+  background-repeat: repeat;
+  background-size: 100px 100px;
+  animation: statsParticlesFloat 15s linear infinite;
+}
+
+.stats-grid-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(0, 255, 136, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 136, 0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+  animation: statsGridPulse 6s ease-in-out infinite;
 }
 
 .profile-stats::before {
@@ -16,18 +55,21 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 3px;
   background: linear-gradient(90deg, 
     var(--gaming-green) 0%, 
     var(--pro-orange) 50%, 
     var(--accent-cyan) 100%);
   animation: statsGlow 4s ease-in-out infinite;
+  z-index: 1;
 }
 
-/* ===== HEADER ===== */
+/* ===== ENHANCED HEADER ===== */
 .stats-header {
   margin-bottom: 2rem;
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .stats-title {
@@ -39,30 +81,61 @@
   font-weight: 700;
   color: var(--text-primary);
   margin: 0 0 0.5rem 0;
-  text-shadow: var(--shadow-gaming);
+  position: relative;
 }
 
 .stats-icon {
   font-size: 2rem;
   animation: statsIconFloat 3s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+}
+
+.stats-text {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(45deg, var(--text-primary), var(--gaming-green), var(--accent-cyan));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+}
+
+.stats-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, var(--gaming-green), var(--accent-cyan));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: blur(2px);
+  opacity: 0.5;
+  animation: statsTextGlow 3s ease-in-out infinite;
 }
 
 .stats-subtitle {
   color: var(--text-secondary);
   font-size: 1rem;
   margin: 0;
+  position: relative;
+  z-index: 2;
 }
 
-/* ===== STATS GRID ===== */
+/* ===== ENHANCED STATS GRID ===== */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
 }
 
 .stat-card {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.3);
   border-radius: var(--border-radius-md);
   padding: 1.5rem;
   border: 1px solid var(--glass-border);
@@ -70,41 +143,83 @@
   position: relative;
   overflow: hidden;
   animation: statCardSlideIn 0.6s ease-out var(--delay);
+  backdrop-filter: blur(10px);
 }
 
-.stat-card::before {
-  content: '';
+.stat-card-glow {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
-  background: var(--color, var(--gaming-green));
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
+  bottom: 0;
+  background: var(--stat-color);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  border-radius: var(--border-radius-md);
 }
 
-.stat-card:hover::before {
-  transform: scaleX(1);
+.stat-card:hover .stat-card-glow {
+  opacity: 0.1;
 }
 
 .stat-card:hover {
-  transform: translateY(-5px);
-  background: rgba(0, 0, 0, 0.3);
-  box-shadow: var(--shadow-soft);
+  transform: translateY(-8px);
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-medium);
+}
+
+.stat-card-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--stat-color);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+}
+
+.stat-card:hover .stat-card-border {
+  transform: scaleX(1);
+}
+
+.stat-icon-container {
+  position: relative;
+  margin-bottom: 1rem;
+  display: inline-block;
 }
 
 .stat-icon {
   font-size: 2.5rem;
-  margin-bottom: 1rem;
   display: block;
   animation: statIconPulse 2s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+}
+
+.stat-icon-ring {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  background: var(--stat-color);
+  opacity: 0;
+  animation: statIconRing 2s ease-in-out infinite;
+}
+
+.stat-card:hover .stat-icon-ring {
+  opacity: 0.2;
 }
 
 .stat-content {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  position: relative;
+  z-index: 2;
 }
 
 .stat-value {
@@ -114,6 +229,10 @@
   display: flex;
   align-items: baseline;
   gap: 0.25rem;
+}
+
+.stat-number {
+  text-shadow: 0 0 10px var(--stat-color);
 }
 
 .stat-suffix {
@@ -130,7 +249,7 @@
   letter-spacing: 0.5px;
 }
 
-/* ===== PROGRESS BAR ===== */
+/* ===== ENHANCED PROGRESS BAR ===== */
 .stat-progress {
   margin-top: 1rem;
   display: flex;
@@ -140,35 +259,50 @@
 
 .progress-bar {
   flex: 1;
-  height: 6px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
   overflow: hidden;
   position: relative;
+  border: 1px solid var(--glass-border);
 }
 
 .progress-fill {
   height: 100%;
   width: var(--progress);
   background: var(--color);
-  border-radius: 3px;
+  border-radius: 4px;
   position: relative;
   transition: width 1s ease;
-  box-shadow: 0 0 8px var(--color);
+  box-shadow: 0 0 10px var(--color);
+  overflow: hidden;
 }
 
-.progress-fill::after {
-  content: '';
+.progress-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.4) 50%, 
+    transparent 100%);
+  animation: progressShine 2s ease-in-out infinite;
+}
+
+.progress-particles {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(255, 255, 255, 0.3) 50%, 
-    transparent 100%);
-  animation: progressShine 2s ease-in-out infinite;
+  background: 
+    radial-gradient(1px 1px at 10px 4px, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 20px 4px, var(--color), transparent);
+  background-repeat: repeat-x;
+  background-size: 30px 8px;
+  animation: progressParticles 2s linear infinite;
 }
 
 .progress-text {
@@ -177,25 +311,47 @@
   font-size: 0.9rem;
   min-width: 40px;
   text-align: right;
+  text-shadow: 0 0 5px var(--color);
 }
 
-/* ===== FAVORITE GAME SECTION ===== */
+/* ===== ENHANCED FAVORITE GAME SECTION ===== */
 .favorite-game-section {
   margin-top: 2rem;
+  position: relative;
+  z-index: 2;
 }
 
 .favorite-game-card {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.3);
   border-radius: var(--border-radius-md);
   padding: 1.5rem;
   border: 1px solid var(--glass-border);
   transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.game-card-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, var(--gaming-green), var(--pro-orange));
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  border-radius: var(--border-radius-md);
+}
+
+.favorite-game-card:hover .game-card-glow {
+  opacity: 0.1;
 }
 
 .favorite-game-card:hover {
-  background: rgba(0, 0, 0, 0.3);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-soft);
+  background: rgba(0, 0, 0, 0.4);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-medium);
 }
 
 .favorite-game-header {
@@ -203,11 +359,36 @@
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.favorite-game-icon-container {
+  position: relative;
+  display: inline-block;
 }
 
 .favorite-game-icon {
   font-size: 1.5rem;
   color: var(--gaming-green);
+  position: relative;
+  z-index: 2;
+}
+
+.icon-pulse {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  background: var(--gaming-green);
+  opacity: 0;
+  animation: iconPulse 2s ease-in-out infinite;
+}
+
+.favorite-game-card:hover .icon-pulse {
+  opacity: 0.3;
 }
 
 .favorite-game-header h3 {
@@ -215,27 +396,59 @@
   font-size: 1.2rem;
   font-weight: 600;
   margin: 0;
+  position: relative;
+  z-index: 2;
 }
 
 .favorite-game-content {
   display: flex;
   align-items: center;
   gap: 1rem;
+  position: relative;
+  z-index: 2;
 }
 
 .game-logo {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(45deg, var(--gaming-green), var(--pro-orange));
+  width: 70px;
+  height: 70px;
   border-radius: var(--border-radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+
+.game-logo-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, var(--gaming-green), var(--pro-orange));
+  border-radius: var(--border-radius-md);
 }
 
 .game-icon {
-  font-size: 2rem;
+  font-size: 2.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.game-logo-glow {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: var(--border-radius-md);
+  background: linear-gradient(45deg, var(--gaming-green), var(--pro-orange));
+  opacity: 0;
+  animation: gameLogoGlow 2s ease-in-out infinite;
+}
+
+.favorite-game-card:hover .game-logo-glow {
+  opacity: 0.3;
 }
 
 .game-info {
@@ -247,18 +460,59 @@
   font-size: 1.3rem;
   font-weight: 600;
   margin: 0 0 0.25rem 0;
+  text-shadow: 0 0 10px var(--gaming-green);
 }
 
 .game-description {
   color: var(--text-secondary);
   font-size: 0.9rem;
-  margin: 0;
+  margin: 0 0 0.75rem 0;
 }
 
-/* ===== ANIMATIONS ===== */
+.game-stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.game-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.game-stat-label {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.game-stat-value {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  text-shadow: 0 0 5px var(--gaming-green);
+}
+
+/* ===== ENHANCED ANIMATIONS ===== */
 @keyframes statsGlow {
   0%, 100% { opacity: 0.5; }
   50% { opacity: 1; }
+}
+
+@keyframes statsParticlesFloat {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-100px) rotate(360deg); }
+}
+
+@keyframes statsGridPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes statsTextGlow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
 }
 
 @keyframes statsIconFloat {
@@ -282,9 +536,29 @@
   50% { transform: scale(1.1); }
 }
 
+@keyframes statIconRing {
+  0%, 100% { opacity: 0; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.2); }
+}
+
 @keyframes progressShine {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
+}
+
+@keyframes progressParticles {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(30px); }
+}
+
+@keyframes iconPulse {
+  0%, 100% { opacity: 0; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.2); }
+}
+
+@keyframes gameLogoGlow {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.3; }
 }
 
 /* ===== RESPONSIVE DESIGN ===== */

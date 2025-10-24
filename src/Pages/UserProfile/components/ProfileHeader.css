@@ -1,4 +1,4 @@
-/* ===== PROFILE HEADER COMPONENT ===== */
+/* ===== ENHANCED PROFILE HEADER COMPONENT ===== */
 
 .profile-header {
   background: var(--glass-bg);
@@ -9,6 +9,45 @@
   margin-bottom: 2rem;
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-medium);
+}
+
+.gaming-header-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cyber-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: 
+    linear-gradient(45deg, transparent 48%, rgba(0, 255, 136, 0.1) 49%, rgba(0, 255, 136, 0.1) 51%, transparent 52%),
+    linear-gradient(-45deg, transparent 48%, rgba(255, 107, 53, 0.1) 49%, rgba(255, 107, 53, 0.1) 51%, transparent 52%);
+  background-size: 20px 20px;
+  animation: cyberPatternMove 8s linear infinite;
+}
+
+.energy-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--gaming-green) 25%, 
+    var(--pro-orange) 50%, 
+    var(--streamer-purple) 75%, 
+    transparent 100%);
+  animation: energyFlow 4s ease-in-out infinite;
 }
 
 .profile-header::before {
@@ -17,12 +56,13 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 3px;
   background: linear-gradient(90deg, 
     var(--gaming-green) 0%, 
     var(--pro-orange) 50%, 
     var(--streamer-purple) 100%);
   animation: headerGlow 3s ease-in-out infinite;
+  z-index: 1;
 }
 
 /* ===== USER INFO SECTION ===== */
@@ -44,6 +84,24 @@
   position: relative;
   width: 120px;
   height: 120px;
+  z-index: 2;
+}
+
+.avatar-ring {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--gaming-green) 0deg,
+    var(--pro-orange) 120deg,
+    var(--streamer-purple) 240deg,
+    var(--gaming-green) 360deg
+  );
+  animation: avatarRingRotate 4s linear infinite;
+  z-index: -1;
 }
 
 .profile-avatar {
@@ -51,9 +109,11 @@
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--glass-border);
+  border: 4px solid var(--glass-border);
   box-shadow: var(--shadow-soft);
   transition: var(--transition-normal);
+  position: relative;
+  z-index: 1;
 }
 
 .profile-avatar:hover {
@@ -63,20 +123,59 @@
 
 .profile-level-badge {
   position: absolute;
-  bottom: -5px;
-  right: -5px;
-  width: 40px;
-  height: 40px;
+  bottom: -8px;
+  right: -8px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: white;
   border: 3px solid var(--glass-bg);
   box-shadow: var(--shadow-soft);
   animation: levelPulse 2s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.level-number {
+  position: relative;
+  z-index: 2;
+}
+
+.level-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  animation: levelGlow 2s ease-in-out infinite;
+}
+
+.user-type-indicator {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--glass-border);
+}
+
+.type-glow {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: typeGlow 1.5s ease-in-out infinite;
 }
 
 .profile-user-details {
@@ -90,11 +189,32 @@
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
-  text-shadow: var(--shadow-gaming);
-  background: linear-gradient(45deg, var(--text-primary), var(--gaming-green));
+  position: relative;
+  display: inline-block;
+}
+
+.username-text {
+  background: linear-gradient(45deg, var(--text-primary), var(--gaming-green), var(--accent-cyan));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+  animation: usernameGlow 3s ease-in-out infinite;
+}
+
+.username-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, var(--gaming-green), var(--accent-cyan));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: blur(2px);
+  opacity: 0.5;
+  animation: usernameGlow 3s ease-in-out infinite reverse;
 }
 
 .profile-user-meta {
@@ -116,12 +236,34 @@
   font-size: 0.95rem;
 }
 
-/* ===== XP SECTION ===== */
+/* ===== ENHANCED XP SECTION ===== */
 .profile-xp-section {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
   min-width: 300px;
+  position: relative;
+}
+
+.xp-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.xp-icon {
+  font-size: 1.2rem;
+  animation: xpIconPulse 2s ease-in-out infinite;
+}
+
+.xp-label {
+  color: var(--text-accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px var(--gaming-green);
 }
 
 .profile-xp-info {
@@ -132,8 +274,9 @@
 
 .profile-xp-current {
   color: var(--text-primary);
-  font-weight: 600;
-  font-size: 1.1rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-shadow: 0 0 10px var(--gaming-green);
 }
 
 .profile-xp-next {
@@ -143,43 +286,59 @@
 
 .profile-xp-bar {
   width: 100%;
-  height: 12px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
+  height: 16px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
   overflow: hidden;
   position: relative;
+  border: 1px solid var(--glass-border);
 }
 
 .profile-xp-progress {
   height: 100%;
-  border-radius: 6px;
+  border-radius: 8px;
   position: relative;
   transition: width 0.8s ease;
-  box-shadow: 0 0 10px currentColor;
+  overflow: hidden;
 }
 
-.profile-xp-progress::after {
-  content: '';
+.xp-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.4) 50%, 
+    transparent 100%);
+  animation: xpShine 2s ease-in-out infinite;
+}
+
+.xp-particles {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(255, 255, 255, 0.3) 50%, 
-    transparent 100%);
-  animation: xpShine 2s ease-in-out infinite;
+  background: 
+    radial-gradient(1px 1px at 20px 8px, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 40px 8px, rgba(0, 255, 136, 0.3), transparent);
+  background-repeat: repeat-x;
+  background-size: 60px 16px;
+  animation: xpParticles 3s linear infinite;
 }
 
-/* ===== NAVIGATION TABS ===== */
+/* ===== ENHANCED NAVIGATION TABS ===== */
 .profile-nav {
   display: flex;
   gap: 0.5rem;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.3);
   padding: 0.5rem;
   border-radius: var(--border-radius-md);
   border: 1px solid var(--glass-border);
+  position: relative;
+  z-index: 2;
 }
 
 .profile-nav-tab {
@@ -197,6 +356,22 @@
   transition: var(--transition-normal);
   position: relative;
   overflow: hidden;
+  flex: 1;
+}
+
+.tab-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    var(--gaming-green) 0%, 
+    var(--pro-orange) 50%, 
+    var(--streamer-purple) 100%);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  border-radius: var(--border-radius-sm);
 }
 
 .profile-nav-tab::before {
@@ -211,6 +386,7 @@
     rgba(255, 255, 255, 0.1), 
     transparent);
   transition: left 0.5s ease;
+  z-index: 1;
 }
 
 .profile-nav-tab:hover::before {
@@ -219,14 +395,20 @@
 
 .profile-nav-tab:hover {
   color: var(--text-primary);
-  background: var(--glass-hover);
   transform: translateY(-2px);
 }
 
+.profile-nav-tab:hover .tab-glow {
+  opacity: 0.1;
+}
+
 .profile-nav-tab.active {
-  background: var(--glass-hover);
   color: var(--text-primary);
   box-shadow: var(--shadow-soft);
+}
+
+.profile-nav-tab.active .tab-glow {
+  opacity: 0.2;
 }
 
 .profile-nav-tab.active .tab-icon {
@@ -236,18 +418,52 @@
 .tab-icon {
   font-size: 1.2rem;
   transition: var(--transition-normal);
+  position: relative;
+  z-index: 2;
 }
 
 .tab-label {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  position: relative;
+  z-index: 2;
 }
 
-/* ===== ANIMATIONS ===== */
+.tab-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gaming-green), var(--accent-cyan));
+  transition: width var(--transition-normal);
+}
+
+.profile-nav-tab.active .tab-indicator {
+  width: 80%;
+}
+
+/* ===== ENHANCED ANIMATIONS ===== */
 @keyframes headerGlow {
   0%, 100% { opacity: 0.5; }
   50% { opacity: 1; }
+}
+
+@keyframes cyberPatternMove {
+  0% { transform: translateX(0) translateY(0); }
+  100% { transform: translateX(20px) translateY(20px); }
+}
+
+@keyframes energyFlow {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes avatarRingRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @keyframes levelPulse {
@@ -255,9 +471,34 @@
   50% { transform: scale(1.1); }
 }
 
+@keyframes levelGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes typeGlow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes usernameGlow {
+  0%, 100% { text-shadow: 0 0 20px rgba(0, 255, 136, 0.5); }
+  50% { text-shadow: 0 0 30px rgba(0, 255, 136, 0.8), 0 0 40px rgba(0, 212, 255, 0.5); }
+}
+
+@keyframes xpIconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
 @keyframes xpShine {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
+}
+
+@keyframes xpParticles {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(60px); }
 }
 
 @keyframes tabIconBounce {
@@ -323,5 +564,39 @@
   
   .profile-username {
     font-size: 1.8rem;
+  }
+}
+
+/* ===== DEFAULT AVATAR INTEGRATION ===== */
+.profile-avatar-container .default-avatar {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+}
+
+.profile-avatar-container .default-avatar .avatar-background {
+  border: 4px solid var(--glass-border);
+  transition: all var(--transition-normal);
+}
+
+.profile-avatar-container .default-avatar:hover .avatar-background {
+  transform: scale(1.05);
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Responsive adjustments for default avatar */
+@media (max-width: 768px) {
+  .profile-avatar-container .default-avatar.large {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-avatar-container .default-avatar.large {
+    width: 80px;
+    height: 80px;
   }
 }

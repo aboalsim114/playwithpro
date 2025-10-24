@@ -1,28 +1,40 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 
-import Navbar from './Composants/Navbar/Navbar';
+import PublicLayout from './Components/PublicLayout';
 import Home from './Pages/HomePage/Home';
 import Inscription from './Pages/InscriptionPage/Inscription';
 import Connexion from './Pages/ConnexionPage/Connexion';
 import DashboardUser from './Pages/DashboardUser/DashboardUser';
-import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
-import UserProfile from './Pages/UserProfile/UserProfile'
-import { useAuthInitialization } from './hooks/useAuthInitialization';
+import UserProfile from './Pages/UserProfile/UserProfile';
+import PrivateRoute from './utils/PrivateRoute';
 
 function App() {
-  // Initialiser l'authentification au démarrage de l'app
-  useAuthInitialization();
-
   return (
     <div>
-      {/* <Navbar /> */}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/inscription" element={<Inscription />} />
-        <Route path="/connexion" element={<Connexion />} />
-        <Route path="/dash-user" element={<DashboardUser />} />
-        <Route path="/user/:id" element={<UserProfile />} />
+        {/* Pages publiques avec Navbar */}
+        <Route path="/" element={
+          <PublicLayout>
+            <Home />
+          </PublicLayout>
+        } />
+        <Route path="/inscription" element={
+          <PublicLayout>
+            <Inscription />
+          </PublicLayout>
+        } />
+        <Route path="/connexion" element={
+          <PublicLayout>
+            <Connexion />
+          </PublicLayout>
+        } />
+        
+        {/* Pages protégées avec Sidebar (DashboardUser) */}
+        <Route element={<PrivateRoute />}>
+          <Route path="/dash-user" element={<DashboardUser />} />
+          <Route path="/user/:id" element={<UserProfile />} />
+        </Route>
       </Routes>
     </div>
   );

@@ -13,10 +13,10 @@
  */
 export const HOW_IT_WORKS_CONTENT = {
   title: {
-    text: "Devenir",
-    gradient: "Pro Gamer"
+   
+    gradient: "Comment ça marche"
   },
-  description: "Rejoins l'élite du gaming compétitif en 4 étapes stratégiques. De la sélection de ton jeu à la domination des serveurs privés, deviens le champion que tu es destiné à être."
+  description: "Découvrez comment réserver un joueur professionnel en 4 étapes simples. De la sélection de votre jeu préféré à l'analyse de votre performance, notre plateforme vous connecte avec les meilleurs pros de l'e-sport pour une expérience gaming exceptionnelle."
 };
 
 /**
@@ -33,33 +33,33 @@ export const STEPS = [
   {
     id: "choose-game",
     number: "🎮",
-    title: "Sélectionne ton Arsenal",
-    description: "Choisis parmi les jeux les plus compétitifs : Valorant, CS2, League of Legends, Fortnite et bien plus",
+    title: "1. Choisis ton Jeu",
+    description: "Sélectionnez parmi notre catalogue de jeux populaires : CS2, Valorant, League of Legends, Fortnite, Apex Legends, FIFA, Call of Duty. Chaque jeu dispose de ses propres spécialistes certifiés.",
     icon: "gamepad",
     color: "neon-blue"
   },
   {
     id: "select-pro",
     number: "🏆", 
-    title: "Recrute ton Coach Pro",
-    description: "Sélectionne un champion professionnel qui te guidera vers la victoire",
+    title: "2. Sélectionne ton Pro",
+    description: "Parcourez notre base de données de joueurs professionnels vérifiés. Consultez leurs profils, statistiques, spécialités et disponibilités. Réservez votre session (15min, 30min, 1h ou plus).",
     icon: "trophy",
     color: "neon-purple"
   },
   {
-    id: "reserve-session",
-    number: "⚡",
-    title: "Planifie ton Entraînement", 
-    description: "Organise tes sessions d'entraînement intensif avec ton coach pro",
-    icon: "lightning",
+    id: "coaching-session",
+    number: "🧠",
+    title: "3. Session de Coaching", 
+    description: "Jouez avec votre coach pro en temps réel. Recevez des conseils personnalisés, des stratégies avancées et un feedback détaillé pour améliorer vos performances et votre gameplay.",
+    icon: "brain",
     color: "neon-orange"
   },
   {
-    id: "play-private",
-    number: "🔥",
-    title: "Domine les Serveurs Privés",
-    description: "Accède à des serveurs haute performance pour une expérience gaming ultime",
-    icon: "server",
+    id: "replay-video",
+    number: "🎥",
+    title: "4. Analyse Complète",
+    description: "Recevez automatiquement l'enregistrement complet de votre session. Analysez vos mouvements, décisions et progrès avec les commentaires détaillés de votre coach pro.",
+    icon: "video",
     color: "neon-green"
   }
 ];
@@ -95,25 +95,16 @@ export const STEP_ICONS = {
       <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
     </svg>
   ),
-  lightning: (
+  brain: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/>
+      <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-4.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/>
+      <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-4.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/>
     </svg>
   ),
-  server: (
+  video: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <rect x="2" y="3" width="20" height="4" rx="1"/>
-      <rect x="2" y="7" width="20" height="4" rx="1"/>
-      <rect x="2" y="11" width="20" height="4" rx="1"/>
-      <rect x="2" y="15" width="20" height="4" rx="1"/>
-      <circle cx="6" cy="5" r="1"/>
-      <circle cx="6" cy="9" r="1"/>
-      <circle cx="6" cy="13" r="1"/>
-      <circle cx="6" cy="17" r="1"/>
-      <path d="M10 5h8"/>
-      <path d="M10 9h8"/>
-      <path d="M10 13h8"/>
-      <path d="M10 17h8"/>
+      <path d="M22 8l-6 4 6 4V8z"/>
+      <rect x="2" y="6" width="14" height="12" rx="2"/>
     </svg>
   )
 };

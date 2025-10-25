@@ -196,20 +196,28 @@ const ContentHeader = memo(() => {
 
       <div className="content-features">
         <div className="content-feature">
-          <div className="content-feature-icon">⚡</div>
-          <span className="content-feature-text">Setup Rapide</span>
+          <div className="content-feature-icon">🧑‍🤝‍🧑</div>
+          <span className="content-feature-text">Match avec un Pro</span>
         </div>
         <div className="content-feature">
-          <div className="content-feature-icon">🎯</div>
-          <span className="content-feature-text">Interface Intuitive</span>
+          <div className="content-feature-icon">🧠</div>
+          <span className="content-feature-text">Coaching Personnalisé</span>
         </div>
         <div className="content-feature">
-          <div className="content-feature-icon">🚀</div>
-          <span className="content-feature-text">Performance Optimale</span>
+          <div className="content-feature-icon">🏆</div>
+          <span className="content-feature-text">Classements & Badges</span>
         </div>
         <div className="content-feature">
-          <div className="content-feature-icon">🛡️</div>
-          <span className="content-feature-text">Sécurité Avancée</span>
+          <div className="content-feature-icon">💬</div>
+          <span className="content-feature-text">Chat Temps Réel</span>
+        </div>
+        <div className="content-feature">
+          <div className="content-feature-icon">💰</div>
+          <span className="content-feature-text">Paiement Sécurisé</span>
+        </div>
+        <div className="content-feature">
+          <div className="content-feature-icon">🎥</div>
+          <span className="content-feature-text">Replay Automatique</span>
         </div>
       </div>
     </div>

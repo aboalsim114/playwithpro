@@ -1,0 +1,730 @@
+/**
+ * Liquid Glass Gaming Design for HowItWorks Component
+ * Inspired by the Hero section with liquid glass effects, neon borders, and gaming aesthetics
+ */
+
+/* Liquid Glass Container */
+.liquid-glass-container {
+  position: relative;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.liquid-glass-frame {
+  position: relative;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 3rem;
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.liquid-glass-frame::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1), 
+    rgba(255, 255, 255, 0.05),
+    rgba(6, 182, 212, 0.1),
+    rgba(236, 72, 153, 0.1)
+  );
+  border-radius: 24px;
+  padding: 1px;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  -webkit-mask-composite: xor;
+  animation: liquid-glass-flow 6s ease-in-out infinite;
+}
+
+.liquid-glass-frame::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    transparent 30%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    transparent 70%
+  );
+  border-radius: 24px;
+  animation: liquid-glass-shimmer 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Liquid Glass Corner Decorations */
+.liquid-glass-corner {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.liquid-glass-corner-tl {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+  border-color: rgba(6, 182, 212, 0.3);
+  border-top-left-radius: 16px;
+  box-shadow: 
+    0 0 10px rgba(6, 182, 212, 0.2),
+    inset 0 0 10px rgba(6, 182, 212, 0.1);
+}
+
+.liquid-glass-corner-tr {
+  top: -1px;
+  right: -1px;
+  border-left: none;
+  border-bottom: none;
+  border-color: rgba(236, 72, 153, 0.3);
+  border-top-right-radius: 16px;
+  box-shadow: 
+    0 0 10px rgba(236, 72, 153, 0.2),
+    inset 0 0 10px rgba(236, 72, 153, 0.1);
+}
+
+.liquid-glass-corner-bl {
+  bottom: -1px;
+  left: -1px;
+  border-right: none;
+  border-top: none;
+  border-color: rgba(16, 185, 129, 0.3);
+  border-bottom-left-radius: 16px;
+  box-shadow: 
+    0 0 10px rgba(16, 185, 129, 0.2),
+    inset 0 0 10px rgba(16, 185, 129, 0.1);
+}
+
+.liquid-glass-corner-br {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+  border-color: rgba(245, 158, 11, 0.3);
+  border-bottom-right-radius: 16px;
+  box-shadow: 
+    0 0 10px rgba(245, 158, 11, 0.2),
+    inset 0 0 10px rgba(245, 158, 11, 0.1);
+}
+
+/* Liquid Glass Side Borders */
+.liquid-glass-side-border {
+  position: absolute;
+  background: linear-gradient(90deg, transparent, currentColor, transparent);
+  z-index: 5;
+  opacity: 0.6;
+}
+
+.liquid-glass-side-border-top {
+  top: 0;
+  left: 50px;
+  right: 50px;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(6, 182, 212, 0.3), 
+    rgba(236, 72, 153, 0.3), 
+    rgba(16, 185, 129, 0.3), 
+    rgba(245, 158, 11, 0.3), 
+    transparent
+  );
+  animation: liquid-border-flow 8s linear infinite;
+}
+
+.liquid-glass-side-border-bottom {
+  bottom: 0;
+  left: 50px;
+  right: 50px;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(245, 158, 11, 0.3), 
+    rgba(16, 185, 129, 0.3), 
+    rgba(236, 72, 153, 0.3), 
+    rgba(6, 182, 212, 0.3), 
+    transparent
+  );
+  animation: liquid-border-flow 8s linear infinite reverse;
+}
+
+.liquid-glass-side-border-left {
+  left: 0;
+  top: 50px;
+  bottom: 50px;
+  width: 1px;
+  background: linear-gradient(180deg, 
+    transparent, 
+    rgba(6, 182, 212, 0.3), 
+    rgba(236, 72, 153, 0.3), 
+    rgba(16, 185, 129, 0.3), 
+    rgba(245, 158, 11, 0.3), 
+    transparent
+  );
+  animation: liquid-border-flow-vertical 8s linear infinite;
+}
+
+.liquid-glass-side-border-right {
+  right: 0;
+  top: 50px;
+  bottom: 50px;
+  width: 1px;
+  background: linear-gradient(180deg, 
+    transparent, 
+    rgba(245, 158, 11, 0.3), 
+    rgba(16, 185, 129, 0.3), 
+    rgba(236, 72, 153, 0.3), 
+    rgba(6, 182, 212, 0.3), 
+    transparent
+  );
+  animation: liquid-border-flow-vertical 8s linear infinite reverse;
+}
+
+/* Liquid Glass Content Container */
+.liquid-glass-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+/* Liquid Glass Step Cards */
+.liquid-glass-step-card {
+  position: relative;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(15px) saturate(150%);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.liquid-glass-step-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.05), 
+    rgba(6, 182, 212, 0.1),
+    rgba(236, 72, 153, 0.1)
+  );
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.liquid-glass-step-card:hover::before {
+  opacity: 1;
+}
+
+.liquid-glass-step-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: 
+    0 8px 32px rgba(6, 182, 212, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.liquid-glass-step-card.active {
+  border-color: rgba(6, 182, 212, 0.6);
+  background: rgba(6, 182, 212, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(6, 182, 212, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.liquid-glass-step-card.completed {
+  border-color: rgba(16, 185, 129, 0.6);
+  background: rgba(16, 185, 129, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(16, 185, 129, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Liquid Glass Step Card Header */
+.liquid-glass-step-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.liquid-glass-step-number {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, 
+    rgba(6, 182, 212, 0.2), 
+    rgba(59, 130, 246, 0.2)
+  );
+  border: 2px solid rgba(6, 182, 212, 0.3);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #06b6d4;
+  text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+  transition: all 0.3s ease;
+}
+
+.liquid-glass-step-card:hover .liquid-glass-step-number {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(6, 182, 212, 0.6);
+  border-color: rgba(6, 182, 212, 0.6);
+}
+
+.liquid-glass-step-icon {
+  font-size: 2.5rem;
+  color: #06b6d4;
+  text-shadow: 0 0 15px rgba(6, 182, 212, 0.8);
+  transition: all 0.3s ease;
+}
+
+.liquid-glass-step-card:hover .liquid-glass-step-icon {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.8));
+}
+
+/* Liquid Glass Step Content */
+.liquid-glass-step-content {
+  position: relative;
+  z-index: 10;
+}
+
+.liquid-glass-step-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: white;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+  letter-spacing: 0.5px;
+}
+
+.liquid-glass-step-description {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Liquid Glass Progress Bar */
+.liquid-glass-progress {
+  position: relative;
+  z-index: 10;
+  margin-top: 1.5rem;
+}
+
+.liquid-glass-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.liquid-glass-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, 
+    rgba(6, 182, 212, 0.8), 
+    rgba(59, 130, 246, 0.8)
+  );
+  border-radius: 2px;
+  transition: width 0.7s ease;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+/* Liquid Glass Particle Effects */
+.liquid-glass-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.liquid-glass-particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(6, 182, 212, 0.6);
+  border-radius: 50%;
+  animation: liquid-particle-float 3s ease-in-out infinite;
+}
+
+.liquid-glass-particle:nth-child(1) { 
+  left: 10%; 
+  top: 20%; 
+  animation-delay: 0s; 
+}
+.liquid-glass-particle:nth-child(2) { 
+  left: 30%; 
+  top: 40%; 
+  animation-delay: 0.5s; 
+}
+.liquid-glass-particle:nth-child(3) { 
+  left: 50%; 
+  top: 60%; 
+  animation-delay: 1s; 
+}
+.liquid-glass-particle:nth-child(4) { 
+  left: 70%; 
+  top: 30%; 
+  animation-delay: 1.5s; 
+}
+.liquid-glass-particle:nth-child(5) { 
+  left: 90%; 
+  top: 50%; 
+  animation-delay: 2s; 
+}
+
+/* Liquid Glass Section Header */
+.liquid-glass-section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.liquid-glass-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, 
+    rgba(6, 182, 212, 0.2), 
+    rgba(59, 130, 246, 0.2)
+  );
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  color: #06b6d4;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(6, 182, 212, 0.2);
+}
+
+.liquid-glass-badge-icon {
+  font-size: 1.25rem;
+  animation: liquid-badge-pulse 2s ease-in-out infinite;
+}
+
+.liquid-glass-badge-dot {
+  width: 8px;
+  height: 8px;
+  background: #06b6d4;
+  border-radius: 50%;
+  animation: liquid-badge-ping 1s ease-in-out infinite;
+}
+
+.liquid-glass-title {
+  font-size: 4rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+
+.liquid-glass-title-text {
+  display: block;
+  color: white;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  margin-bottom: 0.5rem;
+}
+
+.liquid-glass-title-gradient {
+  display: block;
+  background: linear-gradient(135deg, 
+    #06b6d4, 
+    #3b82f6, 
+    #8b5cf6
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: liquid-gradient-flow 3s ease-in-out infinite;
+}
+
+.liquid-glass-description {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.liquid-glass-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.liquid-glass-divider-line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(6, 182, 212, 0.5), 
+    transparent
+  );
+}
+
+.liquid-glass-divider-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.liquid-glass-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: liquid-dot-pulse 2s ease-in-out infinite;
+}
+
+.liquid-glass-dot:nth-child(1) { 
+  background: #06b6d4; 
+  animation-delay: 0s; 
+}
+.liquid-glass-dot:nth-child(2) { 
+  background: #3b82f6; 
+  animation-delay: 0.2s; 
+}
+.liquid-glass-dot:nth-child(3) { 
+  background: #8b5cf6; 
+  animation-delay: 0.4s; 
+}
+
+/* Liquid Glass Animations */
+@keyframes liquid-glass-flow {
+  0% {
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.1), 
+      rgba(255, 255, 255, 0.05),
+      rgba(6, 182, 212, 0.1),
+      rgba(236, 72, 153, 0.1)
+    );
+  }
+  50% {
+    background: linear-gradient(135deg, 
+      rgba(6, 182, 212, 0.1), 
+      rgba(236, 72, 153, 0.1),
+      rgba(16, 185, 129, 0.1),
+      rgba(245, 158, 11, 0.1)
+    );
+  }
+  100% {
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.1), 
+      rgba(255, 255, 255, 0.05),
+      rgba(6, 182, 212, 0.1),
+      rgba(236, 72, 153, 0.1)
+    );
+  }
+}
+
+@keyframes liquid-glass-shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+@keyframes liquid-border-flow {
+  0% {
+    background-position: -200% 0;
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    background-position: 200% 0;
+    opacity: 0.3;
+  }
+}
+
+@keyframes liquid-border-flow-vertical {
+  0% {
+    background-position: 0 -200%;
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    background-position: 0 200%;
+    opacity: 0.3;
+  }
+}
+
+@keyframes liquid-particle-float {
+  0%, 100% { 
+    opacity: 0; 
+    transform: translateY(0) scale(0); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: translateY(-20px) scale(1); 
+  }
+}
+
+@keyframes liquid-gradient-flow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes liquid-badge-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes liquid-badge-ping {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes liquid-dot-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .liquid-glass-container {
+    padding: 1.5rem;
+  }
+  
+  .liquid-glass-frame {
+    padding: 2rem;
+  }
+  
+  .liquid-glass-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .liquid-glass-container {
+    padding: 1rem;
+  }
+  
+  .liquid-glass-frame {
+    padding: 1.5rem;
+  }
+  
+  .liquid-glass-title {
+    font-size: 2.5rem;
+  }
+  
+  .liquid-glass-step-card {
+    padding: 1.5rem;
+  }
+  
+  .liquid-glass-step-number {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+  }
+  
+  .liquid-glass-step-icon {
+    font-size: 2rem;
+  }
+  
+  .liquid-glass-corner {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .liquid-glass-side-border-top,
+  .liquid-glass-side-border-bottom {
+    left: 30px;
+    right: 30px;
+  }
+  
+  .liquid-glass-side-border-left,
+  .liquid-glass-side-border-right {
+    top: 30px;
+    bottom: 30px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .liquid-glass-frame::before,
+  .liquid-glass-frame::after,
+  .liquid-glass-side-border,
+  .liquid-glass-particle,
+  .liquid-glass-badge-icon,
+  .liquid-glass-badge-dot,
+  .liquid-glass-dot {
+    animation: none;
+  }
+}
+
+/* Dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+  .liquid-glass-frame {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  
+  .liquid-glass-step-card {
+    background: rgba(0, 0, 0, 0.3);
+  }
+}

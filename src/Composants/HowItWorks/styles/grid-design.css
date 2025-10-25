@@ -1,0 +1,295 @@
+/**
+ * Grid 2-Column Gaming Design for HowItWorks Component
+ * Modern grid layout with Tailwind CSS classes and gaming aesthetics
+ */
+
+/* Grid Container Styles */
+.grid-container {
+  @apply max-w-7xl mx-auto px-4 py-16;
+}
+
+.grid-wrapper {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-12 items-center;
+}
+
+/* Left Column - Content */
+.content-column {
+  @apply space-y-8;
+}
+
+.content-header {
+  @apply space-y-6;
+}
+
+.content-badge {
+  @apply inline-flex items-center gap-3 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 px-6 py-3 rounded-full text-sm font-bold border border-cyan-400/30 shadow-lg shadow-cyan-500/20;
+}
+
+.content-badge-icon {
+  @apply text-xl animate-pulse;
+}
+
+.content-badge-dot {
+  @apply w-2 h-2 bg-cyan-400 rounded-full animate-ping;
+}
+
+.content-title {
+  @apply text-4xl sm:text-5xl lg:text-6xl font-black leading-tight;
+}
+
+.content-title-text {
+  @apply block text-white mb-2;
+}
+
+.content-title-gradient {
+  @apply block bg-gradient-to-r from-cyan-400 via-pink-500 to-green-400 bg-clip-text text-transparent animate-gradient-x;
+}
+
+.content-description {
+  @apply text-lg text-gray-300 max-w-xl leading-relaxed;
+}
+
+.content-features {
+  @apply grid grid-cols-1 sm:grid-cols-2 gap-4;
+}
+
+.content-feature {
+  @apply flex items-center gap-3 p-4 bg-black/40 backdrop-blur-sm border border-cyan-400/30 rounded-lg hover:border-cyan-400/60 transition-all duration-300;
+}
+
+.content-feature-icon {
+  @apply text-2xl text-cyan-400;
+}
+
+.content-feature-text {
+  @apply text-sm font-medium text-gray-300;
+}
+
+/* Right Column - Steps Grid */
+.steps-column {
+  @apply space-y-8;
+}
+
+.steps-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 gap-6;
+}
+
+.step-card {
+  @apply relative bg-gradient-to-br from-slate-800/40 to-slate-900/60 backdrop-blur-lg border-2 border-cyan-400/30 rounded-2xl p-6 cursor-pointer transition-all duration-500 hover:border-cyan-400/60 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/20;
+}
+
+.step-card.active {
+  @apply border-cyan-400/80 scale-105 shadow-2xl shadow-cyan-500/30 bg-gradient-to-br from-cyan-900/30 to-blue-900/30;
+}
+
+.step-card.completed {
+  @apply border-green-400/60 bg-gradient-to-br from-green-900/30 to-emerald-900/30;
+}
+
+.step-card-header {
+  @apply flex items-center gap-4 mb-4;
+}
+
+.step-number {
+  @apply w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-black text-lg shadow-lg shadow-cyan-500/30;
+}
+
+.step-icon {
+  @apply text-2xl text-cyan-400;
+}
+
+.step-content {
+  @apply space-y-3;
+}
+
+.step-title {
+  @apply text-lg font-black text-white tracking-wide;
+}
+
+.step-description {
+  @apply text-gray-300 text-sm leading-relaxed;
+}
+
+.step-progress {
+  @apply mt-4;
+}
+
+.step-progress-bar {
+  @apply w-full bg-slate-700/50 rounded-full h-2 border border-cyan-400/20;
+}
+
+.step-progress-fill {
+  @apply bg-gradient-to-r from-cyan-400 to-blue-500 h-2 rounded-full transition-all duration-700 shadow-lg shadow-cyan-400/50;
+}
+
+/* Gaming Effects */
+.gaming-glow {
+  @apply absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-500;
+}
+
+.gaming-particles {
+  @apply absolute inset-0 overflow-hidden rounded-2xl;
+}
+
+.gaming-particle {
+  @apply absolute w-1 h-1 bg-cyan-400/60 rounded-full animate-ping;
+}
+
+.gaming-corner {
+  @apply absolute w-4 h-4 border-2 border-cyan-400/40;
+}
+
+.gaming-corner-top-right {
+  @apply top-2 right-2 border-t-2 border-r-2;
+}
+
+.gaming-corner-bottom-left {
+  @apply bottom-2 left-2 border-b-2 border-l-2;
+}
+
+/* Progress Indicator */
+.progress-section {
+  @apply mt-12;
+}
+
+.progress-container {
+  @apply flex justify-center;
+}
+
+.progress-wrapper {
+  @apply flex items-center gap-6;
+}
+
+.progress-bar {
+  @apply flex-1 h-2 bg-slate-700/50 rounded-full max-w-lg border border-cyan-400/20;
+}
+
+.progress-fill {
+  @apply bg-gradient-to-r from-cyan-400 to-blue-500 h-2 rounded-full transition-all duration-700 shadow-lg shadow-cyan-400/50;
+}
+
+.progress-steps {
+  @apply flex items-center gap-4;
+}
+
+.progress-step {
+  @apply relative w-12 h-12 rounded-xl flex items-center justify-center font-black text-sm transition-all duration-500 border-2;
+}
+
+.progress-step.active {
+  @apply bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-2xl shadow-cyan-500/50 scale-110 border-cyan-400;
+}
+
+.progress-step.completed {
+  @apply bg-gradient-to-br from-green-500 to-emerald-600 text-white border-green-400;
+}
+
+.progress-step.pending {
+  @apply bg-slate-800/50 text-gray-400 border-cyan-400/30 hover:border-cyan-400/60 hover:bg-slate-700/50;
+}
+
+.progress-step-ping {
+  @apply absolute inset-0 rounded-xl border-2 border-cyan-400/60 animate-ping;
+}
+
+.progress-step-check {
+  @apply absolute -top-2 -right-2 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center border-2 border-slate-900;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .grid-wrapper {
+    @apply grid-cols-1 gap-8;
+  }
+  
+  .content-title {
+    @apply text-3xl sm:text-4xl;
+  }
+  
+  .steps-grid {
+    @apply grid-cols-1;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    @apply px-4 py-12;
+  }
+  
+  .content-title {
+    @apply text-2xl sm:text-3xl;
+  }
+  
+  .step-card {
+    @apply p-4;
+  }
+  
+  .step-number {
+    @apply w-10 h-10 text-sm;
+  }
+  
+  .step-icon {
+    @apply text-xl;
+  }
+  
+  .progress-steps {
+    @apply flex-wrap gap-2;
+  }
+  
+  .progress-step {
+    @apply w-10 h-10 text-xs;
+  }
+}
+
+/* Animation Delays */
+.animate-delay-100 {
+  animation-delay: 0.1s;
+}
+
+.animate-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animate-delay-300 {
+  animation-delay: 0.3s;
+}
+
+.animate-delay-400 {
+  animation-delay: 0.4s;
+}
+
+/* Custom Animations */
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 3s ease infinite;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .gaming-particle,
+  .content-badge-icon,
+  .content-badge-dot,
+  .progress-step-ping {
+    animation: none;
+  }
+}
+
+/* Dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+  .step-card {
+    @apply border-cyan-300/40;
+  }
+  
+  .content-feature {
+    @apply border-cyan-300/30;
+  }
+}

@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useRef, useState, useCallback } from 'react';
 
 // Import components
-import { StepCard } from './components';
+// import { StepCard } from './components';
 
 // Import constants
 import { 
@@ -172,47 +172,54 @@ const DynamicBackground = memo(() => {
 });
 
 /**
- * Gaming-themed section header component
+ * Grid 2-Column Gaming-themed content header component
  */
-const SectionHeader = memo(() => {
+const ContentHeader = memo(() => {
   return (
-    <header className="text-center mb-16">
-      <div className="max-w-4xl mx-auto">
-        <div className="inline-flex items-center gap-3 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 px-6 py-3 rounded-full text-sm font-bold mb-8 border border-cyan-400/30 shadow-lg shadow-cyan-500/20">
-          <div className="text-xl animate-pulse">🎮</div>
-          <span className="tracking-wider">MISSION GAMING</span>
-          <div className="w-2 h-2 bg-cyan-400 rounded-full animate-ping" />
-        </div>
-        
-        <h2 id="how-it-works-title" className="text-6xl md:text-8xl font-black mb-6 tracking-tight">
-          <span className="text-white block drop-shadow-2xl">{HOW_IT_WORKS_CONTENT.title.text}</span>
-          <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent block animate-pulse">
-            {HOW_IT_WORKS_CONTENT.title.gradient}
-          </span>
-        </h2>
-        
-        <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed font-medium">
-          {HOW_IT_WORKS_CONTENT.description}
-        </p>
+    <div className="content-header">
+      <div className="content-badge">
+        <div className="content-badge-icon">🎮</div>
+        <span>MISSION GAMING</span>
+        <div className="content-badge-dot" />
+      </div>
+      
+      <h2 id="how-it-works-title" className="content-title">
+        <span className="content-title-text">{HOW_IT_WORKS_CONTENT.title.text}</span>
+        <span className="content-title-gradient">
+          {HOW_IT_WORKS_CONTENT.title.gradient}
+        </span>
+      </h2>
+      
+      <p className="content-description">
+        {HOW_IT_WORKS_CONTENT.description}
+      </p>
 
-        <div className="flex items-center justify-center gap-6">
-          <div className="w-20 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse" />
-            <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
-            <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
-          </div>
-          <div className="w-20 h-px bg-gradient-to-l from-transparent to-cyan-400/50" />
+      <div className="content-features">
+        <div className="content-feature">
+          <div className="content-feature-icon">⚡</div>
+          <span className="content-feature-text">Setup Rapide</span>
+        </div>
+        <div className="content-feature">
+          <div className="content-feature-icon">🎯</div>
+          <span className="content-feature-text">Interface Intuitive</span>
+        </div>
+        <div className="content-feature">
+          <div className="content-feature-icon">🚀</div>
+          <span className="content-feature-text">Performance Optimale</span>
+        </div>
+        <div className="content-feature">
+          <div className="content-feature-icon">🛡️</div>
+          <span className="content-feature-text">Sécurité Avancée</span>
         </div>
       </div>
-    </header>
+    </div>
   );
 });
 
 /**
- * Gaming-themed floating cards layout
+ * Grid 2-Column Gaming-themed steps layout
  */
-const FloatingCards = memo(({ 
+const StepsGrid = memo(({ 
   activeStep, 
   handleStepClick, 
   isVisible, 
@@ -222,14 +229,14 @@ const FloatingCards = memo(({
   const cardsRef = useRef(null);
 
   return (
-    <div className="relative mb-16" ref={cardsRef}>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div className="steps-column" ref={cardsRef}>
+      <div className="steps-grid">
         {STEPS.map((step, index) => (
           <div
             key={step.id}
-            className={`relative bg-gradient-to-br from-slate-800/40 to-slate-900/60 backdrop-blur-lg border-2 border-cyan-400/30 rounded-2xl p-6 cursor-pointer transition-all duration-500 hover:border-cyan-400/60 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/20 ${
-              activeStep === index ? 'border-cyan-400/80 scale-105 shadow-2xl shadow-cyan-500/30 bg-gradient-to-br from-cyan-900/30 to-blue-900/30' : ''
-            } ${index < activeStep ? 'border-green-400/60 bg-gradient-to-br from-green-900/30 to-emerald-900/30' : ''} ${
+            className={`step-card ${
+              activeStep === index ? 'active' : ''
+            } ${index < activeStep ? 'completed' : ''} ${
               isVisible ? 'animate-fade-in' : 'opacity-0'
             }`}
             style={{ 
@@ -238,51 +245,47 @@ const FloatingCards = memo(({
             onClick={() => handleStepClick(index)}
           >
             {/* Gaming card glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute inset-0 border-2 border-cyan-400/20 rounded-2xl" />
+            <div className="gaming-glow" />
             
-            {/* Gaming card header */}
-            <div className="relative z-10 flex items-center gap-4 mb-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-black text-2xl shadow-lg shadow-cyan-500/30">
+            {/* Step card header */}
+            <div className="step-card-header">
+              <div className="step-number">
                 {step.number}
               </div>
-              <div className="text-3xl text-cyan-400">
+              <div className="step-icon">
                 {STEP_ICONS[step.icon]}
               </div>
             </div>
 
-            {/* Gaming card content */}
-            <div className="relative z-10">
-              <h3 className="text-xl font-black text-white mb-4 tracking-wide">{step.title}</h3>
-              <p className="text-gray-300 leading-relaxed text-sm font-medium">{step.description}</p>
+            {/* Step card content */}
+            <div className="step-content">
+              <h3 className="step-title">{step.title}</h3>
+              <p className="step-description">{step.description}</p>
             </div>
 
-            {/* Gaming progress bar */}
-            <div className="relative z-10 mt-6">
-              <div className="w-full bg-slate-700/50 rounded-full h-2 border border-cyan-400/20">
-                <div className="bg-gradient-to-r from-cyan-400 to-blue-500 h-2 rounded-full transition-all duration-700 shadow-lg shadow-cyan-400/50" 
+            {/* Step progress bar */}
+            <div className="step-progress">
+              <div className="step-progress-bar">
+                <div className="step-progress-fill" 
                      style={{ width: activeStep >= index ? '100%' : '0%' }} />
               </div>
             </div>
 
             {/* Gaming particle effects */}
-            <div className="absolute inset-0 overflow-hidden rounded-2xl">
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-blue-500/5 opacity-0 hover:opacity-100 transition-opacity duration-500" />
-              <div className="absolute inset-0">
-                {[...Array(8)].map((_, i) => (
-                  <div key={i} className="absolute w-1 h-1 bg-cyan-400/60 rounded-full animate-ping" 
-                       style={{ 
-                         left: `${Math.random() * 100}%`,
-                         top: `${Math.random() * 100}%`,
-                         animationDelay: `${i * 0.2}s`
-                       }} />
-                ))}
-              </div>
+            <div className="gaming-particles">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="gaming-particle" 
+                     style={{ 
+                       left: `${Math.random() * 100}%`,
+                       top: `${Math.random() * 100}%`,
+                       animationDelay: `${i * 0.2}s`
+                     }} />
+              ))}
             </div>
 
             {/* Gaming corner accents */}
-            <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-cyan-400/40" />
-            <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-cyan-400/40" />
+            <div className="gaming-corner gaming-corner-top-right" />
+            <div className="gaming-corner gaming-corner-bottom-left" />
           </div>
         ))}
       </div>
@@ -291,48 +294,51 @@ const FloatingCards = memo(({
 });
 
 /**
- * Gaming-themed progress indicator component
+ * Grid 2-Column Gaming-themed progress indicator component
  */
 const ProgressIndicator = memo(({ activeStep, handleStepClick }) => {
   return (
-    <div className="flex justify-center">
-      <div className="flex items-center gap-6">
-        <div className="flex-1 h-2 bg-slate-700/50 rounded-full max-w-lg border border-cyan-400/20">
-          <div className="bg-gradient-to-r from-cyan-400 to-blue-500 h-2 rounded-full transition-all duration-700 shadow-lg shadow-cyan-400/50" 
-               style={{ width: `${(activeStep / (STEPS.length - 1)) * 100}%` }} />
+    <div className="progress-section">
+      <div className="progress-container">
+        <div className="progress-wrapper">
+          <div className="progress-bar">
+            <div className="progress-fill" 
+                 style={{ width: `${(activeStep / (STEPS.length - 1)) * 100}%` }} />
+          </div>
+          
+          <div className="progress-steps">
+            {STEPS.map((step, index) => (
+              <button
+                key={index}
+                className={`progress-step ${
+                  index === activeStep 
+                    ? 'active' 
+                    : index < activeStep 
+                      ? 'completed' 
+                      : 'pending'
+                }`}
+                onClick={() => handleStepClick(index)}
+                aria-label={`Aller à l'étape ${index + 1}`}
+              >
+                <span className="text-lg">{step.number}</span>
+                {index === activeStep && (
+                  <div className="progress-step-ping" />
+                )}
+                {index < activeStep && (
+                  <div className="progress-step-check">
+                    <span className="text-xs font-bold">✓</span>
+                  </div>
+                )}
+              </button>
+            ))}
+          </div>
         </div>
-        
-        {STEPS.map((step, index) => (
-          <button
-            key={index}
-            className={`relative w-16 h-16 rounded-xl flex items-center justify-center font-black text-lg transition-all duration-500 border-2 ${
-              index === activeStep 
-                ? 'bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-2xl shadow-cyan-500/50 scale-110 border-cyan-400' 
-                : index < activeStep 
-                  ? 'bg-gradient-to-br from-green-500 to-emerald-600 text-white border-green-400' 
-                  : 'bg-slate-800/50 text-gray-400 border-cyan-400/30 hover:border-cyan-400/60 hover:bg-slate-700/50'
-            }`}
-            onClick={() => handleStepClick(index)}
-            aria-label={`Aller à l'étape ${index + 1}`}
-          >
-            <span className="text-2xl">{step.number}</span>
-            {index === activeStep && (
-              <div className="absolute inset-0 rounded-xl border-2 border-cyan-400/60 animate-ping" />
-            )}
-            {index < activeStep && (
-              <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center border-2 border-slate-900">
-                <span className="text-xs font-bold">✓</span>
-              </div>
-            )}
-          </button>
-        ))}
       </div>
     </div>
   );
 });
 
 const HowItWorks = () => {
-  const [isHovering, setIsHovering] = useState(false);
   const sectionRef = useRef(null);
   const cardsRef = useRef(null);
 
@@ -357,11 +363,8 @@ const HowItWorks = () => {
     <section 
       className="relative min-h-screen bg-gradient-to-br from-slate-900 via-cyan-900 to-slate-900 overflow-hidden" 
       id="how-it-works" 
-      role="region" 
       aria-labelledby="how-it-works-title"
       ref={sectionRef}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
       style={{
         '--mouse-x': mousePosition.x,
         '--mouse-y': mousePosition.y,
@@ -370,15 +373,27 @@ const HowItWorks = () => {
     >
       <DynamicBackground />
 
-      <div className="relative z-10 container mx-auto px-4 py-16">
-        <SectionHeader />
-        <FloatingCards 
-          activeStep={activeStep}
-          handleStepClick={handleStepClick}
-          isVisible={isVisible}
-          mousePosition={mousePosition}
-          scrollProgress={scrollProgress}
-        />
+      {/* Grid 2-Column Container */}
+      <div className="grid-container">
+        <div className="grid-wrapper">
+          {/* Left Column - Content */}
+          <div className="content-column">
+            <ContentHeader />
+          </div>
+
+          {/* Right Column - Steps Grid */}
+          <div className="steps-column">
+            <StepsGrid 
+              activeStep={activeStep}
+              handleStepClick={handleStepClick}
+              isVisible={isVisible}
+              mousePosition={mousePosition}
+              scrollProgress={scrollProgress}
+            />
+          </div>
+        </div>
+
+        {/* Progress Indicator */}
         <ProgressIndicator 
           activeStep={activeStep}
           handleStepClick={handleStepClick}

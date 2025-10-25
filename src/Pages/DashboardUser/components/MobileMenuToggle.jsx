@@ -2,7 +2,7 @@ import React from 'react';
 
 const MobileMenuToggle = ({ onToggle }) => (
   <button 
-    className="mobile-menu-toggle"
+    className="lg:hidden p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
     onClick={onToggle}
     aria-label="Toggle mobile menu"
   >

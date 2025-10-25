@@ -1,7 +1,6 @@
 import React from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../store/hooks'
-import './ProtectedRoute.css'
 
 const ProtectedRoute = ({ children, redirectTo = '/connexion' }) => {
   const { isAuthenticated, loading } = useAuth()

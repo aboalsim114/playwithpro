@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import './UserProfile.css'
 
 // Import des composants modulaires
 import ProfileHeader from './components/ProfileHeader'

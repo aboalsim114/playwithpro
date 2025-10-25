@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import './Navbar.css'
 import { useIsAuthenticated, useCurrentUser } from '../../store/hooks'
 
 function Navbar() {
@@ -142,13 +141,16 @@ function Navbar() {
   return (
     <>
       {/* Minimalist Glass Navbar */}
-      <nav className={`minimal-navbar ${isScrolled ? 'scrolled' : ''} ${shouldAnimate ? 'animate' : 'no-animate'}`}>
-        <div className="navbar-wrapper">
+      <nav className={`fixed top-5 left-1/2 transform -translate-x-1/2 w-[95%] max-w-6xl h-16 glass-bg backdrop-blur-xl border border-white/20 rounded-2xl shadow-lg z-50 transition-all duration-300 ${
+        isScrolled ? 'top-2.5 bg-white/8 border-white/30 shadow-2xl' : ''
+      } ${shouldAnimate ? 'animate-slide-down' : ''}`}>
+        <div className="w-full h-full flex items-center justify-between px-6 relative z-10">
           {/* Logo Section */}
-          <div className="logo-section">
-            <Link to="/" className="logo-container">
-              <div className="logo-symbol">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <div className="flex items-center z-20">
+            <Link to="/" className="flex items-center gap-3 cursor-pointer transition-all duration-150 hover:-translate-y-0.5">
+              <div className="w-8 h-8 gaming-gradient rounded-lg flex items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-white/10 to-white/20 rounded-lg"></div>
+                <svg className="w-4.5 h-4.5 stroke-white stroke-2.5 relative z-10" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
                   <line x1="8" y1="21" x2="16" y2="21"/>
                   <line x1="12" y1="17" x2="12" y2="21"/>
@@ -162,119 +164,123 @@ function Navbar() {
                   <circle cx="18" cy="12" r="1"/>
                 </svg>
               </div>
-              <span className="logo-text">PlayWithPro</span>
+              <span className="text-white text-xl font-bold tracking-tight drop-shadow-sm">PlayWithPro</span>
             </Link>
           </div>
 
           {/* Center Navigation */}
-          <div className="center-nav">
-            <div className="nav-items">
+          <div className="flex items-center z-20">
+            <div className="flex items-center gap-8">
               {navItems.map((item, index) => (
                 <Link
                   key={item.id}
                   to={item.path}
-                  className={`nav-link ${isActiveRoute(item.path) ? 'active' : ''} ${shouldAnimate ? 'animate' : 'no-animate'}`}
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  className={`relative flex items-center gap-2 px-3 py-2 text-gray-300 text-sm font-medium transition-all duration-150 cursor-pointer bg-transparent border-none rounded-lg hover:text-white hover:bg-white/5 hover:-translate-y-0.5 ${
+                    isActiveRoute(item.path) ? 'text-white bg-indigo-500/10' : ''
+                  }`}
                 >
-                  <span className="link-icon">{item.icon}</span>
-                  <span className="link-text">{item.label}</span>
-                  <div className="link-underline"></div>
+                  <span className="text-base transition-all duration-150 hover:scale-110">{item.icon}</span>
+                  <span className="relative z-10">{item.label}</span>
+                  <div className={`absolute bottom-0 left-0 right-0 h-0.5 gaming-gradient rounded-sm transition-all duration-300 ${
+                    isActiveRoute(item.path) ? 'scale-x-100' : 'scale-x-0'
+                  }`}></div>
                 </Link>
               ))}
             </div>
           </div>
 
           {/* Right Actions */}
-          <div className="right-actions">
+          <div className="flex items-center gap-4 z-20">
             {/* Search */}
-            <div className="search-box">
-              <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <div className="relative flex items-center glass-bg border border-white/20 rounded-xl px-3 py-2 pl-10 transition-all duration-150 hover:glass-bg-hover hover:border-white/30 focus-within:glass-bg-hover focus-within:border-indigo-500 focus-within:shadow-lg focus-within:shadow-indigo-500/20">
+              <svg className="absolute left-3 w-4 h-4 stroke-gray-400 stroke-2 z-10" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <circle cx="11" cy="11" r="8"/>
                 <path d="M21 21l-4.35-4.35"/>
               </svg>
               <input 
                 type="text" 
                 placeholder="Rechercher..." 
-                className="search-input"
+                className="bg-transparent border-none outline-none text-white text-sm font-normal w-44 placeholder-gray-400"
                 aria-label="Rechercher"
               />
             </div>
 
             {/* User Avatar */}
-            <div className="user-menu" ref={userMenuRef}>
+            <div className="relative flex items-center" ref={userMenuRef}>
               <button 
-                className="user-avatar"
+                className="relative flex items-center justify-center w-10 h-10 glass-bg border border-white/20 rounded-xl cursor-pointer transition-all duration-150 hover:glass-bg-hover hover:border-white/30 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-transparent"
                 onClick={toggleUserMenu}
                 aria-label="User menu"
                 aria-expanded={isUserMenuOpen}
               >
-                <div className="avatar-circle">
+                <div className="w-6 h-6 gaming-gradient rounded-md flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-white/10 to-white/20 rounded-md"></div>
                   {isAuthenticated && currentUser?.avatar ? (
                     <img 
                       src={currentUser.avatar} 
                       alt="User avatar" 
-                      className="avatar-image"
+                      className="w-full h-full object-cover rounded-md relative z-10"
                     />
                   ) : (
-                    <svg className="avatar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <svg className="w-3.5 h-3.5 stroke-white stroke-2 relative z-10" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                       <circle cx="12" cy="7" r="4"/>
                     </svg>
                   )}
                 </div>
-                <div className="status-indicator"></div>
+                <div className="absolute bottom-0.5 right-0.5 w-2 h-2 bg-green-500 border-2 border-gray-800 rounded-full animate-pulse"></div>
               </button>
 
               {/* User Dropdown Menu */}
               {isUserMenuOpen && (
-                <div className="user-dropdown">
-                  <div className="dropdown-content">
+                <div className="absolute top-full right-0 mt-2 min-w-60 bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl z-50 animate-fade-in">
+                  <div className="p-2">
                     {isAuthenticated ? (
                       <>
-                        <div className="user-info">
-                          <div className="user-name">{currentUser?.name || 'Utilisateur'}</div>
-                          <div className="user-email">{currentUser?.email || ''}</div>
+                        <div className="p-3 bg-white/5 rounded-lg mb-2">
+                          <div className="text-white text-sm font-semibold mb-0.5">{currentUser?.name || 'Utilisateur'}</div>
+                          <div className="text-gray-400 text-xs">{currentUser?.email || ''}</div>
                         </div>
-                        <div className="dropdown-divider"></div>
+                        <div className="h-px bg-white/10 my-2"></div>
                         <Link 
                           to="/profile" 
-                          className="dropdown-item"
+                          className="flex items-center gap-3 p-3 text-gray-300 text-sm font-medium rounded-lg transition-all duration-150 hover:bg-white/10 hover:text-white hover:translate-x-1 cursor-pointer bg-none border-none w-full text-left"
                           onClick={closeUserMenu}
                         >
-                          <span className="item-icon">👤</span>
-                          <span className="item-text">Mon Profil</span>
+                          <span className="text-base w-5 text-center">👤</span>
+                          <span className="flex-1">Mon Profil</span>
                         </Link>
                         <Link 
                           to="/dashboard" 
-                          className="dropdown-item"
+                          className="flex items-center gap-3 p-3 text-gray-300 text-sm font-medium rounded-lg transition-all duration-150 hover:bg-white/10 hover:text-white hover:translate-x-1 cursor-pointer bg-none border-none w-full text-left"
                           onClick={closeUserMenu}
                         >
-                          <span className="item-icon">📊</span>
-                          <span className="item-text">Tableau de bord</span>
+                          <span className="text-base w-5 text-center">📊</span>
+                          <span className="flex-1">Tableau de bord</span>
                         </Link>
-                        <div className="dropdown-divider"></div>
-                        <button className="dropdown-item logout-item">
-                          <span className="item-icon">🚪</span>
-                          <span className="item-text">Déconnexion</span>
+                        <div className="h-px bg-white/10 my-2"></div>
+                        <button className="flex items-center gap-3 p-3 text-red-400 text-sm font-medium rounded-lg transition-all duration-150 hover:bg-red-500/10 hover:text-red-300 hover:translate-x-1 cursor-pointer bg-none border-none w-full text-left">
+                          <span className="text-base w-5 text-center">🚪</span>
+                          <span className="flex-1">Déconnexion</span>
                         </button>
                       </>
                     ) : (
                       <>
                         <Link 
                           to="/connexion" 
-                          className="dropdown-item"
+                          className="flex items-center gap-3 p-3 text-gray-300 text-sm font-medium rounded-lg transition-all duration-150 hover:bg-white/10 hover:text-white hover:translate-x-1 cursor-pointer bg-none border-none w-full text-left"
                           onClick={closeUserMenu}
                         >
-                          <span className="item-icon">🔑</span>
-                          <span className="item-text">Connexion</span>
+                          <span className="text-base w-5 text-center">🔑</span>
+                          <span className="flex-1">Connexion</span>
                         </Link>
                         <Link 
                           to="/inscription" 
-                          className="dropdown-item"
+                          className="flex items-center gap-3 p-3 text-gray-300 text-sm font-medium rounded-lg transition-all duration-150 hover:bg-white/10 hover:text-white hover:translate-x-1 cursor-pointer bg-none border-none w-full text-left"
                           onClick={closeUserMenu}
                         >
-                          <span className="item-icon">📝</span>
-                          <span className="item-text">Inscription</span>
+                          <span className="text-base w-5 text-center">📝</span>
+                          <span className="flex-1">Inscription</span>
                         </Link>
                       </>
                     )}
@@ -285,35 +291,36 @@ function Navbar() {
 
             {/* Menu Toggle for Mobile */}
             <button 
-              className={`menu-toggle ${isMobileMenuOpen ? 'active' : ''}`}
+              className={`hidden md:flex flex-col justify-center items-center w-10 h-10 glass-bg border border-white/20 rounded-lg cursor-pointer transition-all duration-150 hover:glass-bg-hover hover:border-white/30 ${
+                isMobileMenuOpen ? 'bg-indigo-500 border-indigo-500' : ''
+              }`}
               onClick={toggleMobileMenu}
               aria-label="Toggle mobile menu"
               aria-expanded={isMobileMenuOpen}
             >
-              <span className="hamburger-line"></span>
-              <span className="hamburger-line"></span>
-              <span className="hamburger-line"></span>
+              <span className={`w-4.5 h-0.5 bg-white rounded-sm transition-all duration-150 ${isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : 'mb-0.5'}`}></span>
+              <span className={`w-4.5 h-0.5 bg-white rounded-sm transition-all duration-150 ${isMobileMenuOpen ? 'opacity-0 scale-x-0' : 'mb-0.5'}`}></span>
+              <span className={`w-4.5 h-0.5 bg-white rounded-sm transition-all duration-150 ${isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
             </button>
-
-          
           </div>
         </div>
 
         {/* Background Blur */}
-        <div className="navbar-blur"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-white/2 to-white/5 pointer-events-none z-0"></div>
         
         {/* Subtle Border */}
-        <div className="navbar-border"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent z-10"></div>
       </nav>
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="mobile-menu-overlay" onClick={closeMobileMenu}>
-          <div className="mobile-menu" onClick={(e) => e.stopPropagation()}>
-            <div className="mobile-menu-header">
-              <div className="mobile-logo">
-                <div className="logo-symbol">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 animate-fade-in" onClick={closeMobileMenu}>
+          <div className="fixed top-0 right-0 w-80 h-full bg-gradient-to-b from-slate-900/95 to-slate-800/95 backdrop-blur-xl border-l border-white/10 flex flex-col animate-slide-in-right shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between p-6 border-b border-white/10">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 gaming-gradient rounded-lg flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-white/10 to-white/20 rounded-lg"></div>
+                  <svg className="w-4.5 h-4.5 stroke-white stroke-2.5 relative z-10" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
                     <line x1="8" y1="21" x2="16" y2="21"/>
                     <line x1="12" y1="17" x2="12" y2="21"/>
@@ -327,100 +334,104 @@ function Navbar() {
                     <circle cx="18" cy="12" r="1"/>
                   </svg>
                 </div>
-                <span className="logo-text">PlayWithPro</span>
+                <span className="text-white text-xl font-bold">PlayWithPro</span>
               </div>
               <button 
-                className="mobile-menu-close"
+                className="w-10 h-10 bg-white/10 border border-white/20 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-150 hover:bg-white/20 hover:border-white/30"
                 onClick={closeMobileMenu}
                 aria-label="Close mobile menu"
               >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg className="w-5 h-5 stroke-white stroke-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <line x1="18" y1="6" x2="6" y2="18"/>
                   <line x1="6" y1="6" x2="18" y2="18"/>
                 </svg>
               </button>
             </div>
 
-            <div className="mobile-menu-content">
-              <div className="mobile-nav-items">
+            <div className="flex-1 p-6 overflow-y-auto">
+              <div className="flex flex-col gap-2 mb-8">
                 {navItems.map((item, index) => (
                   <Link
                     key={item.id}
                     to={item.path}
-                    className={`mobile-nav-link ${isActiveRoute(item.path) ? 'active' : ''} ${shouldAnimate ? 'animate' : 'no-animate'}`}
+                    className={`flex items-center gap-3 p-4 bg-white/5 border border-white/10 rounded-xl text-gray-300 text-base font-medium transition-all duration-150 hover:bg-white/10 hover:border-white/20 hover:text-white hover:translate-x-1 cursor-pointer relative ${
+                      isActiveRoute(item.path) ? 'bg-indigo-500/20 border-indigo-500 text-white' : ''
+                    }`}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <span className="link-icon">{item.icon}</span>
-                    <span className="link-text">{item.label}</span>
-                    <div className="link-underline"></div>
+                    <span className="text-lg transition-all duration-150 hover:scale-110">{item.icon}</span>
+                    <span>{item.label}</span>
+                    <div className={`absolute bottom-0 left-0 right-0 h-0.5 gaming-gradient rounded-sm transition-all duration-300 ${
+                      isActiveRoute(item.path) ? 'scale-x-100' : 'scale-x-0'
+                    }`}></div>
                   </Link>
                 ))}
               </div>
 
-              <div className="mobile-menu-search">
-                <div className="search-box">
-                  <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <div className="mb-6">
+                <div className="relative flex items-center glass-bg border border-white/10 rounded-xl px-3 py-3 pl-10 w-full">
+                  <svg className="absolute left-3 w-4 h-4 stroke-gray-400 stroke-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <circle cx="11" cy="11" r="8"/>
                     <path d="M21 21l-4.35-4.35"/>
                   </svg>
                   <input 
                     type="text" 
                     placeholder="Rechercher..." 
-                    className="search-input"
+                    className="w-full text-white text-base placeholder-gray-400 bg-transparent border-none outline-none"
                     aria-label="Rechercher"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="mobile-menu-footer">
+            <div className="p-6 border-t border-white/10">
               {isAuthenticated ? (
-                <div className="mobile-user-section">
-                  <div className="mobile-user-info">
-                    <div className="avatar-circle">
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center gap-3 p-4 bg-white/5 border border-white/10 rounded-xl relative">
+                    <div className="w-6 h-6 gaming-gradient rounded-md flex items-center justify-center relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-white/10 to-white/20 rounded-md"></div>
                       {currentUser?.avatar ? (
                         <img 
                           src={currentUser.avatar} 
                           alt="User avatar" 
-                          className="avatar-image"
+                          className="w-full h-full object-cover rounded-md relative z-10"
                         />
                       ) : (
-                        <svg className="avatar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <svg className="w-3.5 h-3.5 stroke-white stroke-2 relative z-10" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                           <circle cx="12" cy="7" r="4"/>
                         </svg>
                       )}
                     </div>
-                    <div className="user-details">
-                      <div className="user-name">{currentUser?.name || 'Utilisateur'}</div>
-                      <div className="user-email">{currentUser?.email || ''}</div>
+                    <div className="flex-1">
+                      <div className="text-white text-base font-semibold mb-0.5">{currentUser?.name || 'Utilisateur'}</div>
+                      <div className="text-gray-400 text-sm">{currentUser?.email || ''}</div>
                     </div>
-                    <div className="status-indicator"></div>
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                   </div>
-                  <div className="mobile-user-actions">
-                    <Link to="/profile" className="mobile-user-action" onClick={closeMobileMenu}>
-                      <span className="action-icon">👤</span>
+                  <div className="flex flex-col gap-2">
+                    <Link to="/profile" className="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-lg text-gray-300 text-sm font-medium transition-all duration-150 hover:bg-white/10 hover:border-white/20 hover:text-white hover:translate-x-1 cursor-pointer bg-none border-none w-full text-left" onClick={closeMobileMenu}>
+                      <span className="text-base w-5 text-center">👤</span>
                       <span>Mon Profil</span>
                     </Link>
-                    <Link to="/dashboard" className="mobile-user-action" onClick={closeMobileMenu}>
-                      <span className="action-icon">📊</span>
+                    <Link to="/dashboard" className="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-lg text-gray-300 text-sm font-medium transition-all duration-150 hover:bg-white/10 hover:border-white/20 hover:text-white hover:translate-x-1 cursor-pointer bg-none border-none w-full text-left" onClick={closeMobileMenu}>
+                      <span className="text-base w-5 text-center">📊</span>
                       <span>Tableau de bord</span>
                     </Link>
-                    <button className="mobile-user-action logout-action">
-                      <span className="action-icon">🚪</span>
+                    <button className="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-lg text-red-400 text-sm font-medium transition-all duration-150 hover:bg-red-500/10 hover:text-red-300 hover:translate-x-1 cursor-pointer bg-none border-none w-full text-left">
+                      <span className="text-base w-5 text-center">🚪</span>
                       <span>Déconnexion</span>
                     </button>
                   </div>
                 </div>
               ) : (
-                <div className="mobile-auth-section">
-                  <Link to="/connexion" className="mobile-auth-button" onClick={closeMobileMenu}>
-                    <span className="auth-icon">🔑</span>
+                <div className="flex flex-col gap-2">
+                  <Link to="/connexion" className="flex items-center gap-3 p-4 bg-white/5 border border-white/10 rounded-xl text-white text-base font-medium transition-all duration-150 hover:bg-white/10 hover:border-white/20 hover:-translate-y-0.5 cursor-pointer relative" onClick={closeMobileMenu}>
+                    <span className="text-lg w-6 text-center">🔑</span>
                     <span>Connexion</span>
                   </Link>
-                  <Link to="/inscription" className="mobile-auth-button" onClick={closeMobileMenu}>
-                    <span className="auth-icon">📝</span>
+                  <Link to="/inscription" className="flex items-center gap-3 p-4 bg-white/5 border border-white/10 rounded-xl text-white text-base font-medium transition-all duration-150 hover:bg-white/10 hover:border-white/20 hover:-translate-y-0.5 cursor-pointer relative" onClick={closeMobileMenu}>
+                    <span className="text-lg w-6 text-center">📝</span>
                     <span>Inscription</span>
                   </Link>
                 </div>

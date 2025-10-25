@@ -1,5 +1,4 @@
 import React, { memo, useEffect, useRef, useState, useCallback } from 'react';
-import './HowItWorks.css';
 
 // Import components
 import { StepCard } from './components';
@@ -102,61 +101,61 @@ const useIntersectionObserver = (elementRef, threshold = 0.3) => {
  */
 const DynamicBackground = memo(() => {
   return (
-    <div className="dynamic-background">
+    <div className="absolute inset-0 overflow-hidden">
       {/* Floating geometric shapes */}
-      <div className="floating-shapes">
+      <div className="absolute inset-0">
         {[...Array(8)].map((_, i) => (
           <div 
             key={i} 
-            className={`floating-shape shape-${i + 1}`}
+            className="absolute w-16 h-16 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg animate-pulse"
             style={{
-              '--shape-delay': `${i * 0.5}s`,
-              '--shape-duration': `${12 + (i % 4)}s`,
-              '--shape-size': `${60 + (i % 3) * 40}px`
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${i * 0.5}s`,
+              animationDuration: `${12 + (i % 4)}s`
             }}
           />
         ))}
       </div>
       
       {/* Animated gradient orbs */}
-      <div className="gradient-orbs">
-        <div className="orb orb-1" />
-        <div className="orb orb-2" />
-        <div className="orb orb-3" />
-        <div className="orb orb-4" />
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-blue-500/30 to-purple-500/30 rounded-full blur-xl animate-pulse" />
+        <div className="absolute top-3/4 right-1/4 w-24 h-24 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full blur-xl animate-pulse" />
+        <div className="absolute bottom-1/4 left-1/2 w-20 h-20 bg-gradient-to-r from-cyan-500/30 to-blue-500/30 rounded-full blur-xl animate-pulse" />
+        <div className="absolute top-1/2 right-1/3 w-28 h-28 bg-gradient-to-r from-pink-500/30 to-red-500/30 rounded-full blur-xl animate-pulse" />
       </div>
 
       {/* Particle system */}
-      <div className="particle-system">
+      <div className="absolute inset-0">
         {[...Array(50)].map((_, i) => (
           <div 
             key={i} 
-            className="particle"
+            className="absolute w-1 h-1 bg-white/30 rounded-full animate-ping"
             style={{
-              '--particle-delay': `${i * 0.1}s`,
-              '--particle-duration': `${8 + (i % 3)}s`,
-              '--particle-x': `${Math.random() * 100}%`,
-              '--particle-y': `${Math.random() * 100}%`,
-              '--particle-size': `${2 + Math.random() * 4}px`
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${i * 0.1}s`,
+              animationDuration: `${8 + (i % 3)}s`
             }}
           />
         ))}
       </div>
 
       {/* Animated grid */}
-      <div className="animated-grid">
-        <div className="grid-lines">
+      <div className="absolute inset-0 opacity-20">
+        <div className="grid grid-cols-20 grid-rows-20 h-full w-full">
           {[...Array(20)].map((_, i) => (
-            <div key={i} className="grid-line" style={{ '--line-delay': `${i * 0.1}s` }} />
+            <div key={i} className="border border-white/10" style={{ animationDelay: `${i * 0.1}s` }} />
           ))}
         </div>
       </div>
 
       {/* Light rays */}
-      <div className="light-rays">
-        <div className="ray ray-1" />
-        <div className="ray ray-2" />
-        <div className="ray ray-3" />
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-white/20 to-transparent transform -skew-x-12" />
+        <div className="absolute top-0 left-1/2 w-px h-full bg-gradient-to-b from-transparent via-white/20 to-transparent transform -skew-x-12" />
+        <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-white/20 to-transparent transform -skew-x-12" />
       </div>
     </div>
   );
@@ -167,26 +166,28 @@ const DynamicBackground = memo(() => {
  */
 const SectionHeader = memo(() => {
   return (
-    <header className="how-it-works-header">
-      <div className="header-container">
-        <div className="header-badge">
-          <div className="badge-icon">⚡</div>
-          <span className="badge-text">Processus Simple</span>
+    <header className="text-center mb-16">
+      <div className="max-w-4xl mx-auto">
+        <div className="inline-flex items-center gap-2 bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm font-medium mb-8">
+          <div className="text-lg">⚡</div>
+          <span>Processus Simple</span>
         </div>
         
-        <h2 id="how-it-works-title" className="how-it-works-title">
-          <span className="title-main">{HOW_IT_WORKS_CONTENT.title.text}</span>
-          <span className="title-accent">{HOW_IT_WORKS_CONTENT.title.gradient}</span>
+        <h2 id="how-it-works-title" className="text-5xl md:text-7xl font-bold mb-6">
+          <span className="text-white block">{HOW_IT_WORKS_CONTENT.title.text}</span>
+          <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent block">
+            {HOW_IT_WORKS_CONTENT.title.gradient}
+          </span>
         </h2>
         
-        <p className="how-it-works-description">
+        <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
           {HOW_IT_WORKS_CONTENT.description}
         </p>
 
-        <div className="header-decoration">
-          <div className="decoration-line" />
-          <div className="decoration-dot" />
-          <div className="decoration-line" />
+        <div className="flex items-center justify-center gap-4">
+          <div className="w-16 h-px bg-gradient-to-r from-transparent to-white/30" />
+          <div className="w-3 h-3 bg-white/50 rounded-full" />
+          <div className="w-16 h-px bg-gradient-to-l from-transparent to-white/30" />
         </div>
       </div>
     </header>
@@ -206,46 +207,55 @@ const FloatingCards = memo(({
   const cardsRef = useRef(null);
 
   return (
-    <div className="floating-cards-container" ref={cardsRef}>
-      <div className="cards-grid">
+    <div className="relative mb-16" ref={cardsRef}>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {STEPS.map((step, index) => (
           <div
             key={step.id}
-            className={`floating-card ${activeStep === index ? 'active' : ''} ${index < activeStep ? 'completed' : ''} ${isVisible ? 'visible' : ''}`}
+            className={`relative bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 cursor-pointer transition-all duration-300 hover:bg-white/20 hover:scale-105 ${
+              activeStep === index ? 'bg-white/20 scale-105 shadow-2xl' : ''
+            } ${index < activeStep ? 'bg-green-500/20 border-green-500/50' : ''} ${
+              isVisible ? 'animate-fade-in' : 'opacity-0'
+            }`}
             style={{ 
-              '--card-delay': `${index * 0.15}s`,
-              '--card-index': index,
-              '--card-x': `${(index % 2) * 50 + 25}%`,
-              '--card-y': `${Math.floor(index / 2) * 50 + 25}%`
+              animationDelay: `${index * 0.15}s`
             }}
             onClick={() => handleStepClick(index)}
           >
-            <div className="card-glow" />
-            <div className="card-border" />
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 border border-white/30 rounded-xl" />
             
-            <div className="card-header">
-              <div className="step-number">{index + 1}</div>
-              <div className="step-icon">
+            <div className="relative z-10 flex items-center gap-4 mb-4">
+              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                {index + 1}
+              </div>
+              <div className="text-2xl">
                 {STEP_ICONS[step.icon]}
               </div>
             </div>
 
-            <div className="card-content">
-              <h3 className="card-title">{step.title}</h3>
-              <p className="card-description">{step.description}</p>
+            <div className="relative z-10">
+              <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
+              <p className="text-gray-300 leading-relaxed">{step.description}</p>
             </div>
 
-            <div className="card-footer">
-              <div className="progress-indicator">
-                <div className="progress-bar" />
+            <div className="relative z-10 mt-4">
+              <div className="w-full bg-white/20 rounded-full h-1">
+                <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-1 rounded-full transition-all duration-500" 
+                     style={{ width: activeStep >= index ? '100%' : '0%' }} />
               </div>
             </div>
 
-            <div className="card-effects">
-              <div className="effect-ripple" />
-              <div className="effect-particles">
+            <div className="absolute inset-0 overflow-hidden rounded-xl">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0">
                 {[...Array(6)].map((_, i) => (
-                  <div key={i} className="effect-particle" style={{ '--particle-delay': `${i * 0.1}s` }} />
+                  <div key={i} className="absolute w-1 h-1 bg-white/50 rounded-full animate-ping" 
+                       style={{ 
+                         left: `${Math.random() * 100}%`,
+                         top: `${Math.random() * 100}%`,
+                         animationDelay: `${i * 0.1}s`
+                       }} />
                 ))}
               </div>
             </div>
@@ -261,24 +271,35 @@ const FloatingCards = memo(({
  */
 const ProgressIndicator = memo(({ activeStep, handleStepClick }) => {
   return (
-    <div className="progress-indicator">
-      <div className="progress-track">
-        <div className="progress-line">
-          <div className="progress-fill" style={{ width: `${(activeStep / (STEPS.length - 1)) * 100}%` }} />
+    <div className="flex justify-center">
+      <div className="flex items-center gap-4">
+        <div className="flex-1 h-1 bg-white/20 rounded-full max-w-md">
+          <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-1 rounded-full transition-all duration-500" 
+               style={{ width: `${(activeStep / (STEPS.length - 1)) * 100}%` }} />
         </div>
         
         {STEPS.map((_, index) => (
           <button
             key={index}
-            className={`progress-dot ${index === activeStep ? 'active' : ''} ${index < activeStep ? 'completed' : ''}`}
+            className={`relative w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
+              index === activeStep 
+                ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg scale-110' 
+                : index < activeStep 
+                  ? 'bg-green-500 text-white' 
+                  : 'bg-white/20 text-gray-300 hover:bg-white/30'
+            }`}
             onClick={() => handleStepClick(index)}
             aria-label={`Aller à l'étape ${index + 1}`}
           >
-            <div className="dot-inner">
-              <span className="dot-number">{index + 1}</span>
-            </div>
-            <div className="dot-ring" />
-            <div className="dot-glow" />
+            <span>{index + 1}</span>
+            {index === activeStep && (
+              <div className="absolute inset-0 rounded-full border-2 border-white/50 animate-ping" />
+            )}
+            {index < activeStep && (
+              <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full flex items-center justify-center">
+                <span className="text-xs">✓</span>
+              </div>
+            )}
           </button>
         ))}
       </div>
@@ -310,7 +331,7 @@ const HowItWorks = () => {
 
   return (
     <section 
-      className="how-it-works-section" 
+      className="relative min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden" 
       id="how-it-works" 
       role="region" 
       aria-labelledby="how-it-works-title"
@@ -325,7 +346,7 @@ const HowItWorks = () => {
     >
       <DynamicBackground />
 
-      <div className="how-it-works-container">
+      <div className="relative z-10 container mx-auto px-4 py-16">
         <SectionHeader />
         <FloatingCards 
           activeStep={activeStep}

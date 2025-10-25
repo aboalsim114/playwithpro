@@ -1,5 +1,4 @@
 import React from 'react';
-import './DashboardUser.css';
 
 // Import components
 import Header from './components/Header';

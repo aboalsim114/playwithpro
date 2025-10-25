@@ -1,6 +1,5 @@
 import React from 'react'
 import DefaultAvatar from './DefaultAvatar'
-import './AvatarDemo.css'
 
 function AvatarDemo() {
   const demoUsers = [
@@ -12,19 +11,19 @@ function AvatarDemo() {
   ]
 
   return (
-    <div className="avatar-demo">
-      <h3>Démonstration des Avatars par Défaut</h3>
-      <div className="demo-grid">
+    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-200">
+      <h3 className="text-xl font-bold text-gray-900 mb-6">Démonstration des Avatars par Défaut</h3>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {demoUsers.map((user, index) => (
-          <div key={index} className="demo-item">
+          <div key={index} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
             <DefaultAvatar 
               username={user.username}
               userType={user.userType}
               size="medium"
             />
-            <div className="demo-info">
-              <div className="demo-username">{user.username}</div>
-              <div className="demo-type">{user.userType}</div>
+            <div>
+              <div className="font-semibold text-gray-900">{user.username}</div>
+              <div className="text-sm text-gray-600 capitalize">{user.userType}</div>
             </div>
           </div>
         ))}

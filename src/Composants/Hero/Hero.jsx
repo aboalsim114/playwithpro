@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import './Hero.css';
 
 // Import components
 import { StatusIndicator, FeatureCard, StatCard, HeroButton } from './components';
@@ -28,10 +27,10 @@ const Hero = ({ onPlayClick, onExploreClick }) => {
   };
 
   return (
-    <section className="hero-section" id="home" role="banner">
-      <div className="hero-container">
+    <section className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden" id="home" role="banner">
+      <div className="container mx-auto px-4 py-16 relative z-10">
         {/* Status Indicators */}
-        <div className="status-indicators" aria-label="Statut du serveur">
+        <div className="flex flex-wrap justify-center gap-4 mb-12" aria-label="Statut du serveur">
           {STATUS_INDICATORS.map((indicator) => (
             <StatusIndicator
               key={indicator.id}
@@ -45,15 +44,17 @@ const Hero = ({ onPlayClick, onExploreClick }) => {
         </div>
 
         {/* Hero Title Section */}
-        <header className="hero-title-section">
-          <h1 className="hero-title">
-            <span className="title-text">{HERO_CONTENT.title.text}</span>
-            <span className="title-gradient">{HERO_CONTENT.title.gradient}</span>
+        <header className="text-center mb-16">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            <span className="text-white block">{HERO_CONTENT.title.text}</span>
+            <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent block">
+              {HERO_CONTENT.title.gradient}
+            </span>
           </h1>
-          <p className="hero-description">
+          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
             {HERO_CONTENT.description}
           </p>
-          <div className="hero-buttons" role="group" aria-label="Actions principales">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center" role="group" aria-label="Actions principales">
             <HeroButton
               variant="primary"
               icon={SVG_ICONS.play}
@@ -74,7 +75,7 @@ const Hero = ({ onPlayClick, onExploreClick }) => {
         </header>
 
         {/* Feature Cards */}
-        <section className="feature-cards" aria-label="Fonctionnalités du jeu">
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16" aria-label="Fonctionnalités du jeu">
           {FEATURE_CARDS.map((feature) => (
             <FeatureCard
               key={feature.id}
@@ -88,7 +89,7 @@ const Hero = ({ onPlayClick, onExploreClick }) => {
         </section>
 
         {/* Statistics Cards */}
-        <section className="stats-cards" aria-label="Statistiques du jeu">
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" aria-label="Statistiques du jeu">
           {STATISTICS.map((stat) => (
             <StatCard
               key={stat.id}

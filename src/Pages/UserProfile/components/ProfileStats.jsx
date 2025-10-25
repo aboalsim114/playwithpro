@@ -1,5 +1,4 @@
 import React from 'react'
-import './ProfileStats.css'
 
 function ProfileStats({ userData }) {
   const stats = [
@@ -40,99 +39,82 @@ function ProfileStats({ userData }) {
   }
 
   return (
-    <div className="profile-stats">
-      {/* Enhanced Gaming Background */}
-      <div className="stats-bg-effects">
-        <div className="stats-particles"></div>
-        <div className="stats-grid-pattern"></div>
-      </div>
-
-      <div className="stats-header">
-        <h2 className="stats-title">
-          <span className="stats-icon">📊</span>
-          <span className="stats-text">Statistiques de jeu</span>
-          <div className="stats-glow"></div>
+    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-200">
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-3">
+          <span className="text-3xl">📊</span>
+          Statistiques de jeu
         </h2>
-        <p className="stats-subtitle">Vos performances en un coup d'œil</p>
+        <p className="text-gray-600">Vos performances en un coup d'œil</p>
       </div>
 
-      <div className="stats-grid">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {stats.map((stat, index) => (
           <div 
             key={stat.label}
-            className="stat-card"
-            style={{ 
-              '--delay': `${index * 0.1}s`,
-              '--stat-color': stat.color
-            }}
+            className="relative p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-300"
+            style={{ animationDelay: `${index * 0.1}s` }}
           >
-            <div className="stat-card-glow"></div>
-            <div className="stat-icon-container">
-              <div className="stat-icon" style={{ color: stat.color }}>
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-12 h-12 rounded-lg flex items-center justify-center text-2xl" style={{ backgroundColor: stat.color + '20' }}>
                 {stat.icon}
               </div>
-              <div className="stat-icon-ring"></div>
-            </div>
-            <div className="stat-content">
-              <div className="stat-value">
-                <span className="stat-number">
+              <div className="flex-1">
+                <div className="text-2xl font-bold text-gray-900">
                   {typeof stat.value === 'number' ? stat.value.toLocaleString() : stat.value}
-                </span>
-                <span className="stat-suffix">{stat.suffix}</span>
-              </div>
-              <div className="stat-label">{stat.label}</div>
-              {stat.label === 'Taux de victoire' && (
-                <div 
-                  className="stat-progress"
-                  style={{ 
-                    '--progress': `${stat.value}%`,
-                    '--color': getWinRateColor(stat.value)
-                  }}
-                >
-                  <div className="progress-bar">
-                    <div className="progress-fill">
-                      <div className="progress-shine"></div>
-                    </div>
-                    <div className="progress-particles"></div>
-                  </div>
-                  <span className="progress-text">{stat.value}%</span>
+                  <span className="text-lg text-gray-600">{stat.suffix}</span>
                 </div>
-              )}
+                <div className="text-sm text-gray-600">{stat.label}</div>
+              </div>
             </div>
-            <div className="stat-card-border"></div>
+            
+            {stat.label === 'Taux de victoire' && (
+              <div className="mt-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-gray-600">Progression</span>
+                  <span className="text-sm font-semibold" style={{ color: getWinRateColor(stat.value) }}>
+                    {stat.value}%
+                  </span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    className="h-2 rounded-full transition-all duration-500"
+                    style={{ 
+                      width: `${stat.value}%`,
+                      backgroundColor: getWinRateColor(stat.value)
+                    }}
+                  ></div>
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>
 
       {/* Enhanced Favorite Game Section */}
-      <div className="favorite-game-section">
-        <div className="favorite-game-card">
-          <div className="game-card-glow"></div>
-          <div className="favorite-game-header">
-            <div className="favorite-game-icon-container">
-              <span className="favorite-game-icon">🎯</span>
-              <div className="icon-pulse"></div>
-            </div>
-            <h3>Jeu favori</h3>
+      <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-6 text-white">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+            <span className="text-2xl">🎯</span>
           </div>
-          <div className="favorite-game-content">
-            <div className="game-logo">
-              <div className="game-logo-bg"></div>
-              <span className="game-icon">🎮</span>
-              <div className="game-logo-glow"></div>
-            </div>
-            <div className="game-info">
-              <h4 className="game-name">{userData.stats.favoriteGame}</h4>
-              <p className="game-description">Votre jeu le plus joué cette saison</p>
-              <div className="game-stats">
-                <div className="game-stat">
-                  <span className="game-stat-label">Temps joué</span>
-                  <span className="game-stat-value">342h</span>
-                </div>
-                <div className="game-stat">
-                  <span className="game-stat-label">Victoires</span>
-                  <span className="game-stat-value">127</span>
-                </div>
+          <h3 className="text-xl font-bold">Jeu favori</h3>
+        </div>
+        
+        <div className="flex items-center gap-6">
+          <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center">
+            <span className="text-3xl">🎮</span>
+          </div>
+          <div className="flex-1">
+            <h4 className="text-xl font-bold mb-2">{userData.stats.favoriteGame}</h4>
+            <p className="text-blue-100 mb-4">Votre jeu le plus joué cette saison</p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-white/10 rounded-lg p-3">
+                <div className="text-sm text-blue-200">Temps joué</div>
+                <div className="text-lg font-bold">342h</div>
+              </div>
+              <div className="bg-white/10 rounded-lg p-3">
+                <div className="text-sm text-blue-200">Victoires</div>
+                <div className="text-lg font-bold">127</div>
               </div>
             </div>
           </div>

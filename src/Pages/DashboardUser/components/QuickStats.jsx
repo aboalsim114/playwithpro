@@ -21,16 +21,16 @@ const QuickStats = () => {
   ];
 
   return (
-    <div className="quick-stats-section">
-      <div className="quick-stats-card">
-        <h3 className="quick-stats-title">📊 Aperçu Rapide</h3>
-        <div className="quick-stats-grid">
+    <div className="p-6">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h3 className="text-xl font-bold text-gray-900 mb-6">📊 Aperçu Rapide</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {stats.map((stat, index) => (
-            <div key={index} className="quick-stat">
-              <div className="stat-icon">{stat.icon}</div>
-              <div className="stat-info">
-                <div className="stat-value">{stat.value}</div>
-                <div className="stat-label">{stat.label}</div>
+            <div key={index} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+              <div className="text-3xl">{stat.icon}</div>
+              <div>
+                <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
+                <div className="text-sm text-gray-600">{stat.label}</div>
               </div>
             </div>
           ))}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
-import './Inscription.css'
 import { useAuth } from '../../store/hooks'
 import { registerUser, clearError } from '../../store/slices/authSlice'
 import { formatApiError } from '../../utils/validation'

@@ -10,7 +10,9 @@ const HeroButton = ({
   'aria-label': ariaLabel,
   ...props 
 }) => {
-  const baseClasses = variant === 'primary' ? 'play-btn' : 'explore-btn';
+  const baseClasses = variant === 'primary' 
+    ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 px-8 py-4 rounded-full font-semibold text-lg flex items-center gap-3'
+    : 'bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all duration-300 px-8 py-4 rounded-full font-semibold text-lg flex items-center gap-3';
   
   return (
     <button
@@ -20,7 +22,7 @@ const HeroButton = ({
       aria-label={ariaLabel}
       {...props}
     >
-      {icon && <span className="button-icon" aria-hidden="true">{icon}</span>}
+      {icon && <span className="text-xl" aria-hidden="true">{icon}</span>}
       <span>{children}</span>
     </button>
   );

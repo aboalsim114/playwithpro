@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== STYLES PERSONNALISÉS ===== */
+
+/* Variables CSS personnalisées pour le thème gaming */
+:root {
+  --gaming-green: #00FF88;
+  --pro-orange: #FF6B35;
+  --streamer-purple: #9B5FFF;
+  --gaming-blue: #3B82F6;
+  --gaming-cyan: #00FFFF;
+}
+
+/* Styles de base pour le body */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #7C3AED 0%, #3B82F6 100%);
+  min-height: 100vh;
+  color: #E0E7FF;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Classes utilitaires personnalisées */
+@layer utilities {
+  .glass-bg {
+    background: rgba(31, 41, 55, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .glass-bg-hover {
+    background: rgba(31, 41, 55, 0.2);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .gaming-gradient {
+    background: linear-gradient(45deg, var(--gaming-green), var(--pro-orange));
+  }
+  
+  .streamer-gradient {
+    background: linear-gradient(45deg, var(--streamer-purple), var(--gaming-blue));
+  }
+  
+  .gaming-shadow {
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+  }
+  
+  .pro-shadow {
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+  }
+  
+  .streamer-shadow {
+    box-shadow: 0 0 20px rgba(155, 95, 255, 0.3);
+  }
+}
+
+/* Animations personnalisées */
+@layer components {
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-slide-down {
+    animation: slide-down 0.6s ease-out;
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.2s ease-out;
+  }
+  
+  .animate-slide-in-right {
+    animation: slide-in-right 0.3s ease-out;
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateX(-50%) translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Styles pour les composants spécifiques */
+@layer components {
+  .gaming-button {
+    @apply px-6 py-3 bg-gradient-to-r from-green-400 to-orange-500 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+  
+  .glass-card {
+    @apply bg-gray-800/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 shadow-lg;
+  }
+  
+  .gaming-input {
+    @apply bg-black/30 border border-white/20 rounded-lg text-indigo-100 px-4 py-2 transition-all duration-300 hover:bg-black/40 hover:border-green-400 focus:outline-none focus:border-green-400 focus:shadow-lg focus:shadow-green-400/30;
+  }
+  
+  .toggle-switch {
+    @apply relative inline-block w-12 h-6 cursor-pointer;
+  }
+  
+  .toggle-slider {
+    @apply absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-black/30 rounded-full transition-all duration-300 border border-white/20 hover:shadow-lg;
+  }
+  
+  .toggle-slider:before {
+    @apply absolute h-4 w-4 left-0.5 bottom-0.5 bg-slate-400 rounded-full transition-all duration-300;
+    content: '';
+  }
+  
+  .toggle-switch input:checked + .toggle-slider {
+    @apply bg-green-400 shadow-lg shadow-green-400/30;
+  }
+  
+  .toggle-switch input:checked + .toggle-slider:before {
+    @apply bg-white translate-x-6;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .glass-card {
+    @apply p-4;
+  }
+  
+  .gaming-button {
+    @apply px-4 py-2 text-sm;
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  .glass-bg {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  
+  .glass-bg-hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

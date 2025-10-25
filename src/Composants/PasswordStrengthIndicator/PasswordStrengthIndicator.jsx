@@ -1,6 +1,5 @@
 import React from 'react';
 import { calculatePasswordStrength } from '../../utils/validationUtils';
-import './PasswordStrengthIndicator.css';
 
 const PasswordStrengthIndicator = ({ password, showFeedback = true }) => {
   const { score, level, feedback } = calculatePasswordStrength(password);
@@ -70,19 +69,19 @@ const PasswordStrengthIndicator = ({ password, showFeedback = true }) => {
   if (!password) return null;
 
   return (
-    <div className="password-strength-indicator">
-      <div className="strength-header">
-        <div className="strength-icon" style={{ color: getStrengthColor(level) }}>
+    <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+      <div className="flex items-center gap-3 mb-3">
+        <div className="text-lg" style={{ color: getStrengthColor(level) }}>
           {getStrengthIcon(level)}
         </div>
-        <span className="strength-text" style={{ color: getStrengthColor(level) }}>
+        <span className="font-semibold text-sm" style={{ color: getStrengthColor(level) }}>
           {getStrengthText(level)}
         </span>
       </div>
       
-      <div className="strength-bar">
+      <div className="w-full bg-gray-200 rounded-full h-2 mb-3">
         <div 
-          className="strength-fill" 
+          className="h-2 rounded-full transition-all duration-300" 
           style={{ 
             width: `${(score / 6) * 100}%`,
             backgroundColor: getStrengthColor(level),
@@ -92,12 +91,12 @@ const PasswordStrengthIndicator = ({ password, showFeedback = true }) => {
       </div>
       
       {showFeedback && feedback.length > 0 && (
-        <div className="strength-feedback">
-          <div className="feedback-title">Critères manquants :</div>
-          <ul className="feedback-list">
+        <div className="mt-3">
+          <div className="text-sm font-medium text-gray-700 mb-2">Critères manquants :</div>
+          <ul className="space-y-1">
             {feedback.map((item, index) => (
-              <li key={index} className="feedback-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <li key={index} className="flex items-center gap-2 text-sm text-gray-600">
+                <svg className="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="12" cy="12" r="10"/>
                   <line x1="15" y1="9" x2="9" y2="15"/>
                   <line x1="9" y1="9" x2="15" y2="15"/>

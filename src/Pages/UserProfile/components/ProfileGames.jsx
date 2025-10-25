@@ -1,5 +1,4 @@
 import React from 'react'
-import './ProfileGames.css'
 
 function ProfileGames({ userData }) {
   const getResultColor = (result) => {
@@ -35,95 +34,92 @@ function ProfileGames({ userData }) {
   }
 
   return (
-    <div className="profile-games">
-      <div className="games-header">
-        <h2 className="games-title">
-          <span className="games-icon">🎮</span>
+    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-200">
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-3">
+          <span className="text-3xl">🎮</span>
           Parties récentes
         </h2>
-        <p className="games-subtitle">Vos dernières performances</p>
+        <p className="text-gray-600">Vos dernières performances</p>
       </div>
 
-      <div className="games-list">
+      <div className="space-y-4 mb-8">
         {userData.recentGames.map((game, index) => (
           <div 
             key={game.id}
-            className="game-item"
-            style={{ '--delay': `${index * 0.1}s` }}
+            className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+            style={{ animationDelay: `${index * 0.1}s` }}
           >
-            <div className="game-main-info">
-              <div className="game-icon-section">
-                <span className="game-icon">🎯</span>
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <span className="text-2xl">🎯</span>
               </div>
-              <div className="game-details">
-                <h3 className="game-name">{game.name}</h3>
-                <div className="game-meta">
-                  <span className="game-duration">
-                    <span className="meta-icon">⏱️</span>
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-1">{game.name}</h3>
+                <div className="flex items-center gap-4 text-sm text-gray-600">
+                  <span className="flex items-center gap-1">
+                    <span>⏱️</span>
                     {formatDuration(game.duration)}
                   </span>
-                  <span className="game-date">
-                    <span className="meta-icon">📅</span>
+                  <span className="flex items-center gap-1">
+                    <span>📅</span>
                     {formatDate(game.date)}
                   </span>
                 </div>
               </div>
             </div>
 
-            <div className="game-result">
-              <div 
-                className="result-badge"
-                style={{ 
-                  backgroundColor: getResultColor(game.result),
-                  color: 'white'
-                }}
-              >
-                <span className="result-icon">{getResultIcon(game.result)}</span>
-                <span className="result-text">{game.result}</span>
-              </div>
+            <div 
+              className="px-4 py-2 rounded-full text-white font-semibold flex items-center gap-2"
+              style={{ 
+                backgroundColor: getResultColor(game.result)
+              }}
+            >
+              <span>{getResultIcon(game.result)}</span>
+              <span>{game.result}</span>
             </div>
           </div>
         ))}
       </div>
 
       {/* Quick Actions */}
-      <div className="games-actions">
-        <button className="action-button primary">
-          <span className="button-icon">🚀</span>
+      <div className="flex flex-col sm:flex-row gap-4 mb-8">
+        <button className="flex items-center gap-3 bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+          <span className="text-xl">🚀</span>
           Nouvelle partie
         </button>
-        <button className="action-button secondary">
-          <span className="button-icon">📊</span>
+        <button className="flex items-center gap-3 bg-gray-100 text-gray-700 py-3 px-6 rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+          <span className="text-xl">📊</span>
           Voir toutes les statistiques
         </button>
       </div>
 
       {/* Performance Summary */}
-      <div className="performance-summary">
-        <div className="summary-header">
-          <h3>Résumé des performances</h3>
+      <div className="bg-gray-50 rounded-xl p-6">
+        <div className="mb-6">
+          <h3 className="text-lg font-bold text-gray-900">Résumé des performances</h3>
         </div>
-        <div className="summary-stats">
-          <div className="summary-stat">
-            <span className="stat-label">Victoires</span>
-            <span className="stat-value" style={{ color: 'var(--gaming-green)' }}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="text-center">
+            <div className="text-2xl font-bold text-green-600 mb-1">
               {userData.recentGames.filter(g => g.result === 'Victory').length}
-            </span>
+            </div>
+            <div className="text-sm text-gray-600">Victoires</div>
           </div>
-          <div className="summary-stat">
-            <span className="stat-label">Défaites</span>
-            <span className="stat-value" style={{ color: 'var(--danger-red)' }}>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-red-600 mb-1">
               {userData.recentGames.filter(g => g.result === 'Defeat').length}
-            </span>
+            </div>
+            <div className="text-sm text-gray-600">Défaites</div>
           </div>
-          <div className="summary-stat">
-            <span className="stat-label">Temps total</span>
-            <span className="stat-value" style={{ color: 'var(--accent-cyan)' }}>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-blue-600 mb-1">
               {userData.recentGames.reduce((total, game) => {
                 const [minutes, seconds] = game.duration.split(':').map(Number)
                 return total + minutes + seconds / 60
               }, 0).toFixed(1)}h
-            </span>
+            </div>
+            <div className="text-sm text-gray-600">Temps total</div>
           </div>
         </div>
       </div>

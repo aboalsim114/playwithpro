@@ -1,3 +1,8 @@
+/* ===== TAILWIND CSS DIRECTIVES ===== */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* ===== STYLES INDEX - IMPORT ALL COMPONENTS ===== */
 
 /* Design System - Variables and Base Styles */

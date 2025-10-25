@@ -1,5 +1,4 @@
 import React, { memo, useEffect, useRef, useState, useCallback } from 'react';
-import './SecuritySection.css';
 
 /**
  * Custom hook for managing intersection observer
@@ -36,17 +35,16 @@ const useIntersectionObserver = (elementRef, threshold = 0.3) => {
  */
 const FloatingParticles = memo(() => {
   return (
-    <div className="floating-particles">
+    <div className="absolute inset-0 overflow-hidden">
       {[...Array(12)].map((_, i) => (
         <div 
           key={i} 
-          className="particle"
+          className="absolute w-2 h-2 bg-white/20 rounded-full animate-ping"
           style={{
-            '--particle-delay': `${i * 0.5}s`,
-            '--particle-duration': `${8 + (i % 4)}s`,
-            '--particle-x': `${Math.random() * 100}%`,
-            '--particle-y': `${Math.random() * 100}%`,
-            '--particle-size': `${4 + (i % 3) * 2}px`
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${i * 0.5}s`,
+            animationDuration: `${8 + (i % 4)}s`
           }}
         />
       ))}
@@ -59,10 +57,10 @@ const FloatingParticles = memo(() => {
  */
 const GridBackground = memo(() => {
   return (
-    <div className="grid-background">
-      <div className="grid-lines">
+    <div className="absolute inset-0 opacity-10">
+      <div className="grid grid-cols-20 grid-rows-20 h-full w-full">
         {[...Array(20)].map((_, i) => (
-          <div key={i} className="grid-line" style={{ '--line-delay': `${i * 0.1}s` }} />
+          <div key={i} className="border border-white/20" style={{ animationDelay: `${i * 0.1}s` }} />
         ))}
       </div>
     </div>
@@ -79,28 +77,32 @@ const SecurityCard = memo(({ icon, title, description, delay = 0, index }) => {
   return (
     <div
       ref={cardRef}
-      className={`security-card card-${index + 1} ${isHovered ? 'hovered' : ''}`}
-      style={{ '--card-delay': `${delay}s` }}
+      className={`relative bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 transition-all duration-300 hover:bg-white/20 hover:scale-105 ${
+        isHovered ? 'shadow-2xl' : ''
+      }`}
+      style={{ animationDelay: `${delay}s` }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="card-number">{String(index + 1).padStart(2, '0')}</div>
+      <div className="absolute top-4 right-4 text-2xl font-bold text-white/50">
+        {String(index + 1).padStart(2, '0')}
+      </div>
       
-      <div className="card-content">
-        <div className="card-icon-wrapper">
-          <div className="card-icon">
+      <div className="relative z-10">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
             {icon}
           </div>
-          <div className="icon-glow" />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg blur-xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
         </div>
         
-        <div className="card-text">
-          <h3 className="card-title">{title}</h3>
-          <p className="card-description">{description}</p>
+        <div>
+          <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
+          <p className="text-gray-300 leading-relaxed">{description}</p>
         </div>
       </div>
       
-      <div className="card-accent" />
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-b-xl" />
     </div>
   );
 });
@@ -110,35 +112,37 @@ const SecurityCard = memo(({ icon, title, description, delay = 0, index }) => {
  */
 const SectionHeader = memo(() => {
   return (
-    <header className="security-header">
-      <div className="header-badge">
-        <span className="badge-text">SÉCURITÉ</span>
-        <div className="badge-line" />
+    <header className="text-center mb-16">
+      <div className="inline-flex items-center gap-2 bg-red-500/20 text-red-300 px-4 py-2 rounded-full text-sm font-medium mb-8">
+        <span>SÉCURITÉ</span>
+        <div className="w-8 h-px bg-red-300" />
       </div>
       
-      <h2 className="security-title">
-        <span className="title-main">Sécurité Maximale</span>
-        <span className="title-sub">Serveurs Privés</span>
+      <h2 className="text-5xl md:text-7xl font-bold mb-6">
+        <span className="text-white block">Sécurité Maximale</span>
+        <span className="bg-gradient-to-r from-red-400 via-orange-500 to-yellow-500 bg-clip-text text-transparent block">
+          Serveurs Privés
+        </span>
       </h2>
       
-      <p className="security-description">
+      <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
         Infrastructure de pointe avec chiffrement militaire, anti-triche IA et protection totale des données.
       </p>
       
-      <div className="header-stats">
-        <div className="stat-item">
-          <span className="stat-number">99.9%</span>
-          <span className="stat-label">Uptime</span>
+      <div className="flex items-center justify-center gap-8 flex-wrap">
+        <div className="text-center">
+          <div className="text-3xl font-bold text-white mb-1">99.9%</div>
+          <div className="text-sm text-gray-400">Uptime</div>
         </div>
-        <div className="stat-divider" />
-        <div className="stat-item">
-          <span className="stat-number">256-bit</span>
-          <span className="stat-label">Encryption</span>
+        <div className="w-px h-8 bg-white/20" />
+        <div className="text-center">
+          <div className="text-3xl font-bold text-white mb-1">256-bit</div>
+          <div className="text-sm text-gray-400">Encryption</div>
         </div>
-        <div className="stat-divider" />
-        <div className="stat-item">
-          <span className="stat-number">24/7</span>
-          <span className="stat-label">Monitoring</span>
+        <div className="w-px h-8 bg-white/20" />
+        <div className="text-center">
+          <div className="text-3xl font-bold text-white mb-1">24/7</div>
+          <div className="text-sm text-gray-400">Monitoring</div>
         </div>
       </div>
     </header>
@@ -191,7 +195,7 @@ const SecuritySection = () => {
 
   return (
     <section 
-      className="security-section"
+      className="relative min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-900 overflow-hidden"
       id="security"
       role="region"
       aria-labelledby="security-title"
@@ -200,10 +204,10 @@ const SecuritySection = () => {
       <GridBackground />
       <FloatingParticles />
       
-      <div className="security-container">
+      <div className="relative z-10 container mx-auto px-4 py-16">
         <SectionHeader />
         
-        <div className="security-cards-container">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {securityFeatures.map((feature, index) => (
             <SecurityCard
               key={index}

@@ -369,7 +369,7 @@ const HowItWorks = () => {
 
   return (
     <section 
-      className="relative min-h-screen bg-gradient-to-br from-slate-900 via-cyan-900 to-slate-900 overflow-hidden" 
+      className="min-h-screen bg-black relative overflow-hidden" 
       id="how-it-works" 
       aria-labelledby="how-it-works-title"
       ref={sectionRef}
@@ -379,7 +379,25 @@ const HowItWorks = () => {
         '--scroll-progress': scrollProgress
       }}
     >
-      <DynamicBackground />
+      {/* Gaming Background with Grid and Neon Effects */}
+      <div className="absolute inset-0">
+        {/* Animated Grid Background */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-20"></div>
+        
+        {/* Neon Orbs */}
+        <div className="absolute top-20 right-20 w-32 h-32 bg-cyan-400 rounded-full filter blur-3xl opacity-60 animate-pulse"></div>
+        <div className="absolute bottom-32 left-16 w-24 h-24 bg-pink-400 rounded-full filter blur-2xl opacity-70 animate-pulse animation-delay-2000"></div>
+        <div className="absolute top-1/2 right-1/3 w-20 h-20 bg-green-400 rounded-full filter blur-xl opacity-50 animate-pulse animation-delay-4000"></div>
+        
+        {/* Scanlines Effect */}
+        <div className="absolute inset-0 bg-scanlines opacity-10"></div>
+        
+        {/* Corner Neon Accents */}
+        <div className="absolute top-0 left-0 w-32 h-1 bg-gradient-to-r from-cyan-400 to-transparent"></div>
+        <div className="absolute top-0 right-0 w-32 h-1 bg-gradient-to-l from-pink-400 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 w-32 h-1 bg-gradient-to-r from-green-400 to-transparent"></div>
+        <div className="absolute bottom-0 right-0 w-32 h-1 bg-gradient-to-l from-yellow-400 to-transparent"></div>
+      </div>
 
       {/* Grid 2-Column Container */}
       <div className="grid-container">

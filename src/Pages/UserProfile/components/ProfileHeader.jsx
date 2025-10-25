@@ -57,119 +57,130 @@ function ProfileHeader({ userData, activeTab, onTabChange }) {
 
   return (
     <div className="profile-header">
-      {/* Enhanced Gaming Header */}
-      <div className="gaming-header-bg">
-        <div className="cyber-pattern"></div>
-        <div className="energy-lines"></div>
-      </div>
-
-      {/* User Info Section */}
-      <div className="profile-user-info">
-        <div className="profile-avatar-section">
-          <div className="profile-avatar-container">
-            <div className="avatar-ring"></div>
-            {showDefaultAvatar ? (
-              <DefaultAvatar 
-                username={userData.username}
-                userType={userData.userType}
-                size="large"
-              />
-            ) : (
-              <img 
-                src={userData.avatar} 
-                alt={`Avatar de ${userData.username}`}
-                className="profile-avatar"
-                onError={handleAvatarError}
-                onLoad={handleAvatarLoad}
-              />
-            )}
-            <div 
-              className="profile-level-badge"
-              style={{ 
-                backgroundColor: getUserTypeColor(userData.userType),
-                boxShadow: `0 0 20px ${getUserTypeColor(userData.userType)}`
-              }}
-            >
-              <span className="level-number">{userData.level}</span>
-              <div className="level-glow"></div>
+      {/* Minimalist Card Design */}
+      <div className="header-card">
+        {/* User Identity Card */}
+        <div className="identity-card">
+          <div className="avatar-section">
+            <div className="avatar-wrapper">
+              {showDefaultAvatar ? (
+                <DefaultAvatar 
+                  username={userData.username}
+                  userType={userData.userType}
+                  size="large"
+                />
+              ) : (
+                <img 
+                  src={userData.avatar} 
+                  alt={`Avatar de ${userData.username}`}
+                  className="user-avatar"
+                  onError={handleAvatarError}
+                  onLoad={handleAvatarLoad}
+                />
+              )}
+              <div className="status-indicator online"></div>
             </div>
-            <div className="user-type-indicator">
-              <div 
-                className="type-glow"
-                style={{ backgroundColor: getUserTypeColor(userData.userType) }}
-              ></div>
-            </div>
-          </div>
-          <div className="profile-user-details">
-            <h1 className="profile-username">
-              <span className="username-text">{userData.username}</span>
-              <div className="username-glow"></div>
-            </h1>
-            <div className="profile-user-meta">
-              <span 
-                className="profile-user-type"
-                style={{ 
-                  color: getUserTypeColor(userData.userType),
-                  textShadow: `0 0 10px ${getUserTypeColor(userData.userType)}`
-                }}
-              >
-                {getUserTypeLabel(userData.userType)}
-              </span>
-              <span className="profile-join-date">
-                Membre depuis {new Date(userData.joinDate).toLocaleDateString('fr-FR', { 
-                  month: 'long', 
-                  year: 'numeric' 
-                })}
-              </span>
+            <div className="user-info">
+              <h1 className="user-name">{userData.fullName}</h1>
+              <p className="user-handle">@{userData.username}</p>
+              <div className="user-badges">
+                <span 
+                  className="user-badge"
+                  style={{ 
+                    backgroundColor: getUserTypeColor(userData.userType),
+                    color: 'white'
+                  }}
+                >
+                  {getUserTypeLabel(userData.userType)}
+                </span>
+                <span className="level-badge">Niveau {userData.level}</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Enhanced XP Progress Section */}
-        <div className="profile-xp-section">
-          <div className="xp-header">
-            <div className="xp-icon">⚡</div>
-            <span className="xp-label">EXPÉRIENCE</span>
+        {/* Stats Cards Row */}
+        <div className="stats-cards">
+          <div className="stat-card">
+            <div className="stat-icon">🎮</div>
+            <div className="stat-content">
+              <div className="stat-value">{userData.stats.gamesPlayed}</div>
+              <div className="stat-label">Parties</div>
+            </div>
           </div>
-          <div className="profile-xp-info">
-            <span className="profile-xp-current">
-              {userData.xp.toLocaleString()} XP
-            </span>
-            <span className="profile-xp-next">
-              +{userData.xpToNext} pour le niveau {userData.level + 1}
+          <div className="stat-card">
+            <div className="stat-icon">🏆</div>
+            <div className="stat-content">
+              <div className="stat-value">{userData.stats.winRate}%</div>
+              <div className="stat-label">Victoires</div>
+            </div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-icon">⏱️</div>
+            <div className="stat-content">
+              <div className="stat-value">{userData.stats.totalHours}h</div>
+              <div className="stat-label">Heures</div>
+            </div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-icon">💎</div>
+            <div className="stat-content">
+              <div className="stat-value">{userData.stats.rank}</div>
+              <div className="stat-label">Rang</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Progress Section */}
+        <div className="progress-section">
+          <div className="progress-header">
+            <span className="progress-label">Progression</span>
+            <span className="progress-percentage">
+              {Math.round((userData.xp / (userData.xp + userData.xpToNext)) * 100)}%
             </span>
           </div>
-          <div className="profile-xp-bar">
+          <div className="progress-bar">
             <div 
-              className="profile-xp-progress"
+              className="progress-fill"
               style={{ 
                 width: `${(userData.xp / (userData.xp + userData.xpToNext)) * 100}%`,
-                backgroundColor: getUserTypeColor(userData.userType),
-                boxShadow: `0 0 15px ${getUserTypeColor(userData.userType)}`
+                backgroundColor: getUserTypeColor(userData.userType)
               }}
-            >
-              <div className="xp-shine"></div>
-            </div>
-            <div className="xp-particles"></div>
+            ></div>
           </div>
+          <div className="progress-info">
+            <span className="current-xp">{userData.xp.toLocaleString()} XP</span>
+            <span className="next-level">Niveau {userData.level + 1} dans {userData.xpToNext} XP</span>
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="action-buttons">
+          <button className="action-btn primary">
+            <span className="btn-icon">⚡</span>
+            <span className="btn-text">Quick Match</span>
+          </button>
+          <button className="action-btn secondary">
+            <span className="btn-icon">🏆</span>
+            <span className="btn-text">Tournois</span>
+          </button>
+          <button className="action-btn tertiary">
+            <span className="btn-icon">📊</span>
+            <span className="btn-text">Stats</span>
+          </button>
         </div>
       </div>
 
-      {/* Enhanced Navigation Tabs */}
-      <nav className="profile-nav" role="tablist">
+      {/* Navigation Tabs */}
+      <nav className="profile-nav">
         {tabs.map(tab => (
           <button
             key={tab.id}
-            className={`profile-nav-tab ${activeTab === tab.id ? 'active' : ''}`}
+            className={`nav-tab ${activeTab === tab.id ? 'active' : ''}`}
             onClick={() => onTabChange(tab.id)}
-            role="tab"
-            aria-selected={activeTab === tab.id}
-            aria-controls={`tabpanel-${tab.id}`}
           >
-            <div className="tab-glow"></div>
             <span className="tab-icon">{tab.icon}</span>
-            <span className="tab-label">{tab.label}</span>
-            <div className="tab-indicator"></div>
+            <span className="tab-text">{tab.label}</span>
           </button>
         ))}
       </nav>

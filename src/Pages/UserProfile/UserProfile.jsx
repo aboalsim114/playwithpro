@@ -107,163 +107,102 @@ function UserProfile() {
         <div className="profile-main-content">
           {activeTab === 'overview' && (
             <div className="advanced-dashboard">
-              {/* Top Stats Banner */}
-              <div className="stats-banner">
-                <div className="banner-stats">
-                  <div className="banner-stat-item">
-                    <div className="stat-icon">🎮</div>
-                    <div className="stat-info">
-                      <div className="stat-number">{userData.stats.gamesPlayed}</div>
-                      <div className="stat-label">Parties</div>
-                    </div>
-                    <div className="stat-trend positive">+12%</div>
-                  </div>
-                  <div className="banner-stat-item">
-                    <div className="stat-icon">🏆</div>
-                    <div className="stat-info">
-                      <div className="stat-number">{userData.stats.winRate}%</div>
-                      <div className="stat-label">Victoires</div>
-                    </div>
-                    <div className="stat-trend positive">+5%</div>
-                  </div>
-                  <div className="banner-stat-item">
-                    <div className="stat-icon">⏱️</div>
-                    <div className="stat-info">
-                      <div className="stat-number">{userData.stats.totalHours}h</div>
-                      <div className="stat-label">Heures</div>
-                    </div>
-                    <div className="stat-trend positive">+8h</div>
-                  </div>
-                  <div className="banner-stat-item">
-                    <div className="stat-icon">💎</div>
-                    <div className="stat-info">
-                      <div className="stat-number">{userData.stats.rank}</div>
-                      <div className="stat-label">Rang</div>
-                    </div>
-                    <div className="stat-trend positive">↑2</div>
-                  </div>
-                </div>
-                <div className="banner-actions">
-                  <button className="banner-action-btn primary">
-                    <span className="btn-icon">⚡</span>
-                    <span className="btn-text">Quick Match</span>
-                  </button>
-                  <button className="banner-action-btn secondary">
-                    <span className="btn-icon">🏆</span>
-                    <span className="btn-text">Tournaments</span>
-                  </button>
-                </div>
-              </div>
+        
 
-              {/* Adaptive Content Grid */}
-              <div className="adaptive-grid">
-                {/* Main Content Area */}
-                <div className="main-content-area">
-                  <div className="content-module stats-module">
-                    <ProfileStats userData={userData} />
+              {/* Main Content Grid - Single Column Layout */}
+              <div className="main-content-grid">
+                {/* About Me Module */}
+                <div className="content-module about-me-module">
+                  <div className="module-header">
+                    <h3>À propos de moi</h3>
+                    <div className="module-indicator"></div>
                   </div>
-                  <div className="content-module games-module">
-                    <ProfileGames userData={userData} />
-                  </div>
-                </div>
-
-                {/* Sidebar Area */}
-                <div className="sidebar-area">
-                  <div className="sidebar-module quick-actions-module">
-                    <div className="module-header">
-                      <h3>Actions Rapides</h3>
-                      <div className="module-indicator"></div>
-                    </div>
-                    <div className="quick-actions-list">
-                      <div className="quick-action-item">
-                        <div className="action-icon">⚡</div>
-                        <div className="action-content">
-                          <div className="action-title">Quick Match</div>
-                          <div className="action-subtitle">Partie rapide</div>
-                        </div>
-                        <div className="action-arrow">→</div>
+                  <div className="about-content">
+                    <p className="about-text">
+                      Salut, je m'appelle {userData.fullName} mais certains me connaissent peut-être sous le nom de {userData.username}. 
+                      Je suis un passionné de gaming et j'adore relever des défis dans les jeux compétitifs. 
+                      Mon objectif est de devenir l'un des meilleurs joueurs de ma région !
+                    </p>
+                    <div className="about-details">
+                      <div className="detail-item">
+                        <span className="detail-label">Rejoint:</span>
+                        <span className="detail-value">{new Date(userData.joinDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
                       </div>
-                      <div className="quick-action-item">
-                        <div className="action-icon">🏆</div>
-                        <div className="action-content">
-                          <div className="action-title">Tournaments</div>
-                          <div className="action-subtitle">Compétitions</div>
-                        </div>
-                        <div className="action-arrow">→</div>
+                      <div className="detail-item">
+                        <span className="detail-label">Localisation:</span>
+                        <span className="detail-value">Paris, France</span>
                       </div>
-                      <div className="quick-action-item">
-                        <div className="action-icon">📊</div>
-                        <div className="action-content">
-                          <div className="action-title">Analytics</div>
-                          <div className="action-subtitle">Statistiques</div>
-                        </div>
-                        <div className="action-arrow">→</div>
-                      </div>
-                      <div className="quick-action-item">
-                        <div className="action-icon">🎯</div>
-                        <div className="action-content">
-                          <div className="action-title">Training</div>
-                          <div className="action-subtitle">Entraînement</div>
-                        </div>
-                        <div className="action-arrow">→</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="sidebar-module activity-module">
-                    <div className="module-header">
-                      <h3>Activité Live</h3>
-                      <div className="live-status">
-                        <div className="status-dot"></div>
-                        <span>En ligne</span>
-                      </div>
-                    </div>
-                    <div className="activity-timeline">
-                      <div className="timeline-item">
-                        <div className="timeline-icon">🎮</div>
-                        <div className="timeline-content">
-                          <div className="timeline-text">Partie en cours sur <strong>Valorant</strong></div>
-                          <div className="timeline-time">Il y a 2 min</div>
-                        </div>
-                      </div>
-                      <div className="timeline-item">
-                        <div className="timeline-icon">🏆</div>
-                        <div className="timeline-content">
-                          <div className="timeline-text">Victoire contre <strong>ProGamer123</strong></div>
-                          <div className="timeline-time">Il y a 15 min</div>
-                        </div>
-                      </div>
-                      <div className="timeline-item">
-                        <div className="timeline-icon">📈</div>
-                        <div className="timeline-content">
-                          <div className="timeline-text">Nouveau rang: <strong>Diamond III</strong></div>
-                          <div className="timeline-time">Il y a 1h</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="sidebar-module achievements-preview">
-                    <div className="module-header">
-                      <h3>Succès Récents</h3>
-                      <div className="achievement-count">3/5</div>
-                    </div>
-                    <div className="achievements-grid">
-                      <div className="achievement-item unlocked">
-                        <div className="achievement-icon">🏆</div>
-                        <div className="achievement-name">First Victory</div>
-                      </div>
-                      <div className="achievement-item unlocked">
-                        <div className="achievement-icon">🔥</div>
-                        <div className="achievement-name">Win Streak</div>
-                      </div>
-                      <div className="achievement-item locked">
-                        <div className="achievement-icon">💎</div>
-                        <div className="achievement-name">Pro Gamer</div>
+                      <div className="detail-item">
+                        <span className="detail-label">Site web:</span>
+                        <span className="detail-value">playwithpro.com</span>
                       </div>
                     </div>
                   </div>
                 </div>
+
+                {/* My Profile Module */}
+                <div className="content-module my-profile-module">
+                  <div className="module-header">
+                    <h3>{userData.fullName}</h3>
+                    <div className="profile-tabs">
+                      <button className="tab-btn active">Mon Profil</button>
+                      <button className="tab-btn">Public</button>
+                      <button className="tab-btn">Confidentialité</button>
+                    </div>
+                  </div>
+                  <div className="profile-post-section">
+                    <div className="post-input-container">
+                      <textarea 
+                        className="post-input" 
+                        placeholder={`Qu'est-ce qui vous passe par la tête, ${userData.fullName.split(' ')[0]} ?`}
+                        rows="3"
+                      ></textarea>
+                      <button className="post-btn">Publier</button>
+                    </div>
+                    <div className="reaction-buttons">
+                      <button className="reaction-btn smile">😊</button>
+                      <button className="reaction-btn heart">❤️</button>
+                      <button className="reaction-btn like">👍</button>
+                    </div>
+                    <div className="activity-filters">
+                      <button className="filter-btn active">Toutes les mises à jour</button>
+                      <button className="filter-btn">Amis</button>
+                      <button className="filter-btn">Groupes</button>
+                      <button className="filter-btn">Tout</button>
+                    </div>
+                  </div>
+                  
+                  {/* Live Activities */}
+                  <div className="live-activities">
+                    <div className="activity-item">
+                      <div className="activity-icon">🎮</div>
+                      <div className="activity-content">
+                        <div className="activity-text">Partie en cours sur <strong>Valorant</strong></div>
+                        <div className="activity-time">Il y a 2 min</div>
+                      </div>
+                    </div>
+                    <div className="activity-item">
+                      <div className="activity-icon">🏆</div>
+                      <div className="activity-content">
+                        <div className="activity-text">Victoire contre <strong>ProGamer123</strong></div>
+                        <div className="activity-time">Il y a 15 min</div>
+                      </div>
+                    </div>
+                    <div className="activity-item">
+                      <div className="activity-icon">📈</div>
+                      <div className="activity-content">
+                        <div className="activity-text">Nouveau rang: <strong>Diamond III</strong></div>
+                        <div className="activity-time">Il y a 1h</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              
+
+               
+
+
               </div>
             </div>
           )}
@@ -280,12 +219,7 @@ function UserProfile() {
             </div>
           )}
           
-          {/* Démonstration des avatars par défaut */}
-          {activeTab === 'overview' && (
-            <div className="avatar-demo-section">
-              <AvatarDemo />
-            </div>
-          )}
+        
         </div>
       </div>
     </div>

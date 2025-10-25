@@ -1,0 +1,302 @@
+/**
+ * Gaming E-Sport Theme Styles for HowItWorks Component
+ * Modern gaming aesthetics with neon effects, animations, and futuristic design
+ */
+
+/* Gaming Card Base Styles */
+.gaming-step-card {
+  @apply relative bg-gradient-to-br from-slate-800/40 to-slate-900/60 backdrop-blur-lg border-2 border-cyan-400/30 rounded-2xl p-6 cursor-pointer transition-all duration-500 hover:border-cyan-400/60 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/20;
+  position: relative;
+  overflow: hidden;
+}
+
+.gaming-step-card.active {
+  @apply border-cyan-400/80 scale-105 shadow-2xl shadow-cyan-500/30 bg-gradient-to-br from-cyan-900/30 to-blue-900/30;
+}
+
+.gaming-step-card.completed {
+  @apply border-green-400/60 bg-gradient-to-br from-green-900/30 to-emerald-900/30;
+}
+
+/* Gaming Card Background Effects */
+.card-background {
+  @apply absolute inset-0 rounded-2xl overflow-hidden;
+}
+
+.bg-gradient {
+  @apply absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 opacity-0 transition-opacity duration-500;
+}
+
+.gaming-step-card:hover .bg-gradient {
+  @apply opacity-100;
+}
+
+.bg-pattern {
+  @apply absolute inset-0 opacity-20;
+  background-image: 
+    linear-gradient(45deg, transparent 40%, rgba(6, 182, 212, 0.1) 50%, transparent 60%),
+    linear-gradient(-45deg, transparent 40%, rgba(59, 130, 246, 0.1) 50%, transparent 60%);
+  background-size: 20px 20px;
+  animation: gaming-pattern 8s linear infinite;
+}
+
+.gaming-glow {
+  @apply absolute inset-0 rounded-2xl;
+  background: linear-gradient(45deg, transparent, rgba(6, 182, 212, 0.1), transparent);
+  animation: gaming-glow 3s ease-in-out infinite alternate;
+}
+
+/* Gaming Header Styles */
+.gaming-header {
+  @apply relative z-10 flex items-center gap-4 mb-6;
+}
+
+.gaming-title {
+  @apply text-xl font-black text-white mb-4 tracking-wide;
+  text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+.gaming-step {
+  @apply text-xs font-bold text-cyan-400 tracking-wider;
+  text-shadow: 0 0 5px rgba(6, 182, 212, 0.8);
+}
+
+/* Gaming Icon Styles */
+.gaming-icon {
+  @apply relative w-16 h-16 rounded-xl flex items-center justify-center text-cyan-400 transition-all duration-500;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(59, 130, 246, 0.2));
+  border: 2px solid rgba(6, 182, 212, 0.3);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+}
+
+.gaming-icon:hover {
+  @apply scale-110;
+  box-shadow: 0 0 30px rgba(6, 182, 212, 0.6);
+  border-color: rgba(6, 182, 212, 0.6);
+}
+
+.gaming-glow {
+  @apply absolute inset-0 rounded-xl opacity-0 transition-opacity duration-500;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, transparent 70%);
+}
+
+.gaming-icon:hover .gaming-glow {
+  @apply opacity-100;
+}
+
+/* Gaming Particle Effects */
+.icon-particles {
+  @apply absolute inset-0 pointer-events-none;
+}
+
+.particle {
+  @apply absolute w-1 h-1 bg-cyan-400 rounded-full;
+  animation: gaming-particle 2s ease-in-out infinite;
+}
+
+.particle:nth-child(1) { top: 20%; left: 20%; }
+.particle:nth-child(2) { top: 20%; right: 20%; }
+.particle:nth-child(3) { bottom: 20%; left: 20%; }
+.particle:nth-child(4) { bottom: 20%; right: 20%; }
+
+/* Gaming Body Styles */
+.gaming-body {
+  @apply relative z-10;
+}
+
+.gaming-description {
+  @apply text-gray-300 leading-relaxed text-sm font-medium mb-4;
+}
+
+/* Gaming Features */
+.gaming-features {
+  @apply flex flex-wrap gap-2;
+}
+
+.gaming-feature {
+  @apply flex items-center gap-1 px-2 py-1 bg-slate-700/50 rounded text-xs font-bold text-cyan-300 border border-cyan-400/20;
+  text-shadow: 0 0 5px rgba(6, 182, 212, 0.5);
+}
+
+.gaming-feature:hover {
+  @apply bg-cyan-500/20 border-cyan-400/40;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+}
+
+/* Gaming Effects */
+.gaming-effects {
+  @apply absolute inset-0 pointer-events-none;
+}
+
+.gaming-ripple {
+  @apply absolute inset-0 rounded-2xl;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+  animation: gaming-ripple 2s ease-in-out infinite;
+}
+
+.gaming-particles {
+  @apply absolute inset-0;
+}
+
+.gaming-particle {
+  @apply absolute w-1 h-1 bg-cyan-400/60 rounded-full;
+  animation: gaming-particle-float 3s ease-in-out infinite;
+}
+
+.gaming-particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+.gaming-particle:nth-child(2) { left: 30%; animation-delay: 0.5s; }
+.gaming-particle:nth-child(3) { left: 50%; animation-delay: 1s; }
+.gaming-particle:nth-child(4) { left: 70%; animation-delay: 1.5s; }
+.gaming-particle:nth-child(5) { left: 90%; animation-delay: 2s; }
+.gaming-particle:nth-child(6) { left: 20%; animation-delay: 2.5s; }
+
+/* Gaming Scanlines */
+.gaming-scanlines {
+  @apply absolute inset-0 pointer-events-none;
+}
+
+.scanline {
+  @apply absolute w-full h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent;
+  animation: gaming-scanline 2s linear infinite;
+}
+
+.scanline:nth-child(1) { top: 25%; }
+.scanline:nth-child(2) { top: 50%; }
+.scanline:nth-child(3) { top: 75%; }
+
+/* Gaming Animations */
+@keyframes gaming-pattern {
+  0% { transform: translateX(0) translateY(0); }
+  100% { transform: translateX(20px) translateY(20px); }
+}
+
+@keyframes gaming-glow {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.8; }
+}
+
+@keyframes gaming-particle {
+  0%, 100% { 
+    opacity: 0; 
+    transform: scale(0) rotate(0deg); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1) rotate(180deg); 
+  }
+}
+
+@keyframes gaming-particle-float {
+  0%, 100% { 
+    opacity: 0; 
+    transform: translateY(0) scale(0); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: translateY(-20px) scale(1); 
+  }
+}
+
+@keyframes gaming-ripple {
+  0% { 
+    transform: scale(0.8); 
+    opacity: 0.8; 
+  }
+  100% { 
+    transform: scale(1.2); 
+    opacity: 0; 
+  }
+}
+
+@keyframes gaming-scanline {
+  0% { 
+    opacity: 0; 
+    transform: translateX(-100%); 
+  }
+  50% { 
+    opacity: 1; 
+  }
+  100% { 
+    opacity: 0; 
+    transform: translateX(100%); 
+  }
+}
+
+/* Gaming HUD Elements */
+.gaming-hud {
+  @apply absolute inset-0 pointer-events-none;
+}
+
+.gaming-corner {
+  @apply absolute w-4 h-4 border-2 border-cyan-400/40;
+}
+
+.gaming-corner.top-left {
+  @apply top-2 left-2 border-t-2 border-l-2;
+}
+
+.gaming-corner.top-right {
+  @apply top-2 right-2 border-t-2 border-r-2;
+}
+
+.gaming-corner.bottom-left {
+  @apply bottom-2 left-2 border-b-2 border-l-2;
+}
+
+.gaming-corner.bottom-right {
+  @apply bottom-2 right-2 border-b-2 border-r-2;
+}
+
+/* Gaming Progress Bar */
+.gaming-progress {
+  @apply w-full bg-slate-700/50 rounded-full h-2 border border-cyan-400/20;
+}
+
+.gaming-progress-fill {
+  @apply bg-gradient-to-r from-cyan-400 to-blue-500 h-2 rounded-full transition-all duration-700 shadow-lg shadow-cyan-400/50;
+}
+
+/* Gaming Responsive Design */
+@media (max-width: 768px) {
+  .gaming-step-card {
+    @apply p-4;
+  }
+  
+  .gaming-icon {
+    @apply w-12 h-12;
+  }
+  
+  .gaming-title {
+    @apply text-lg;
+  }
+  
+  .gaming-features {
+    @apply flex-col;
+  }
+}
+
+/* Gaming Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .gaming-step-card,
+  .gaming-icon,
+  .particle,
+  .gaming-particle,
+  .scanline {
+    animation: none;
+  }
+}
+
+/* Gaming Dark Mode Enhancements */
+@media (prefers-color-scheme: dark) {
+  .gaming-step-card {
+    @apply border-cyan-300/40;
+  }
+  
+  .gaming-icon {
+    @apply border-cyan-300/50;
+  }
+  
+  .gaming-feature {
+    @apply border-cyan-300/30;
+  }
+}

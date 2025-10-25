@@ -10,6 +10,9 @@ import {
   STEP_ICONS 
 } from './constants';
 
+// Import gaming styles
+import './styles';
+
 /**
  * Custom hook for managing step navigation
  */
@@ -97,97 +100,109 @@ const useIntersectionObserver = (elementRef, threshold = 0.3) => {
 };
 
 /**
- * Dynamic background component with modern animated elements
+ * Gaming-themed dynamic background with e-sport elements
  */
 const DynamicBackground = memo(() => {
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {/* Floating geometric shapes */}
+      {/* Gaming HUD elements */}
       <div className="absolute inset-0">
-        {[...Array(8)].map((_, i) => (
+        {[...Array(12)].map((_, i) => (
           <div 
             key={i} 
-            className="absolute w-16 h-16 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg animate-pulse"
+            className="absolute w-8 h-8 border-2 border-cyan-400/30 rounded-lg animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${i * 0.5}s`,
-              animationDuration: `${12 + (i % 4)}s`
+              animationDelay: `${i * 0.3}s`,
+              animationDuration: `${8 + (i % 3)}s`,
+              transform: `rotate(${Math.random() * 360}deg)`
             }}
           />
         ))}
       </div>
       
-      {/* Animated gradient orbs */}
+      {/* Neon glow orbs with gaming colors */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-blue-500/30 to-purple-500/30 rounded-full blur-xl animate-pulse" />
-        <div className="absolute top-3/4 right-1/4 w-24 h-24 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full blur-xl animate-pulse" />
-        <div className="absolute bottom-1/4 left-1/2 w-20 h-20 bg-gradient-to-r from-cyan-500/30 to-blue-500/30 rounded-full blur-xl animate-pulse" />
-        <div className="absolute top-1/2 right-1/3 w-28 h-28 bg-gradient-to-r from-pink-500/30 to-red-500/30 rounded-full blur-xl animate-pulse" />
+        <div className="absolute top-1/4 left-1/4 w-40 h-40 bg-gradient-to-r from-cyan-400/20 to-blue-500/20 rounded-full blur-2xl animate-pulse" />
+        <div className="absolute top-3/4 right-1/4 w-32 h-32 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-2xl animate-pulse" />
+        <div className="absolute bottom-1/4 left-1/2 w-24 h-24 bg-gradient-to-r from-green-400/20 to-cyan-500/20 rounded-full blur-2xl animate-pulse" />
+        <div className="absolute top-1/2 right-1/3 w-36 h-36 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-full blur-2xl animate-pulse" />
       </div>
 
-      {/* Particle system */}
+      {/* Gaming particles */}
       <div className="absolute inset-0">
-        {[...Array(50)].map((_, i) => (
+        {[...Array(80)].map((_, i) => (
           <div 
             key={i} 
-            className="absolute w-1 h-1 bg-white/30 rounded-full animate-ping"
+            className="absolute w-1 h-1 bg-cyan-400/40 rounded-full animate-ping"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${i * 0.1}s`,
-              animationDuration: `${8 + (i % 3)}s`
+              animationDelay: `${i * 0.05}s`,
+              animationDuration: `${6 + (i % 4)}s`
             }}
           />
         ))}
       </div>
 
-      {/* Animated grid */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="grid grid-cols-20 grid-rows-20 h-full w-full">
-          {[...Array(20)].map((_, i) => (
-            <div key={i} className="border border-white/10" style={{ animationDelay: `${i * 0.1}s` }} />
+      {/* Gaming grid overlay */}
+      <div className="absolute inset-0 opacity-15">
+        <div className="grid grid-cols-24 grid-rows-24 h-full w-full">
+          {[...Array(24)].map((_, i) => (
+            <div key={i} className="border border-cyan-400/20" style={{ animationDelay: `${i * 0.05}s` }} />
           ))}
         </div>
       </div>
 
-      {/* Light rays */}
+      {/* Gaming scanlines */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-white/20 to-transparent transform -skew-x-12" />
-        <div className="absolute top-0 left-1/2 w-px h-full bg-gradient-to-b from-transparent via-white/20 to-transparent transform -skew-x-12" />
-        <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-white/20 to-transparent transform -skew-x-12" />
+        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-cyan-400/30 to-transparent transform -skew-x-12 animate-pulse" />
+        <div className="absolute top-0 left-1/2 w-px h-full bg-gradient-to-b from-transparent via-blue-400/30 to-transparent transform -skew-x-12 animate-pulse" />
+        <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-purple-400/30 to-transparent transform -skew-x-12 animate-pulse" />
       </div>
+
+      {/* Gaming corner accents */}
+      <div className="absolute top-0 left-0 w-32 h-32 border-l-2 border-t-2 border-cyan-400/40" />
+      <div className="absolute top-0 right-0 w-32 h-32 border-r-2 border-t-2 border-cyan-400/40" />
+      <div className="absolute bottom-0 left-0 w-32 h-32 border-l-2 border-b-2 border-cyan-400/40" />
+      <div className="absolute bottom-0 right-0 w-32 h-32 border-r-2 border-b-2 border-cyan-400/40" />
     </div>
   );
 });
 
 /**
- * Modern section header component
+ * Gaming-themed section header component
  */
 const SectionHeader = memo(() => {
   return (
     <header className="text-center mb-16">
       <div className="max-w-4xl mx-auto">
-        <div className="inline-flex items-center gap-2 bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm font-medium mb-8">
-          <div className="text-lg">⚡</div>
-          <span>Processus Simple</span>
+        <div className="inline-flex items-center gap-3 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 px-6 py-3 rounded-full text-sm font-bold mb-8 border border-cyan-400/30 shadow-lg shadow-cyan-500/20">
+          <div className="text-xl animate-pulse">🎮</div>
+          <span className="tracking-wider">MISSION GAMING</span>
+          <div className="w-2 h-2 bg-cyan-400 rounded-full animate-ping" />
         </div>
         
-        <h2 id="how-it-works-title" className="text-5xl md:text-7xl font-bold mb-6">
-          <span className="text-white block">{HOW_IT_WORKS_CONTENT.title.text}</span>
-          <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent block">
+        <h2 id="how-it-works-title" className="text-6xl md:text-8xl font-black mb-6 tracking-tight">
+          <span className="text-white block drop-shadow-2xl">{HOW_IT_WORKS_CONTENT.title.text}</span>
+          <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent block animate-pulse">
             {HOW_IT_WORKS_CONTENT.title.gradient}
           </span>
         </h2>
         
-        <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed font-medium">
           {HOW_IT_WORKS_CONTENT.description}
         </p>
 
-        <div className="flex items-center justify-center gap-4">
-          <div className="w-16 h-px bg-gradient-to-r from-transparent to-white/30" />
-          <div className="w-3 h-3 bg-white/50 rounded-full" />
-          <div className="w-16 h-px bg-gradient-to-l from-transparent to-white/30" />
+        <div className="flex items-center justify-center gap-6">
+          <div className="w-20 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse" />
+            <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
+            <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
+          </div>
+          <div className="w-20 h-px bg-gradient-to-l from-transparent to-cyan-400/50" />
         </div>
       </div>
     </header>
@@ -195,7 +210,7 @@ const SectionHeader = memo(() => {
 });
 
 /**
- * Modern floating cards layout
+ * Gaming-themed floating cards layout
  */
 const FloatingCards = memo(({ 
   activeStep, 
@@ -208,57 +223,66 @@ const FloatingCards = memo(({
 
   return (
     <div className="relative mb-16" ref={cardsRef}>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {STEPS.map((step, index) => (
           <div
             key={step.id}
-            className={`relative bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 cursor-pointer transition-all duration-300 hover:bg-white/20 hover:scale-105 ${
-              activeStep === index ? 'bg-white/20 scale-105 shadow-2xl' : ''
-            } ${index < activeStep ? 'bg-green-500/20 border-green-500/50' : ''} ${
+            className={`relative bg-gradient-to-br from-slate-800/40 to-slate-900/60 backdrop-blur-lg border-2 border-cyan-400/30 rounded-2xl p-6 cursor-pointer transition-all duration-500 hover:border-cyan-400/60 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/20 ${
+              activeStep === index ? 'border-cyan-400/80 scale-105 shadow-2xl shadow-cyan-500/30 bg-gradient-to-br from-cyan-900/30 to-blue-900/30' : ''
+            } ${index < activeStep ? 'border-green-400/60 bg-gradient-to-br from-green-900/30 to-emerald-900/30' : ''} ${
               isVisible ? 'animate-fade-in' : 'opacity-0'
             }`}
             style={{ 
-              animationDelay: `${index * 0.15}s`
+              animationDelay: `${index * 0.2}s`
             }}
             onClick={() => handleStepClick(index)}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
-            <div className="absolute inset-0 border border-white/30 rounded-xl" />
+            {/* Gaming card glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 border-2 border-cyan-400/20 rounded-2xl" />
             
-            <div className="relative z-10 flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                {index + 1}
+            {/* Gaming card header */}
+            <div className="relative z-10 flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-black text-2xl shadow-lg shadow-cyan-500/30">
+                {step.number}
               </div>
-              <div className="text-2xl">
+              <div className="text-3xl text-cyan-400">
                 {STEP_ICONS[step.icon]}
               </div>
             </div>
 
+            {/* Gaming card content */}
             <div className="relative z-10">
-              <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
-              <p className="text-gray-300 leading-relaxed">{step.description}</p>
+              <h3 className="text-xl font-black text-white mb-4 tracking-wide">{step.title}</h3>
+              <p className="text-gray-300 leading-relaxed text-sm font-medium">{step.description}</p>
             </div>
 
-            <div className="relative z-10 mt-4">
-              <div className="w-full bg-white/20 rounded-full h-1">
-                <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-1 rounded-full transition-all duration-500" 
+            {/* Gaming progress bar */}
+            <div className="relative z-10 mt-6">
+              <div className="w-full bg-slate-700/50 rounded-full h-2 border border-cyan-400/20">
+                <div className="bg-gradient-to-r from-cyan-400 to-blue-500 h-2 rounded-full transition-all duration-700 shadow-lg shadow-cyan-400/50" 
                      style={{ width: activeStep >= index ? '100%' : '0%' }} />
               </div>
             </div>
 
-            <div className="absolute inset-0 overflow-hidden rounded-xl">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />
+            {/* Gaming particle effects */}
+            <div className="absolute inset-0 overflow-hidden rounded-2xl">
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-blue-500/5 opacity-0 hover:opacity-100 transition-opacity duration-500" />
               <div className="absolute inset-0">
-                {[...Array(6)].map((_, i) => (
-                  <div key={i} className="absolute w-1 h-1 bg-white/50 rounded-full animate-ping" 
+                {[...Array(8)].map((_, i) => (
+                  <div key={i} className="absolute w-1 h-1 bg-cyan-400/60 rounded-full animate-ping" 
                        style={{ 
                          left: `${Math.random() * 100}%`,
                          top: `${Math.random() * 100}%`,
-                         animationDelay: `${i * 0.1}s`
+                         animationDelay: `${i * 0.2}s`
                        }} />
                 ))}
               </div>
             </div>
+
+            {/* Gaming corner accents */}
+            <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-cyan-400/40" />
+            <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-cyan-400/40" />
           </div>
         ))}
       </div>
@@ -267,37 +291,37 @@ const FloatingCards = memo(({
 });
 
 /**
- * Modern progress indicator component
+ * Gaming-themed progress indicator component
  */
 const ProgressIndicator = memo(({ activeStep, handleStepClick }) => {
   return (
     <div className="flex justify-center">
-      <div className="flex items-center gap-4">
-        <div className="flex-1 h-1 bg-white/20 rounded-full max-w-md">
-          <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-1 rounded-full transition-all duration-500" 
+      <div className="flex items-center gap-6">
+        <div className="flex-1 h-2 bg-slate-700/50 rounded-full max-w-lg border border-cyan-400/20">
+          <div className="bg-gradient-to-r from-cyan-400 to-blue-500 h-2 rounded-full transition-all duration-700 shadow-lg shadow-cyan-400/50" 
                style={{ width: `${(activeStep / (STEPS.length - 1)) * 100}%` }} />
         </div>
         
-        {STEPS.map((_, index) => (
+        {STEPS.map((step, index) => (
           <button
             key={index}
-            className={`relative w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
+            className={`relative w-16 h-16 rounded-xl flex items-center justify-center font-black text-lg transition-all duration-500 border-2 ${
               index === activeStep 
-                ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg scale-110' 
+                ? 'bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-2xl shadow-cyan-500/50 scale-110 border-cyan-400' 
                 : index < activeStep 
-                  ? 'bg-green-500 text-white' 
-                  : 'bg-white/20 text-gray-300 hover:bg-white/30'
+                  ? 'bg-gradient-to-br from-green-500 to-emerald-600 text-white border-green-400' 
+                  : 'bg-slate-800/50 text-gray-400 border-cyan-400/30 hover:border-cyan-400/60 hover:bg-slate-700/50'
             }`}
             onClick={() => handleStepClick(index)}
             aria-label={`Aller à l'étape ${index + 1}`}
           >
-            <span>{index + 1}</span>
+            <span className="text-2xl">{step.number}</span>
             {index === activeStep && (
-              <div className="absolute inset-0 rounded-full border-2 border-white/50 animate-ping" />
+              <div className="absolute inset-0 rounded-xl border-2 border-cyan-400/60 animate-ping" />
             )}
             {index < activeStep && (
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full flex items-center justify-center">
-                <span className="text-xs">✓</span>
+              <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center border-2 border-slate-900">
+                <span className="text-xs font-bold">✓</span>
               </div>
             )}
           </button>
@@ -331,7 +355,7 @@ const HowItWorks = () => {
 
   return (
     <section 
-      className="relative min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden" 
+      className="relative min-h-screen bg-gradient-to-br from-slate-900 via-cyan-900 to-slate-900 overflow-hidden" 
       id="how-it-works" 
       role="region" 
       aria-labelledby="how-it-works-title"

@@ -9,6 +9,7 @@ import Connexion from './Pages/ConnexionPage/Connexion';
 import DashboardUser from './Pages/DashboardUser/DashboardUser';
 import UserProfile from './Pages/UserProfile/UserProfile';
 import PrivateRoute from './utils/PrivateRoute';
+import NotFound from './Pages/NotFound/NotFound';
 
 function App() {
   return (
@@ -18,6 +19,11 @@ function App() {
         <Route path="/" element={
           <PublicLayout>
             <Home />
+          </PublicLayout>
+        } />
+        <Route path="*" element={
+          <PublicLayout>
+            <NotFound />
           </PublicLayout>
         } />
         <Route path="/inscription" element={

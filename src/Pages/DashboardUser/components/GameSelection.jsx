@@ -4,44 +4,44 @@ const GameSelection = () => {
   const [activeFilter, setActiveFilter] = useState('most-popular');
 
   const filterTabs = [
-    { id: 'most-popular', label: 'Most popular' },
-    { id: 'most-action', label: 'Most action' },
-    { id: 'hot-as-hell', label: 'Hot as hell' },
-    { id: 'cold-as-ice', label: 'Cold as ice' }
+    { id: 'most-popular', label: 'Plus populaires' },
+    { id: 'most-action', label: 'Plus d\'action' },
+    { id: 'coaching', label: 'Coaching' },
+    { id: 'matches', label: 'Matchs' }
   ];
 
   const gameCards = [
-    { id: 1, name: 'Old Wizard', image: '🧙‍♂️', hasTrophy: true },
-    { id: 2, name: 'Skull Warrior', image: '💀', hasLock: false },
-    { id: 3, name: 'Gas Mask', image: '🛡️', hasTrophy: false },
-    { id: 4, name: 'Cowboy Girl', image: '🤠', hasLock: false },
-    { id: 5, name: 'Red Beard', image: '🧔', hasTrophy: false },
-    { id: 6, name: 'Bald Warrior', image: '💪', hasLock: false },
-    { id: 7, name: 'Bat Eye', image: '👁️', hasTrophy: false },
-    { id: 8, name: 'Scarred Cowboy', image: '🤠', hasLock: false },
-    { id: 9, name: 'Dark Witch', image: '🧙‍♀️', hasTrophy: false },
-    { id: 10, name: 'Skeleton Hood', image: '💀', hasLock: false },
-    { id: 11, name: 'Blue Hair', image: '💙', hasTrophy: false },
-    { id: 12, name: 'Zombie', image: '🧟', hasLock: false },
-    { id: 13, name: 'TNT Guy', image: '💣', hasTrophy: false },
-    { id: 14, name: 'Uncle Sam', image: '👴', hasLock: false },
-    { id: 15, name: 'Mystery Card', image: '❓', hasTrophy: false }
+    { id: 1, name: 'CS2', image: '🔫', fullName: 'Counter-Strike 2', prosOnline: 12, hasTrophy: true },
+    { id: 2, name: 'Valorant', image: '🎯', fullName: 'Valorant', prosOnline: 8, hasTrophy: false },
+    { id: 3, name: 'LoL', image: '⚔️', fullName: 'League of Legends', prosOnline: 15, hasTrophy: true },
+    { id: 4, name: 'Fortnite', image: '🏗️', fullName: 'Fortnite', prosOnline: 6, hasTrophy: false },
+    { id: 5, name: 'Apex', image: '🚀', fullName: 'Apex Legends', prosOnline: 9, hasTrophy: false },
+    { id: 6, name: 'FIFA', image: '⚽', fullName: 'FIFA', prosOnline: 4, hasTrophy: false },
+    { id: 7, name: 'COD', image: '💥', fullName: 'Call of Duty', prosOnline: 7, hasTrophy: true },
+    { id: 8, name: 'Rocket League', image: '🚗', fullName: 'Rocket League', prosOnline: 3, hasTrophy: false },
+    { id: 9, name: 'Overwatch', image: '🛡️', fullName: 'Overwatch 2', prosOnline: 5, hasTrophy: false },
+    { id: 10, name: 'Dota 2', image: '🗡️', fullName: 'Dota 2', prosOnline: 11, hasTrophy: true },
+    { id: 11, name: 'Rainbow Six', image: '🔍', fullName: 'Rainbow Six Siege', prosOnline: 6, hasTrophy: false },
+    { id: 12, name: 'PUBG', image: '🎯', fullName: 'PUBG', prosOnline: 4, hasTrophy: false },
+    { id: 13, name: 'Minecraft', image: '🧱', fullName: 'Minecraft', prosOnline: 2, hasTrophy: false },
+    { id: 14, name: 'Among Us', image: '👥', fullName: 'Among Us', prosOnline: 1, hasTrophy: false },
+    { id: 15, name: 'Fall Guys', image: '🟡', fullName: 'Fall Guys', prosOnline: 3, hasTrophy: false }
   ];
 
   return (
     <div className="mb-6">
       {/* Section Header */}
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-white">Choose game</h2>
+        <h2 className="text-xl font-bold text-white">Choisir un jeu</h2>
         <div className="flex items-center gap-2">
           <button className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-gray-300 px-3 py-1.5 rounded-lg transition-colors text-sm">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
             </svg>
-            Filters
+            Filtres
           </button>
           <button className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-gray-300 px-3 py-1.5 rounded-lg transition-colors text-sm">
-            <span>See all</span>
+            <span>Voir tous</span>
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M8 5v14l11-7z"/>
             </svg>
@@ -71,10 +71,16 @@ const GameSelection = () => {
         {gameCards.map((game) => (
           <div
             key={game.id}
-            className="relative bg-gray-700 hover:bg-gray-600 rounded-xl p-3 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10 group"
+            className="relative bg-gray-700 hover:bg-gray-600 rounded-xl p-3 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 group"
           >
             <div className="aspect-square flex items-center justify-center text-4xl mb-1">
               {game.image}
+            </div>
+            
+            {/* Game Name */}
+            <div className="text-center mb-1">
+              <div className="text-white text-xs font-medium">{game.name}</div>
+              <div className="text-gray-400 text-xs">{game.prosOnline} pros</div>
             </div>
             
             {/* Status Icons */}
@@ -86,16 +92,11 @@ const GameSelection = () => {
               </div>
             )}
             
-            {game.hasLock && (
-              <div className="absolute bottom-1.5 left-1.5 w-5 h-5 bg-gray-500 rounded-full flex items-center justify-center">
-                <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
-                </svg>
-              </div>
-            )}
+            {/* Online Indicator */}
+            <div className="absolute top-1.5 right-1.5 w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
             
             {/* Hover Effect */}
-            <div className="absolute inset-0 bg-gradient-to-t from-purple-500/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-blue-500/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
         ))}
       </div>

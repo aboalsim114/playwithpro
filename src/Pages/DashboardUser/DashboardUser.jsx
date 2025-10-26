@@ -6,7 +6,7 @@ import GameSelection from './components/GameSelection';
 import RightSidebar from './components/RightSidebar';
 
 function DashboardUser() {
-  const [activeNav, setActiveNav] = useState('home');
+  const [activeNav, setActiveNav] = useState('dashboard');
 
   const handleNavClick = (navId) => {
     setActiveNav(navId);

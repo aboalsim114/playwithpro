@@ -28,8 +28,8 @@ const Sidebar = ({
         {/* Logo Section */}
         <div className="p-6 border-b border-gray-700">
           <div className="text-center">
-            <div className="text-2xl font-bold text-yellow-400 mb-1">NOLIMIT</div>
-            <div className="text-sm text-gray-300 font-medium">CITY</div>
+            <div className="text-2xl font-bold text-blue-400 mb-1">PLAY-WITH-PRO</div>
+            <div className="text-sm text-gray-300 font-medium">E-Sport Platform</div>
           </div>
         </div>
         
@@ -38,25 +38,25 @@ const Sidebar = ({
           {NAV_SECTIONS.MAIN.items.map(renderNavItem)}
         </nav>
         
-        {/* Daily Bonus Section */}
+        {/* Quick Match Section */}
         <div className="p-4 border-t border-gray-700">
           <div className="bg-gray-700 rounded-xl p-4">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-yellow-400 rounded-lg flex items-center justify-center">
-                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
               <div>
-                <div className="text-white text-sm font-medium">Daily Bonus</div>
-                <div className="text-gray-400 text-xs">Try your luck for free</div>
+                <div className="text-white text-sm font-medium">Match avec un Pro</div>
+                <div className="text-gray-400 text-xs">Réservez dès maintenant</div>
               </div>
             </div>
-            <button className="w-full bg-purple-500 hover:bg-purple-600 text-white py-2 px-3 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
+            <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z"/>
               </svg>
-              Play
+              Réserver
             </button>
           </div>
         </div>

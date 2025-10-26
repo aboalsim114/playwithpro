@@ -144,11 +144,11 @@ function UserProfile() {
                   </div>
                 )}
                 
-                {activeTab === 'achievements' && (
+                {/* {activeTab === 'achievements' && (
                   <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
                     <ProfileAchievements achievements={userData.achievements} />
                   </div>
-                )}
+                )} */}
                 
                 {activeTab === 'games' && (
                   <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">

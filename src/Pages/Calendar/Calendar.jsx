@@ -486,6 +486,7 @@ const CalendarComponent = () => {
                     <div className={`w-3 h-3 rounded-full ${selectedEvent.resource?.type === 'coaching' ? 'bg-blue-500' : 'bg-red-500'}`}></div>
                     <span className="text-white font-semibold capitalize">{selectedEvent.resource?.type}</span>
                   </div>
+
                 </div>
 
                 <div className="bg-gray-700 rounded-xl p-4">

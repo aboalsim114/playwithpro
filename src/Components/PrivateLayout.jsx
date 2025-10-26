@@ -8,9 +8,11 @@ const PrivateLayout = ({ children }) => {
     activeNav,
     userType,
     isMobileMenuOpen,
+    isCollapsed,
     setUserType,
     handleNavClick,
-    toggleMobileMenu
+    toggleMobileMenu,
+    toggleCollapse
   } = useDashboard()
 
   return (
@@ -28,6 +30,8 @@ const PrivateLayout = ({ children }) => {
         activeNav={activeNav}
         onNavClick={handleNavClick}
         onUserTypeChange={setUserType}
+        isCollapsed={isCollapsed}
+        onToggleCollapse={toggleCollapse}
       />
 
       {/* Main Content */}

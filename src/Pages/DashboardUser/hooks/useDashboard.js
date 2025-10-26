@@ -9,6 +9,7 @@ export const useDashboard = () => {
   const [currentGame, setCurrentGame] = useState('CS2');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isGameDropdownOpen, setIsGameDropdownOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   useEffect(() => {
     // Simulate loading
@@ -43,6 +44,10 @@ export const useDashboard = () => {
     setIsGameDropdownOpen(false);
   }, []);
 
+  const toggleCollapse = useCallback(() => {
+    setIsCollapsed(prev => !prev);
+  }, []);
+
   // Memoized values for performance
   const dashboardState = useMemo(() => ({
     activeNav,
@@ -51,8 +56,9 @@ export const useDashboard = () => {
     isLoading,
     currentGame,
     isMobileMenuOpen,
-    isGameDropdownOpen
-  }), [activeNav, userType, settings, isLoading, currentGame, isMobileMenuOpen, isGameDropdownOpen]);
+    isGameDropdownOpen,
+    isCollapsed
+  }), [activeNav, userType, settings, isLoading, currentGame, isMobileMenuOpen, isGameDropdownOpen, isCollapsed]);
 
   const dashboardActions = useMemo(() => ({
     setUserType,
@@ -60,8 +66,9 @@ export const useDashboard = () => {
     handleNavClick,
     toggleMobileMenu,
     toggleGameDropdown,
-    selectGame
-  }), [setUserType, toggleSetting, handleNavClick, toggleMobileMenu, toggleGameDropdown, selectGame]);
+    selectGame,
+    toggleCollapse
+  }), [setUserType, toggleSetting, handleNavClick, toggleMobileMenu, toggleGameDropdown, selectGame, toggleCollapse]);
 
   return {
     ...dashboardState,

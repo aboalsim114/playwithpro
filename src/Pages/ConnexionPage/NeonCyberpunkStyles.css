@@ -1,0 +1,565 @@
+/* Neon Cyberpunk Gaming Interface Styles */
+
+/* Neon Floating Animations */
+@keyframes neon-float-1 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.4;
+  }
+  25% {
+    transform: translateY(-20px) translateX(15px) scale(1.1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-10px) translateX(-10px) scale(0.9);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translateY(-25px) translateX(20px) scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+@keyframes neon-float-2 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.4;
+  }
+  33% {
+    transform: translateY(-15px) translateX(-15px) scale(1.3);
+    opacity: 0.9;
+  }
+  66% {
+    transform: translateY(-20px) translateX(10px) scale(0.8);
+    opacity: 0.6;
+  }
+}
+
+@keyframes neon-float-3 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.4;
+  }
+  40% {
+    transform: translateY(-18px) translateX(12px) scale(1.4);
+    opacity: 0.8;
+  }
+  80% {
+    transform: translateY(-12px) translateX(-8px) scale(0.7);
+    opacity: 0.5;
+  }
+}
+
+@keyframes neon-float-4 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-16px) translateX(-12px) scale(1.1);
+    opacity: 0.7;
+  }
+  60% {
+    transform: translateY(-22px) translateX(8px) scale(0.8);
+    opacity: 0.6;
+  }
+}
+
+@keyframes neon-float-5 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.4;
+  }
+  20% {
+    transform: translateY(-14px) translateX(16px) scale(1.5);
+    opacity: 0.9;
+  }
+  70% {
+    transform: translateY(-19px) translateX(-10px) scale(0.6);
+    opacity: 0.7;
+  }
+}
+
+/* Lightning Bolt Animations */
+@keyframes lightning-1 {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  30% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.4;
+  }
+  70% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.2;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes lightning-2 {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.8;
+  }
+  25% {
+    opacity: 1;
+  }
+  35% {
+    opacity: 0.6;
+  }
+  45% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 0.4;
+  }
+  65% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.2;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes lightning-3 {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0.7;
+  }
+  40% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  60% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.3;
+  }
+  80% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Hexagon Float Animations */
+@keyframes hexagon-float-1 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(45deg) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translateY(-15px) translateX(10px) rotate(45deg) scale(1.2);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-8px) translateX(-8px) rotate(45deg) scale(0.8);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translateY(-20px) translateX(15px) rotate(45deg) scale(1.4);
+    opacity: 0.7;
+  }
+}
+
+@keyframes hexagon-float-2 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(45deg) scale(1);
+    opacity: 0.3;
+  }
+  33% {
+    transform: translateY(-12px) translateX(-12px) rotate(45deg) scale(1.3);
+    opacity: 0.8;
+  }
+  66% {
+    transform: translateY(-18px) translateX(8px) rotate(45deg) scale(0.7);
+    opacity: 0.5;
+  }
+}
+
+@keyframes hexagon-float-3 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(45deg) scale(1);
+    opacity: 0.3;
+  }
+  40% {
+    transform: translateY(-10px) translateX(14px) rotate(45deg) scale(1.5);
+    opacity: 0.9;
+  }
+  80% {
+    transform: translateY(-16px) translateX(-6px) rotate(45deg) scale(0.6);
+    opacity: 0.6;
+  }
+}
+
+/* Particle Glow Animations */
+@keyframes particle-glow-1 {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+    box-shadow: 0 0 10px rgba(244, 114, 182, 0.5);
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(244, 114, 182, 0.8);
+  }
+}
+
+@keyframes particle-glow-2 {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+    box-shadow: 0 0 8px rgba(34, 211, 238, 0.4);
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.9;
+    box-shadow: 0 0 16px rgba(34, 211, 238, 0.7);
+  }
+}
+
+@keyframes particle-glow-3 {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+    box-shadow: 0 0 12px rgba(250, 204, 21, 0.6);
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 1;
+    box-shadow: 0 0 24px rgba(250, 204, 21, 0.9);
+  }
+}
+
+@keyframes particle-glow-4 {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+    box-shadow: 0 0 18px rgba(34, 197, 94, 0.8);
+  }
+}
+
+@keyframes particle-glow-5 {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+    box-shadow: 0 0 8px rgba(168, 85, 247, 0.4);
+  }
+  50% {
+    transform: scale(1.6);
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.9);
+  }
+}
+
+/* Neon Scan Line Animations */
+@keyframes scan-neon-1 {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes scan-neon-2 {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.8;
+  }
+  70% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes scan-neon-3 {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes scan-neon-4 {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Gradient Animation */
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Apply Animations */
+.animate-neon-float-1 {
+  animation: neon-float-1 6s ease-in-out infinite;
+}
+
+.animate-neon-float-2 {
+  animation: neon-float-2 8s ease-in-out infinite;
+}
+
+.animate-neon-float-3 {
+  animation: neon-float-3 7s ease-in-out infinite;
+}
+
+.animate-neon-float-4 {
+  animation: neon-float-4 9s ease-in-out infinite;
+}
+
+.animate-neon-float-5 {
+  animation: neon-float-5 5s ease-in-out infinite;
+}
+
+.animate-lightning-1 {
+  animation: lightning-1 4s ease-in-out infinite;
+}
+
+.animate-lightning-2 {
+  animation: lightning-2 5s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-lightning-3 {
+  animation: lightning-3 6s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.animate-hexagon-float-1 {
+  animation: hexagon-float-1 8s ease-in-out infinite;
+}
+
+.animate-hexagon-float-2 {
+  animation: hexagon-float-2 10s ease-in-out infinite;
+}
+
+.animate-hexagon-float-3 {
+  animation: hexagon-float-3 7s ease-in-out infinite;
+}
+
+.animate-particle-glow-1 {
+  animation: particle-glow-1 3s ease-in-out infinite;
+}
+
+.animate-particle-glow-2 {
+  animation: particle-glow-2 4s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.animate-particle-glow-3 {
+  animation: particle-glow-3 3.5s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-particle-glow-4 {
+  animation: particle-glow-4 4.5s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+.animate-particle-glow-5 {
+  animation: particle-glow-5 3.2s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.animate-scan-neon-1 {
+  animation: scan-neon-1 3s ease-in-out infinite;
+}
+
+.animate-scan-neon-2 {
+  animation: scan-neon-2 4s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-scan-neon-3 {
+  animation: scan-neon-3 3.5s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.animate-scan-neon-4 {
+  animation: scan-neon-4 4.5s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 3s ease infinite;
+}
+
+/* Neon Effects */
+.neon-glow {
+  box-shadow: 
+    0 0 20px rgba(244, 114, 182, 0.4),
+    0 0 40px rgba(244, 114, 182, 0.3),
+    0 0 60px rgba(244, 114, 182, 0.2);
+}
+
+.neon-border {
+  border: 1px solid rgba(244, 114, 182, 0.4);
+  box-shadow: 
+    inset 0 0 20px rgba(244, 114, 182, 0.1),
+    0 0 20px rgba(244, 114, 182, 0.3);
+}
+
+.neon-text {
+  text-shadow: 
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 30px currentColor;
+}
+
+/* Neon Button Effects */
+.neon-btn {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(244, 114, 182, 0.1), rgba(34, 211, 238, 0.1));
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(244, 114, 182, 0.4);
+  transition: all 0.3s ease;
+}
+
+.neon-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(244, 114, 182, 0.4), transparent);
+  transition: left 0.5s ease;
+}
+
+.neon-btn:hover::before {
+  left: 100%;
+}
+
+.neon-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 40px rgba(244, 114, 182, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(244, 114, 182, 0.7);
+}
+
+/* Neon Panel */
+.neon-panel {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(244, 114, 182, 0.4);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .animate-neon-float-1,
+  .animate-neon-float-2,
+  .animate-neon-float-3,
+  .animate-neon-float-4,
+  .animate-neon-float-5 {
+    animation-duration: 4s;
+  }
+  
+  .animate-lightning-1,
+  .animate-lightning-2,
+  .animate-lightning-3 {
+    animation-duration: 2s;
+  }
+  
+  .animate-hexagon-float-1,
+  .animate-hexagon-float-2,
+  .animate-hexagon-float-3 {
+    animation-duration: 5s;
+  }
+}

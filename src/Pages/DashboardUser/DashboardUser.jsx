@@ -102,6 +102,7 @@ function DashboardUser() {
           50% {
             transform: translateY(-10px);
           }
+
         }
         
         .float {

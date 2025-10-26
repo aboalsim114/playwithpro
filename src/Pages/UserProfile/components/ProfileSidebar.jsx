@@ -28,7 +28,14 @@ const ProfileSidebar = ({
   );
 
   return (
-    <aside className="fixed left-0 top-0 h-full w-64 bg-gray-800 border-r border-gray-700 z-40">
+    <aside 
+      className="fixed left-0 top-0 h-full w-64 bg-gray-800 border-r border-gray-700 z-40 overflow-y-auto"
+      style={{
+        scrollbarWidth: 'none', /* Firefox */
+        msOverflowStyle: 'none', /* IE and Edge */
+        WebkitScrollbar: 'none', /* Chrome, Safari, Opera */
+      }}
+    >
       <div className="flex flex-col h-full">
         {/* Logo Section */}
         <div className="p-6 border-b border-gray-700">

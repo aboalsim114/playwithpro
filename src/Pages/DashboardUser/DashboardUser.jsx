@@ -30,7 +30,14 @@ function DashboardUser() {
         {/* Content Area */}
         <div className="flex-1 flex overflow-hidden">
           {/* Central Content */}
-          <div className="flex-1 overflow-y-auto">
+          <div 
+            className="flex-1 overflow-y-auto"
+            style={{
+              scrollbarWidth: 'none', /* Firefox */
+              msOverflowStyle: 'none', /* IE and Edge */
+              WebkitScrollbar: 'none', /* Chrome, Safari, Opera */
+            }}
+          >
             <div className="p-6">
               {/* Promotional Banner */}
               <PromotionalBanner />
@@ -41,7 +48,14 @@ function DashboardUser() {
           </div>
           
           {/* Right Sidebar */}
-          <div className="w-80 flex-shrink-0 overflow-y-auto">
+          <div 
+            className="w-80 flex-shrink-0 overflow-y-auto"
+            style={{
+              scrollbarWidth: 'none', /* Firefox */
+              msOverflowStyle: 'none', /* IE and Edge */
+              WebkitScrollbar: 'none', /* Chrome, Safari, Opera */
+            }}
+          >
             <div className="p-6">
               <RightSidebar />
             </div>

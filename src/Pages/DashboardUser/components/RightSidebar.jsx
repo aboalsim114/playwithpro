@@ -47,7 +47,14 @@ const WinnersWidget = () => {
       </div>
 
       {/* Recent Matches List */}
-      <div className="space-y-2 max-h-64 overflow-y-auto">
+      <div 
+        className="space-y-2 max-h-64 overflow-y-auto"
+        style={{
+          scrollbarWidth: 'none', /* Firefox */
+          msOverflowStyle: 'none', /* IE and Edge */
+          WebkitScrollbar: 'none', /* Chrome, Safari, Opera */
+        }}
+      >
         {recentMatches.map((match) => (
           <div key={match.id} className="flex items-center gap-2 p-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
             <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-xs">
@@ -152,7 +159,14 @@ const CommentsWidget = () => {
       </div>
 
       {/* Chat Messages */}
-      <div className="space-y-2 max-h-64 overflow-y-auto">
+      <div 
+        className="space-y-2 max-h-64 overflow-y-auto"
+        style={{
+          scrollbarWidth: 'none', /* Firefox */
+          msOverflowStyle: 'none', /* IE and Edge */
+          WebkitScrollbar: 'none', /* Chrome, Safari, Opera */
+        }}
+      >
         {chatMessages.map((message) => (
           <div key={message.id} className="bg-gray-700 rounded-lg p-2">
             <div className="flex items-center gap-2 mb-1">

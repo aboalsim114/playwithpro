@@ -24,9 +24,7 @@ export const NAV_SECTIONS = {
       { id: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
       { id: 'matches', label: 'Mes Matchs', icon: 'matches' },
       { id: 'coaching', label: 'Coaching', icon: 'coaching' },
-      { id: 'rankings', label: 'Classements', icon: 'rankings' },
-      { id: 'chat', label: 'Chat', icon: 'chat' },
-      { id: 'replays', label: 'Replays', icon: 'replays' },
+      { id: 'calendar', label: 'Calendrier', icon: 'rankings' },
       { id: 'payments', label: 'Paiements', icon: 'payments' },
       { id: 'profile', label: 'Profil', icon: 'profile' },
     ]

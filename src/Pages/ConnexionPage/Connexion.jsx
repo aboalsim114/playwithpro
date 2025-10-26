@@ -249,15 +249,7 @@ function Connexion() {
                   
                       {/* Options */}
                       <div className="flex items-center justify-between">
-                        <label className="flex items-center space-x-3 text-sm text-cyan-300/80 cursor-pointer">
-                      <Field
-                        type="checkbox"
-                        name="remember"
-                        disabled={isSubmitting}
-                            className="w-5 h-5 text-cyan-400 bg-black/40 border-cyan-400/30 rounded focus:ring-cyan-400/50 focus:ring-2"
-                      />
-                          <span>Se souvenir de moi</span>
-                    </label>
+                     
                     <button 
                       type="button" 
                           className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors duration-200"

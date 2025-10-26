@@ -18,7 +18,6 @@ const PrivateLayout = ({ children }) => {
   return (
     <div className="dashboard-container">
       {/* Skip to main content for accessibility */}
-      <a href="#main-content" className="skip-link">Skip to main content</a>
       
       {/* Mobile Menu Toggle */}
       <MobileMenuToggle onToggle={toggleMobileMenu} />

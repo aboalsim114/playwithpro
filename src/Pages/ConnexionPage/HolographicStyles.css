@@ -1,0 +1,394 @@
+/* Holographic Gaming Interface Styles */
+
+/* Holographic Floating Animations */
+@keyframes holographic-float-1 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(45deg) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translateY(-30px) translateX(20px) rotate(45deg) scale(1.1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-20px) translateX(-15px) rotate(45deg) scale(0.9);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translateY(-40px) translateX(25px) rotate(45deg) scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+@keyframes holographic-float-2 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(45deg) scale(1);
+    opacity: 0.3;
+  }
+  33% {
+    transform: translateY(-25px) translateX(-20px) rotate(45deg) scale(1.3);
+    opacity: 0.8;
+  }
+  66% {
+    transform: translateY(-35px) translateX(15px) rotate(45deg) scale(0.8);
+    opacity: 0.5;
+  }
+}
+
+@keyframes holographic-float-3 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(45deg) scale(1);
+    opacity: 0.3;
+  }
+  40% {
+    transform: translateY(-28px) translateX(18px) rotate(45deg) scale(1.4);
+    opacity: 0.9;
+  }
+  80% {
+    transform: translateY(-15px) translateX(-12px) rotate(45deg) scale(0.7);
+    opacity: 0.4;
+  }
+}
+
+@keyframes holographic-float-4 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(45deg) scale(1);
+    opacity: 0.3;
+  }
+  30% {
+    transform: translateY(-22px) translateX(-18px) rotate(45deg) scale(1.1);
+    opacity: 0.7;
+  }
+  60% {
+    transform: translateY(-38px) translateX(12px) rotate(45deg) scale(0.8);
+    opacity: 0.5;
+  }
+}
+
+@keyframes holographic-float-5 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(45deg) scale(1);
+    opacity: 0.3;
+  }
+  20% {
+    transform: translateY(-18px) translateX(22px) rotate(45deg) scale(1.5);
+    opacity: 0.9;
+  }
+  70% {
+    transform: translateY(-32px) translateX(-14px) rotate(45deg) scale(0.6);
+    opacity: 0.6;
+  }
+}
+
+/* Energy Beam Animations */
+@keyframes energy-beam-1 {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scaleY(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+}
+
+@keyframes energy-beam-2 {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  30% {
+    opacity: 0.3;
+    transform: scaleY(1);
+  }
+  70% {
+    opacity: 0.3;
+    transform: scaleY(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+}
+
+@keyframes energy-beam-3 {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  40% {
+    opacity: 0.5;
+    transform: scaleY(1);
+  }
+  60% {
+    opacity: 0.5;
+    transform: scaleY(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+}
+
+/* Holographic Ring Animations */
+@keyframes holographic-ring-1 {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.1) rotate(180deg);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+    opacity: 0.2;
+  }
+}
+
+@keyframes holographic-ring-2 {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(0.9) rotate(-180deg);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1) rotate(-360deg);
+    opacity: 0.2;
+  }
+}
+
+@keyframes holographic-ring-3 {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.2) rotate(90deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1) rotate(180deg);
+    opacity: 0.2;
+  }
+}
+
+/* Digital Rain Animation */
+@keyframes digital-rain {
+  0% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+/* Scan Line Animations */
+@keyframes scan-line-1 {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes scan-line-2 {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.8;
+  }
+  70% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Gradient Animation */
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Apply Animations */
+.animate-holographic-float-1 {
+  animation: holographic-float-1 8s ease-in-out infinite;
+}
+
+.animate-holographic-float-2 {
+  animation: holographic-float-2 6s ease-in-out infinite;
+}
+
+.animate-holographic-float-3 {
+  animation: holographic-float-3 10s ease-in-out infinite;
+}
+
+.animate-holographic-float-4 {
+  animation: holographic-float-4 7s ease-in-out infinite;
+}
+
+.animate-holographic-float-5 {
+  animation: holographic-float-5 9s ease-in-out infinite;
+}
+
+.animate-energy-beam-1 {
+  animation: energy-beam-1 4s ease-in-out infinite;
+}
+
+.animate-energy-beam-2 {
+  animation: energy-beam-2 5s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-energy-beam-3 {
+  animation: energy-beam-3 6s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.animate-holographic-ring-1 {
+  animation: holographic-ring-1 12s linear infinite;
+}
+
+.animate-holographic-ring-2 {
+  animation: holographic-ring-2 15s linear infinite;
+}
+
+.animate-holographic-ring-3 {
+  animation: holographic-ring-3 10s linear infinite;
+}
+
+.animate-digital-rain {
+  animation: digital-rain 7s linear infinite;
+}
+
+.animate-scan-line-1 {
+  animation: scan-line-1 3s ease-in-out infinite;
+}
+
+.animate-scan-line-2 {
+  animation: scan-line-2 4s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 3s ease infinite;
+}
+
+/* Holographic Effects */
+.holographic-glow {
+  box-shadow: 
+    0 0 20px rgba(6, 182, 212, 0.3),
+    0 0 40px rgba(6, 182, 212, 0.2),
+    0 0 60px rgba(6, 182, 212, 0.1);
+}
+
+.holographic-border {
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  box-shadow: 
+    inset 0 0 20px rgba(6, 182, 212, 0.1),
+    0 0 20px rgba(6, 182, 212, 0.2);
+}
+
+.holographic-text {
+  text-shadow: 
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 30px currentColor;
+}
+
+/* Holographic Button Effects */
+.holographic-btn {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(147, 51, 234, 0.1));
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  transition: all 0.3s ease;
+}
+
+.holographic-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.holographic-btn:hover::before {
+  left: 100%;
+}
+
+.holographic-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 40px rgba(6, 182, 212, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(6, 182, 212, 0.6);
+}
+
+/* Holographic Panel */
+.holographic-panel {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .animate-holographic-float-1,
+  .animate-holographic-float-2,
+  .animate-holographic-float-3,
+  .animate-holographic-float-4,
+  .animate-holographic-float-5 {
+    animation-duration: 6s;
+  }
+  
+  .animate-energy-beam-1,
+  .animate-energy-beam-2,
+  .animate-energy-beam-3 {
+    animation-duration: 3s;
+  }
+  
+  .animate-holographic-ring-1,
+  .animate-holographic-ring-2,
+  .animate-holographic-ring-3 {
+    animation-duration: 8s;
+  }
+}

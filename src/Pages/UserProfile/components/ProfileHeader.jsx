@@ -63,12 +63,12 @@ function ProfileHeader({ userData, activeTab, onTabChange }) {
   ]
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-8">
-      {/* Minimalist Card Design */}
-      <div className="glass-card mb-8">
+    <div className="w-full max-w-full mx-auto px-0 py-6">
+      {/* Compact Card Design */}
+      <div className="bg-gray-800 rounded-xl p-6 border border-gray-700 mb-6">
         {/* User Identity Card */}
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 p-8">
-          <div className="flex flex-col lg:flex-row items-center gap-6">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6">
+          <div className="flex flex-col lg:flex-row items-center gap-4">
             <div className="relative">
               {showDefaultAvatar ? (
                 <DefaultAvatar 
@@ -80,23 +80,23 @@ function ProfileHeader({ userData, activeTab, onTabChange }) {
                 <img 
                   src={userData.avatar} 
                   alt={`Avatar de ${userData.username}`}
-                  className="w-32 h-32 rounded-2xl object-cover border-4 border-white/20 shadow-2xl"
+                  className="w-24 h-24 rounded-xl object-cover border-2 border-white/20 shadow-lg"
                   onError={handleAvatarError}
                   onLoad={handleAvatarLoad}
                 />
               )}
-              <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 border-4 border-gray-800 rounded-full flex items-center justify-center">
-                <div className="w-3 h-3 bg-white rounded-full animate-pulse"></div>
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-2 border-gray-800 rounded-full flex items-center justify-center">
+                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
               </div>
             </div>
             <div className="text-center lg:text-left">
-              <h1 className="text-4xl font-bold text-white mb-2">{userData.fullName}</h1>
-              <p className="text-xl text-gray-300 mb-4">@{userData.username}</p>
-              <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-                <span className={`px-4 py-2 rounded-full text-white font-bold text-sm shadow-lg ${getUserTypeColor(userData.userType)}`}>
+              <h1 className="text-3xl font-bold text-white mb-1">{userData.fullName}</h1>
+              <p className="text-lg text-gray-300 mb-3">@{userData.username}</p>
+              <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+                <span className={`px-3 py-1 rounded-full text-white font-bold text-xs shadow-lg ${getUserTypeColor(userData.userType)}`}>
                   {getUserTypeLabel(userData.userType)}
                 </span>
-                <span className="px-4 py-2 bg-gray-700/50 text-white rounded-full text-sm font-medium">
+                <span className="px-3 py-1 bg-gray-700/50 text-white rounded-full text-xs font-medium">
                   Niveau {userData.level}
                 </span>
               </div>
@@ -105,98 +105,98 @@ function ProfileHeader({ userData, activeTab, onTabChange }) {
         </div>
 
         {/* Stats Cards Row */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="bg-black/20 rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300">
-            <div className="flex items-center gap-3">
-              <div className="text-2xl">🎮</div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-6">
+          <div className="bg-gray-700/50 rounded-lg p-3 border border-white/10 hover:bg-gray-700/70 transition-all duration-300">
+            <div className="flex items-center gap-2">
+              <div className="text-lg">🎮</div>
               <div>
-                <div className="text-2xl font-bold text-white">{userData.stats.gamesPlayed}</div>
-                <div className="text-sm text-gray-400">Parties</div>
+                <div className="text-lg font-bold text-white">{userData.stats.gamesPlayed}</div>
+                <div className="text-xs text-gray-400">Parties</div>
               </div>
             </div>
           </div>
-          <div className="bg-black/20 rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300">
-            <div className="flex items-center gap-3">
-              <div className="text-2xl">🏆</div>
+          <div className="bg-gray-700/50 rounded-lg p-3 border border-white/10 hover:bg-gray-700/70 transition-all duration-300">
+            <div className="flex items-center gap-2">
+              <div className="text-lg">🏆</div>
               <div>
-                <div className="text-2xl font-bold text-white">{userData.stats.winRate}%</div>
-                <div className="text-sm text-gray-400">Victoires</div>
+                <div className="text-lg font-bold text-white">{userData.stats.winRate}%</div>
+                <div className="text-xs text-gray-400">Victoires</div>
               </div>
             </div>
           </div>
-          <div className="bg-black/20 rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300">
-            <div className="flex items-center gap-3">
-              <div className="text-2xl">⏱️</div>
+          <div className="bg-gray-700/50 rounded-lg p-3 border border-white/10 hover:bg-gray-700/70 transition-all duration-300">
+            <div className="flex items-center gap-2">
+              <div className="text-lg">⏱️</div>
               <div>
-                <div className="text-2xl font-bold text-white">{userData.stats.totalHours}h</div>
-                <div className="text-sm text-gray-400">Heures</div>
+                <div className="text-lg font-bold text-white">{userData.stats.totalHours}h</div>
+                <div className="text-xs text-gray-400">Heures</div>
               </div>
             </div>
           </div>
-          <div className="bg-black/20 rounded-xl p-4 border border-white/10 hover:bg-black/30 transition-all duration-300">
-            <div className="flex items-center gap-3">
-              <div className="text-2xl">💎</div>
+          <div className="bg-gray-700/50 rounded-lg p-3 border border-white/10 hover:bg-gray-700/70 transition-all duration-300">
+            <div className="flex items-center gap-2">
+              <div className="text-lg">💎</div>
               <div>
-                <div className="text-2xl font-bold text-white">{userData.stats.rank}</div>
-                <div className="text-sm text-gray-400">Rang</div>
+                <div className="text-lg font-bold text-white">{userData.stats.rank}</div>
+                <div className="text-xs text-gray-400">Rang</div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Progress Section */}
-        <div className="mb-8">
-          <div className="flex justify-between items-center mb-4">
-            <span className="text-white font-semibold">Progression</span>
-            <span className="text-white font-bold">
+        <div className="mt-6">
+          <div className="flex justify-between items-center mb-3">
+            <span className="text-white font-semibold text-sm">Progression</span>
+            <span className="text-white font-bold text-sm">
               {Math.round((userData.xp / (userData.xp + userData.xpToNext)) * 100)}%
             </span>
           </div>
-          <div className="w-full bg-gray-700/30 rounded-full h-3 mb-2">
+          <div className="w-full bg-gray-700/30 rounded-full h-2 mb-2">
             <div 
-              className={`h-3 rounded-full bg-gradient-to-r ${getUserTypeGradient(userData.userType)} shadow-lg`}
+              className={`h-2 rounded-full bg-gradient-to-r ${getUserTypeGradient(userData.userType)} shadow-lg`}
               style={{ 
                 width: `${(userData.xp / (userData.xp + userData.xpToNext)) * 100}%`
               }}
             ></div>
           </div>
-          <div className="flex justify-between text-sm text-gray-400">
+          <div className="flex justify-between text-xs text-gray-400">
             <span>{userData.xp.toLocaleString()} XP</span>
             <span>Niveau {userData.level + 1} dans {userData.xpToNext} XP</span>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-wrap gap-4 justify-center">
-          <button className="gaming-button flex items-center gap-2">
-            <span className="text-xl">⚡</span>
+        <div className="flex flex-wrap gap-3 justify-center mt-6">
+          <button className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex items-center gap-2">
+            <span className="text-lg">⚡</span>
             <span>Quick Match</span>
           </button>
-          <button className="px-6 py-3 bg-gray-700/50 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:bg-gray-600/50 hover:shadow-xl hover:-translate-y-1 flex items-center gap-2">
-            <span className="text-xl">🏆</span>
+          <button className="px-4 py-2 bg-gray-700/50 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:bg-gray-600/50 hover:shadow-xl hover:-translate-y-1 flex items-center gap-2">
+            <span className="text-lg">🏆</span>
             <span>Tournois</span>
           </button>
-          <button className="px-6 py-3 bg-gray-700/50 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:bg-gray-600/50 hover:shadow-xl hover:-translate-y-1 flex items-center gap-2">
-            <span className="text-xl">📊</span>
+          <button className="px-4 py-2 bg-gray-700/50 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:bg-gray-600/50 hover:shadow-xl hover:-translate-y-1 flex items-center gap-2">
+            <span className="text-lg">📊</span>
             <span>Stats</span>
           </button>
         </div>
       </div>
 
       {/* Navigation Tabs */}
-      <nav className="flex bg-black/20 backdrop-blur-xl border border-white/20 rounded-2xl p-2">
+      <nav className="flex bg-gray-800 backdrop-blur-xl border border-gray-700 rounded-xl p-1">
         {tabs.map(tab => (
           <button
             key={tab.id}
-            className={`flex-1 flex items-center justify-center gap-3 py-4 px-6 rounded-xl font-semibold transition-all duration-300 ${
+            className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-semibold transition-all duration-300 ${
               activeTab === tab.id 
-                ? 'bg-indigo-500 text-white shadow-lg' 
-                : 'text-gray-300 hover:text-white hover:bg-white/10'
+                ? 'bg-purple-500 text-white shadow-lg' 
+                : 'text-gray-300 hover:text-white hover:bg-gray-700'
             }`}
             onClick={() => onTabChange(tab.id)}
           >
-            <span className="text-xl">{tab.icon}</span>
-            <span>{tab.label}</span>
+            <span className="text-lg">{tab.icon}</span>
+            <span className="text-sm">{tab.label}</span>
           </button>
         ))}
       </nav>

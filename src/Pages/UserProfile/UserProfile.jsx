@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 // Import des composants modulaires
+import ProfileSidebar from './components/ProfileSidebar'
+import ProfileTopBar from './components/ProfileTopBar'
+import ProfileRightSidebar from './components/ProfileRightSidebar'
 import ProfileHeader from './components/ProfileHeader'
-import ProfileStats from './components/ProfileStats'
 import ProfileGames from './components/ProfileGames'
 import ProfileAchievements from './components/ProfileAchievements'
 import ProfileSettings from './components/ProfileSettings'
 import LoadingSpinner from './components/LoadingSpinner'
-import AvatarDemo from './components/AvatarDemo'
 
 function UserProfile() {
   const { id } = useParams()
@@ -84,143 +85,236 @@ function UserProfile() {
   }
 
   return (
-    <div className="user-profile">
-      {/* Enhanced Gaming Background Effects */}
-      <div className="profile-background">
-        <div className="neural-network"></div>
-        <div className="energy-waves"></div>
-        <div className="floating-particles"></div>
-        <div className="cyber-grid"></div>
-        <div className="holographic-overlay"></div>
-      </div>
-
-      <div className="profile-container">
-        {/* Gaming Header with enhanced effects */}
-        <ProfileHeader 
-          userData={userData}
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
-        />
-
-        {/* Advanced Flexible Gaming Layout */}
-        <div className="profile-main-content">
-          {activeTab === 'overview' && (
-            <div className="advanced-dashboard">
+    <div className="h-screen bg-gray-900 flex overflow-hidden">
+     
+      
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col ml-64">
+        {/* Top Bar */}
+        <div className="flex-shrink-0">
+          <ProfileTopBar userData={userData} />
+        </div>
         
+        {/* Content Area */}
+        <div className="flex-1 flex overflow-hidden">
+          {/* Central Content */}
+          <div className="flex-1 overflow-y-auto">
+            <div className="p-6">
+              {/* Profile Header */}
+              <ProfileHeader 
+                userData={userData}
+                activeTab={activeTab}
+                onTabChange={setActiveTab}
+              />
 
-              {/* Main Content Grid - Single Column Layout */}
-              <div className="main-content-grid">
-                {/* About Me Module */}
-                <div className="content-module about-me-module">
-                  <div className="module-header">
-                    <h3>À propos de moi</h3>
-                    <div className="module-indicator"></div>
+              {/* Tab Content */}
+              <div className="mt-8">
+                {activeTab === 'overview' && (
+                  <div className="space-y-6">
+                    {/* About Me Section */}
+                    <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                      <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
+                        <span className="text-xl">👤</span>
+                        À propos de moi
+                      </h3>
+                      <p className="text-gray-300 mb-4">
+                        Salut, je m'appelle {userData.fullName} mais certains me connaissent peut-être sous le nom de {userData.username}. 
+                        Je suis un passionné de gaming et j'adore relever des défis dans les jeux compétitifs. 
+                        Mon objectif est de devenir l'un des meilleurs joueurs de ma région !
+                      </p>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="bg-gray-700 rounded-lg p-4">
+                          <div className="text-gray-400 text-sm">Rejoint</div>
+                          <div className="text-white font-semibold">
+                            {new Date(userData.joinDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
+                          </div>
+                        </div>
+                        <div className="bg-gray-700 rounded-lg p-4">
+                          <div className="text-gray-400 text-sm">Localisation</div>
+                          <div className="text-white font-semibold">Paris, France</div>
+                        </div>
+                        <div className="bg-gray-700 rounded-lg p-4">
+                          <div className="text-gray-400 text-sm">Site web</div>
+                          <div className="text-white font-semibold">playwithpro.com</div>
+                        </div>
+                      </div>
+                    </div>
+
+                   
                   </div>
-                  <div className="about-content">
-                    <p className="about-text">
-                      Salut, je m'appelle {userData.fullName} mais certains me connaissent peut-être sous le nom de {userData.username}. 
-                      Je suis un passionné de gaming et j'adore relever des défis dans les jeux compétitifs. 
-                      Mon objectif est de devenir l'un des meilleurs joueurs de ma région !
-                    </p>
-                    <div className="about-details">
-                      <div className="detail-item">
-                        <span className="detail-label">Rejoint:</span>
-                        <span className="detail-value">{new Date(userData.joinDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-                      </div>
-                      <div className="detail-item">
-                        <span className="detail-label">Localisation:</span>
-                        <span className="detail-value">Paris, France</span>
-                      </div>
-                      <div className="detail-item">
-                        <span className="detail-label">Site web:</span>
-                        <span className="detail-value">playwithpro.com</span>
-                      </div>
-                    </div>
+                )}
+                
+                {activeTab === 'achievements' && (
+                  <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                    <ProfileAchievements achievements={userData.achievements} />
                   </div>
-                </div>
-
-                {/* My Profile Module */}
-                <div className="content-module my-profile-module">
-                  <div className="module-header">
-                    <h3>{userData.fullName}</h3>
-                    <div className="profile-tabs">
-                      <button className="tab-btn active">Mon Profil</button>
-                      <button className="tab-btn">Public</button>
-                      <button className="tab-btn">Confidentialité</button>
-                    </div>
+                )}
+                
+                {activeTab === 'games' && (
+                  <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                    <ProfileGames recentGames={userData.recentGames} />
                   </div>
-                  <div className="profile-post-section">
-                    <div className="post-input-container">
-                      <textarea 
-                        className="post-input" 
-                        placeholder={`Qu'est-ce qui vous passe par la tête, ${userData.fullName.split(' ')[0]} ?`}
-                        rows="3"
-                      ></textarea>
-                      <button className="post-btn">Publier</button>
-                    </div>
-                    <div className="reaction-buttons">
-                      <button className="reaction-btn smile">😊</button>
-                      <button className="reaction-btn heart">❤️</button>
-                      <button className="reaction-btn like">👍</button>
-                    </div>
-                    <div className="activity-filters">
-                      <button className="filter-btn active">Toutes les mises à jour</button>
-                      <button className="filter-btn">Amis</button>
-                      <button className="filter-btn">Groupes</button>
-                      <button className="filter-btn">Tout</button>
-                    </div>
+                )}
+                
+                {activeTab === 'settings' && (
+                  <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                    <ProfileSettings userData={userData} />
                   </div>
-                  
-                  {/* Live Activities */}
-                  <div className="live-activities">
-                    <div className="activity-item">
-                      <div className="activity-icon">🎮</div>
-                      <div className="activity-content">
-                        <div className="activity-text">Partie en cours sur <strong>Valorant</strong></div>
-                        <div className="activity-time">Il y a 2 min</div>
-                      </div>
-                    </div>
-                    <div className="activity-item">
-                      <div className="activity-icon">🏆</div>
-                      <div className="activity-content">
-                        <div className="activity-text">Victoire contre <strong>ProGamer123</strong></div>
-                        <div className="activity-time">Il y a 15 min</div>
-                      </div>
-                    </div>
-                    <div className="activity-item">
-                      <div className="activity-icon">📈</div>
-                      <div className="activity-content">
-                        <div className="activity-text">Nouveau rang: <strong>Diamond III</strong></div>
-                        <div className="activity-time">Il y a 1h</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              
-
-               
-
-
+                )}
               </div>
             </div>
-          )}
+          </div>
           
-          {activeTab === 'achievements' && (
-            <div className="achievements-section">
-              <ProfileAchievements achievements={userData.achievements} />
+          {/* Right Sidebar */}
+          <div className="w-80 flex-shrink-0 overflow-y-auto">
+            <div className="p-6">
+              <ProfileRightSidebar userData={userData} />
             </div>
-          )}
-          
-          {activeTab === 'settings' && (
-            <div className="settings-section">
-              <ProfileSettings userData={userData} />
-            </div>
-          )}
-          
-        
+          </div>
         </div>
       </div>
+      
+      {/* Global Styles */}
+      <style jsx global>{`
+        * {
+          box-sizing: border-box;
+        }
+        
+        html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+          background-color: #0b0f1a;
+          overflow: hidden;
+        }
+        
+        #root {
+          height: 100%;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+          width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+          background: #1f2937;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+          background: #8A2BE2;
+          border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+          background: #9932CC;
+        }
+        
+        /* Glow effects */
+        .glow-purple {
+          box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+        }
+        
+        .glow-blue {
+          box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+        }
+        
+        /* Animations */
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+        
+        .float {
+          animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+          0%, 100% {
+            box-shadow: 0 0 5px rgba(138, 43, 226, 0.5);
+          }
+          50% {
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
+          }
+        }
+        
+        .pulse-glow {
+          animation: pulse-glow 2s ease-in-out infinite;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+          .ml-64 {
+            margin-left: 0;
+          }
+          
+          .w-80 {
+            width: 18rem;
+          }
+          
+          .flex {
+            flex-direction: column;
+          }
+          
+          .flex-1 {
+            height: calc(100vh - 4rem);
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .grid-cols-5 {
+            grid-template-columns: repeat(3, 1fr);
+          }
+          
+          .w-80 {
+            width: 100%;
+          }
+          
+          .flex-col {
+            flex-direction: column;
+          }
+          
+          .h-screen {
+            height: 100vh;
+          }
+          
+          .p-6 {
+            padding: 1rem;
+          }
+        }
+        
+        @media (max-width: 640px) {
+          .grid-cols-5 {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          
+          .text-2xl {
+            font-size: 1.5rem;
+          }
+          
+          .text-xl {
+            font-size: 1.25rem;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .grid-cols-5 {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          
+          .gap-3 {
+            gap: 0.5rem;
+          }
+          
+          .p-3 {
+            padding: 0.5rem;
+          }
+        }
+      `}</style>
     </div>
   )
 }

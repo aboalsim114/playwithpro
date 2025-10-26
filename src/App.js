@@ -8,6 +8,7 @@ import Inscription from './Pages/InscriptionPage/Inscription';
 import Connexion from './Pages/ConnexionPage/Connexion';
 import DashboardUser from './Pages/DashboardUser/DashboardUser';
 import UserProfile from './Pages/UserProfile/UserProfile';
+import CalendarComponent from './Pages/Calendar/Calendar';
 import PrivateRoute from './utils/PrivateRoute';
 import NotFound from './Pages/NotFound/NotFound';
 
@@ -47,6 +48,11 @@ function App() {
           <Route path="/user/:id" element={
             <PrivateLayout>
               <UserProfile />
+            </PrivateLayout>
+          } />
+          <Route path="user/:id/calendar" element={
+            <PrivateLayout>
+              <CalendarComponent />
             </PrivateLayout>
           } />
         </Route>

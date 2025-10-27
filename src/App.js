@@ -45,6 +45,40 @@ function App() {
               <DashboardUser />
             </PrivateLayout>
           } />
+          <Route path="/dash-user/matches" element={
+            <PrivateLayout>
+              <div className="p-6">
+                <h1 className="text-2xl font-bold text-white mb-4">Mes Matchs</h1>
+                <p className="text-gray-300">Page des matchs en cours de développement...</p>
+              </div>
+            </PrivateLayout>
+          } />
+          <Route path="/dash-user/coaching" element={
+            <PrivateLayout>
+              <div className="p-6">
+                <h1 className="text-2xl font-bold text-white mb-4">Coaching</h1>
+                <p className="text-gray-300">Page de coaching en cours de développement...</p>
+              </div>
+            </PrivateLayout>
+          } />
+          <Route path="/dash-user/calendar" element={
+            <PrivateLayout>
+              <CalendarComponent />
+            </PrivateLayout>
+          } />
+          <Route path="/dash-user/payments" element={
+            <PrivateLayout>
+              <div className="p-6">
+                <h1 className="text-2xl font-bold text-white mb-4">Paiements</h1>
+                <p className="text-gray-300">Page des paiements en cours de développement...</p>
+              </div>
+            </PrivateLayout>
+          } />
+          <Route path="/dash-user/profile" element={
+            <PrivateLayout>
+              <UserProfile />
+            </PrivateLayout>
+          } />
           <Route path="/user/:id" element={
             <PrivateLayout>
               <UserProfile />
@@ -53,6 +87,14 @@ function App() {
           <Route path="user/:id/calendar" element={
             <PrivateLayout>
               <CalendarComponent />
+            </PrivateLayout>
+          } />
+          <Route path="/support" element={
+            <PrivateLayout>
+              <div className="p-6">
+                <h1 className="text-2xl font-bold text-white mb-4">Support</h1>
+                <p className="text-gray-300">Page de support en cours de développement...</p>
+              </div>
             </PrivateLayout>
           } />
         </Route>

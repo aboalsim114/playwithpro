@@ -49,8 +49,8 @@ const initialEvents = [
   {
     id: 1,
     title: 'Session CS2 avec ProPlayer',
-    start: new Date(2024, 11, 15, 14, 0),
-    end: new Date(2024, 11, 15, 15, 0),
+    start: new Date(2025, 9, 25, 14, 0),
+    end: new Date(2025, 9, 25, 15, 0),
     resource: {
       game: 'CS2',
       pro: 'ProPlayer',
@@ -58,15 +58,15 @@ const initialEvents = [
       price: 50,
       playerName: 'AlexGamer',
       status: 'paid',
-      paymentDate: new Date(2024, 11, 10),
+      paymentDate: new Date(2025, 9, 20),
       duration: 60
     }
   },
   {
     id: 2,
     title: 'Match Valorant - Tournoi',
-    start: new Date(2024, 11, 18, 20, 0),
-    end: new Date(2024, 11, 18, 22, 0),
+    start: new Date(2025, 9, 28, 20, 0),
+    end: new Date(2025, 9, 28, 22, 0),
     resource: {
       game: 'Valorant',
       pro: 'ValorantPro',
@@ -74,15 +74,15 @@ const initialEvents = [
       price: 75,
       playerName: 'SarahPro',
       status: 'paid',
-      paymentDate: new Date(2024, 11, 12),
+      paymentDate: new Date(2025, 9, 22),
       duration: 120
     }
   },
   {
     id: 3,
     title: 'Coaching LoL - Stratégie',
-    start: new Date(2024, 11, 20, 16, 0),
-    end: new Date(2024, 11, 20, 17, 30),
+    start: new Date(2025, 9, 30, 16, 0),
+    end: new Date(2025, 9, 30, 17, 30),
     resource: {
       game: 'LoL',
       pro: 'LoLMaster',
@@ -90,15 +90,15 @@ const initialEvents = [
       price: 60,
       playerName: 'MikeRising',
       status: 'paid',
-      paymentDate: new Date(2024, 11, 14),
+      paymentDate: new Date(2025, 9, 24),
       duration: 90
     }
   },
   {
     id: 4,
     title: 'Session Fortnite - Build',
-    start: new Date(2024, 11, 22, 19, 0),
-    end: new Date(2024, 11, 22, 20, 0),
+    start: new Date(2025, 10, 2, 19, 0),
+    end: new Date(2025, 10, 2, 20, 0),
     resource: {
       game: 'Fortnite',
       pro: 'FortniteBuilder',
@@ -106,15 +106,15 @@ const initialEvents = [
       price: 40,
       playerName: 'EmmaBuilder',
       status: 'paid',
-      paymentDate: new Date(2024, 11, 16),
+      paymentDate: new Date(2025, 9, 26),
       duration: 60
     }
   },
   {
     id: 5,
     title: 'Session Apex Legends',
-    start: new Date(2024, 11, 25, 15, 0),
-    end: new Date(2024, 11, 25, 16, 30),
+    start: new Date(2025, 10, 5, 15, 0),
+    end: new Date(2025, 10, 5, 16, 30),
     resource: {
       game: 'Apex',
       pro: 'ApexChampion',
@@ -122,8 +122,88 @@ const initialEvents = [
       price: 55,
       playerName: 'TomLegend',
       status: 'paid',
-      paymentDate: new Date(2024, 11, 18),
+      paymentDate: new Date(2025, 9, 28),
       duration: 90
+    }
+  },
+  {
+    id: 6,
+    title: 'Coaching CS2 - Techniques Avancées',
+    start: new Date(2025, 10, 8, 14, 0),
+    end: new Date(2025, 10, 8, 15, 30),
+    resource: {
+      game: 'CS2',
+      pro: 'CS2Master',
+      type: 'coaching',
+      price: 65,
+      playerName: 'AlexGamer',
+      status: 'paid',
+      paymentDate: new Date(2025, 10, 1),
+      duration: 90
+    }
+  },
+  {
+    id: 7,
+    title: 'Session Valorant - Aim Training',
+    start: new Date(2025, 10, 10, 16, 0),
+    end: new Date(2025, 10, 10, 17, 0),
+    resource: {
+      game: 'Valorant',
+      pro: 'AimMaster',
+      type: 'coaching',
+      price: 45,
+      playerName: 'SarahPro',
+      status: 'paid',
+      paymentDate: new Date(2025, 10, 3),
+      duration: 60
+    }
+  },
+  {
+    id: 8,
+    title: 'Match LoL - Ranked',
+    start: new Date(2025, 10, 12, 19, 0),
+    end: new Date(2025, 10, 12, 21, 0),
+    resource: {
+      game: 'LoL',
+      pro: 'LoLChallenger',
+      type: 'match',
+      price: 80,
+      playerName: 'MikeRising',
+      status: 'paid',
+      paymentDate: new Date(2025, 10, 5),
+      duration: 120
+    }
+  },
+  {
+    id: 9,
+    title: 'Session FIFA - Techniques Avancées',
+    start: new Date(2025, 10, 15, 18, 0),
+    end: new Date(2025, 10, 15, 19, 0),
+    resource: {
+      game: 'FIFA',
+      pro: 'FIFAMaster',
+      type: 'coaching',
+      price: 35,
+      playerName: 'EmmaBuilder',
+      status: 'paid',
+      paymentDate: new Date(2025, 10, 8),
+      duration: 60
+    }
+  },
+  {
+    id: 10,
+    title: 'Coaching COD - Stratégie Équipe',
+    start: new Date(2025, 10, 18, 20, 0),
+    end: new Date(2025, 10, 18, 22, 0),
+    resource: {
+      game: 'COD',
+      pro: 'CODPro',
+      type: 'coaching',
+      price: 70,
+      playerName: 'TomLegend',
+      status: 'paid',
+      paymentDate: new Date(2025, 10, 11),
+      duration: 120
     }
   }
 ];
@@ -232,9 +312,6 @@ const CalendarComponent = () => {
     'FIFA': 'border-yellow-400/50',
     'COD': 'border-gray-400/50'
   };
-
-  const calendarDays = generateCalendarDays();
-  const { year, month } = formatDate(currentDate);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex flex-col relative overflow-hidden">
@@ -362,7 +439,7 @@ const CalendarComponent = () => {
                     </button>
                     
                     <h2 className="text-xl sm:text-2xl font-bold text-white">
-                      {MONTHS[month]} {year}
+                      {MONTHS[formatDate(currentDate).month]} {formatDate(currentDate).year}
                     </h2>
                     
                     <button
@@ -393,7 +470,7 @@ const CalendarComponent = () => {
                 </div>
 
                 <div className="grid grid-cols-7 gap-1">
-                  {calendarDays.map((dayData, index) => {
+                  {generateCalendarDays().map((dayData, index) => {
                     const dayEvents = getEventsForDate(dayData.date);
                     return (
                       <div

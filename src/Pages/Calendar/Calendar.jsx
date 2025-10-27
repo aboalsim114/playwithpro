@@ -213,26 +213,26 @@ const CalendarComponent = () => {
   });
 
   return (
-    <div className="h-screen bg-gray-900 flex overflow-hidden">
+    <div className="min-h-screen bg-gray-900 flex flex-col">
       {/* Main Content Area - Adapté au layout existant */}
-      <div className="flex-1 flex flex-col ml-64">
+      <div className="flex-1 flex flex-col lg:ml-64">
         {/* Header Section */}
-        <div className="flex-shrink-0 bg-gray-800 border-b border-gray-700 p-6">
-          <div className="flex items-center justify-between">
-             <div>
-               <h1 className="text-3xl font-bold text-white mb-2">
+        <div className="flex-shrink-0 bg-gray-800 border-b border-gray-700 p-4 sm:p-6">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+             <div className="flex-1">
+               <h1 className="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">
                  📅 RDV Payés
                </h1>
-               <p className="text-gray-300">
+               <p className="text-gray-300 text-sm sm:text-base">
                  Consultez vos rendez-vous payés avec les pros
                </p>
              </div>
             
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
               <select
                 value={filterGame}
                 onChange={(e) => setFilterGame(e.target.value)}
-                className="px-4 py-2 bg-gray-700 border border-gray-600 rounded-xl text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300"
+                className="px-3 sm:px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg sm:rounded-xl text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 text-sm sm:text-base"
               >
                 <option value="all">Tous les jeux</option>
                 {Object.entries(GAMES).map(([key, game]) => (
@@ -242,84 +242,83 @@ const CalendarComponent = () => {
                 ))}
               </select>
               
-               <div className="flex items-center gap-2 px-4 py-2 bg-green-500/20 border border-green-500/30 rounded-xl">
+               <div className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-green-500/20 border border-green-500/30 rounded-lg sm:rounded-xl">
                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                 <span className="text-green-400 text-sm font-medium">RDV Payés</span>
+                 <span className="text-green-400 text-xs sm:text-sm font-medium">RDV Payés</span>
                </div>
             </div>
           </div>
         </div>
         
         {/* Content Area */}
-        <div className="flex-1 flex overflow-hidden">
-          {/* Central Content */}
+        <div className="flex-1">
           <div 
-            className="flex-1 overflow-y-auto"
+            className="overflow-y-auto"
             style={{
-              scrollbarWidth: 'none', /* Firefox */
-              msOverflowStyle: 'none', /* IE and Edge */
-              WebkitScrollbar: 'none', /* Chrome, Safari, Opera */
+              scrollbarWidth: 'thin', /* Firefox */
+              scrollbarColor: '#4b5563 #1f2937', /* Firefox */
+              msOverflowStyle: 'auto', /* IE and Edge */
             }}
           >
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               {/* Stats Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                 <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+                 <div className="bg-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-700 hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300">
                    <div className="flex items-center justify-between">
                      <div>
-                       <p className="text-gray-400 text-sm font-medium">RDV Payés</p>
-                       <p className="text-3xl font-bold text-white">{filteredEvents.length}</p>
+                       <p className="text-gray-400 text-xs sm:text-sm font-medium">RDV Payés</p>
+                       <p className="text-2xl sm:text-3xl font-bold text-white">{filteredEvents.length}</p>
                      </div>
-                     <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
-                       <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-500/20 rounded-lg sm:rounded-xl flex items-center justify-center">
+                       <svg className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                        </svg>
                      </div>
                    </div>
                  </div>
 
-                <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300">
+                <div className="bg-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-700 hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-gray-400 text-sm font-medium">Coaching</p>
-                      <p className="text-3xl font-bold text-white">
+                      <p className="text-gray-400 text-xs sm:text-sm font-medium">Coaching</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-white">
                         {filteredEvents.filter(e => e.resource?.type === 'coaching').length}
                       </p>
                     </div>
-                    <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
-                      <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-500/20 rounded-lg sm:rounded-xl flex items-center justify-center">
+                      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                       </svg>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:shadow-lg hover:shadow-red-500/10 transition-all duration-300">
+                <div className="bg-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-700 hover:shadow-lg hover:shadow-red-500/10 transition-all duration-300">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-gray-400 text-sm font-medium">Matchs</p>
-                      <p className="text-3xl font-bold text-white">
+                      <p className="text-gray-400 text-xs sm:text-sm font-medium">Matchs</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-white">
                         {filteredEvents.filter(e => e.resource?.type === 'match').length}
                       </p>
                     </div>
-                    <div className="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center">
-                      <svg className="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-red-500/20 rounded-lg sm:rounded-xl flex items-center justify-center">
+                      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                       </svg>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:shadow-lg hover:shadow-yellow-500/10 transition-all duration-300">
+                <div className="bg-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-700 hover:shadow-lg hover:shadow-yellow-500/10 transition-all duration-300">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-gray-400 text-sm font-medium">Total dépensé</p>
-                      <p className="text-3xl font-bold text-white">
+                      <p className="text-gray-400 text-xs sm:text-sm font-medium">Total dépensé</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-white">
                         {filteredEvents.reduce((sum, event) => sum + (event.resource?.price || 0), 0)}€
                       </p>
                     </div>
-                    <div className="w-12 h-12 bg-yellow-500/20 rounded-xl flex items-center justify-center">
-                      <svg className="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-500/20 rounded-lg sm:rounded-xl flex items-center justify-center">
+                      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
                       </svg>
                     </div>
@@ -328,7 +327,7 @@ const CalendarComponent = () => {
               </div>
 
               {/* Calendar Container */}
-              <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700 shadow-lg">
+              <div className="bg-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-700 shadow-lg">
                 <Calendar
                   localizer={localizer}
                   events={filteredEvents}
@@ -363,169 +362,120 @@ const CalendarComponent = () => {
               </div>
             </div>
           </div>
-          
-          {/* Right Sidebar - Adapté au design existant */}
-          <div 
-            className="w-80 flex-shrink-0 overflow-y-auto bg-gray-800 border-l border-gray-700"
-            style={{
-              scrollbarWidth: 'none', /* Firefox */
-              msOverflowStyle: 'none', /* IE and Edge */
-              WebkitScrollbar: 'none', /* Chrome, Safari, Opera */
-            }}
-          >
-            <div className="p-6">
-               {/* Prochains RDV */}
-               <div className="bg-gray-700 rounded-2xl p-4 mb-6">
-                 <div className="flex items-center justify-between mb-3">
-                   <h3 className="text-lg font-bold text-white">Prochains RDV</h3>
-                   <div className="flex items-center gap-1">
-                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                     <span className="text-green-400 text-xs">Payés</span>
-                   </div>
-                 </div>
-
-                 <div className="space-y-3">
-                   {filteredEvents.slice(0, 3).map((event) => (
-                     <div key={event.id} className="bg-gray-600 rounded-xl p-3 hover:bg-gray-500 transition-colors cursor-pointer" onClick={() => handleSelectEvent(event)}>
-                       <div className="flex items-center gap-3">
-                         <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-                           <span className="text-white text-sm font-bold">
-                             {GAMES[event.resource?.game]?.emoji || '🎮'}
-                           </span>
-                         </div>
-                         <div className="flex-1">
-                           <p className="text-white text-sm font-medium">{event.title}</p>
-                           <p className="text-gray-300 text-xs">
-                             {moment(event.start).format('DD/MM HH:mm')} - {event.resource?.pro}
-                           </p>
-                         </div>
-                         <div className="text-right">
-                           <p className="text-green-400 text-sm font-bold">{event.resource?.price}€</p>
-                         </div>
-                       </div>
-                     </div>
-                   ))}
-                 </div>
-               </div>
-
-            
-            </div>
-          </div>
         </div>
       </div>
 
 
       {/* RDV Details Modal */}
       {selectedEvent && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-          <div className="bg-gray-800 rounded-2xl p-6 max-w-lg w-full shadow-2xl border border-gray-700">
-            <div className="flex justify-between items-center mb-6">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-2 sm:p-4">
+          <div className="bg-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 max-w-lg w-full max-h-[95vh] overflow-y-auto shadow-2xl border border-gray-700">
+            <div className="flex justify-between items-start sm:items-center mb-4 sm:mb-6">
+              <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-500 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white">Détails du RDV</h3>
-                  <p className="text-green-400 text-sm">Rendez-vous payé</p>
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-lg sm:text-xl font-bold text-white truncate">Détails du RDV</h3>
+                  <p className="text-green-400 text-xs sm:text-sm">Rendez-vous payé</p>
                 </div>
               </div>
               <button
                 onClick={closeEventModal}
-                className="text-gray-400 hover:text-gray-200 transition-colors p-1 hover:bg-gray-700 rounded-lg"
+                className="text-gray-400 hover:text-gray-200 transition-colors p-1 hover:bg-gray-700 rounded-lg flex-shrink-0 ml-2"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {/* Session Info */}
-              <div className="bg-gray-700 rounded-xl p-4">
-                <h4 className="text-white font-semibold text-lg mb-2">{selectedEvent.title}</h4>
+              <div className="bg-gray-700 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                <h4 className="text-white font-semibold text-base sm:text-lg mb-2 truncate">{selectedEvent.title}</h4>
                 <div className="flex items-center gap-2">
-                  <span className="text-2xl">{GAMES[selectedEvent.resource?.game]?.emoji || '🎮'}</span>
-                  <span className="text-gray-300">{selectedEvent.resource?.game}</span>
+                  <span className="text-xl sm:text-2xl">{GAMES[selectedEvent.resource?.game]?.emoji || '🎮'}</span>
+                  <span className="text-gray-300 text-sm sm:text-base">{selectedEvent.resource?.game}</span>
                 </div>
               </div>
 
               {/* Player & Pro Info */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gray-700 rounded-xl p-4">
-                  <label className="text-sm font-medium text-gray-300 block mb-2">Joueur</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div className="bg-gray-700 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                  <label className="text-xs sm:text-sm font-medium text-gray-300 block mb-2">Joueur</label>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
                     </div>
-                    <span className="text-white font-semibold">{selectedEvent.resource?.playerName}</span>
+                    <span className="text-white font-semibold text-sm sm:text-base truncate">{selectedEvent.resource?.playerName}</span>
                   </div>
                 </div>
 
-                <div className="bg-gray-700 rounded-xl p-4">
-                  <label className="text-sm font-medium text-gray-300 block mb-2">Pro Player</label>
+                <div className="bg-gray-700 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                  <label className="text-xs sm:text-sm font-medium text-gray-300 block mb-2">Pro Player</label>
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                       </svg>
                     </div>
-                    <span className="text-white font-semibold">{selectedEvent.resource?.pro}</span>
+                    <span className="text-white font-semibold text-sm sm:text-base truncate">{selectedEvent.resource?.pro}</span>
                   </div>
                 </div>
               </div>
 
               {/* Session Details */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gray-700 rounded-xl p-4">
-                  <label className="text-sm font-medium text-gray-300 block mb-2">Type</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div className="bg-gray-700 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                  <label className="text-xs sm:text-sm font-medium text-gray-300 block mb-2">Type</label>
                   <div className="flex items-center gap-2">
-                    <div className={`w-3 h-3 rounded-full ${selectedEvent.resource?.type === 'coaching' ? 'bg-blue-500' : 'bg-red-500'}`}></div>
-                    <span className="text-white font-semibold capitalize">{selectedEvent.resource?.type}</span>
+                    <div className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full ${selectedEvent.resource?.type === 'coaching' ? 'bg-blue-500' : 'bg-red-500'} flex-shrink-0`}></div>
+                    <span className="text-white font-semibold capitalize text-sm sm:text-base">{selectedEvent.resource?.type}</span>
                   </div>
-
                 </div>
 
-                <div className="bg-gray-700 rounded-xl p-4">
-                  <label className="text-sm font-medium text-gray-300 block mb-2">Durée</label>
-                  <span className="text-white font-semibold">{selectedEvent.resource?.duration} min</span>
+                <div className="bg-gray-700 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                  <label className="text-xs sm:text-sm font-medium text-gray-300 block mb-2">Durée</label>
+                  <span className="text-white font-semibold text-sm sm:text-base">{selectedEvent.resource?.duration} min</span>
                 </div>
               </div>
 
               {/* Date & Time */}
-              <div className="bg-gray-700 rounded-xl p-4">
-                <label className="text-sm font-medium text-gray-300 block mb-2">Date et heure</label>
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="bg-gray-700 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                <label className="text-xs sm:text-sm font-medium text-gray-300 block mb-2">Date et heure</label>
+                <div className="flex items-center gap-2 mb-2">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  <span className="text-white font-semibold">
+                  <span className="text-white font-semibold text-sm sm:text-base">
                     {moment(selectedEvent.start).format('DD/MM/YYYY')} à {moment(selectedEvent.start).format('HH:mm')}
                   </span>
                 </div>
-                <div className="flex items-center gap-2 mt-1">
-                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center gap-2">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span className="text-gray-300 text-sm">
+                  <span className="text-gray-300 text-xs sm:text-sm">
                     Fin prévue à {moment(selectedEvent.end).format('HH:mm')}
                   </span>
                 </div>
               </div>
 
               {/* Payment Info */}
-              <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4">
-                <div className="flex items-center justify-between">
+              <div className="bg-green-500/10 border border-green-500/30 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
                   <div>
-                    <label className="text-sm font-medium text-green-300 block mb-1">Montant payé</label>
-                    <span className="text-green-400 font-bold text-2xl">{selectedEvent.resource?.price}€</span>
+                    <label className="text-xs sm:text-sm font-medium text-green-300 block mb-1">Montant payé</label>
+                    <span className="text-green-400 font-bold text-xl sm:text-2xl">{selectedEvent.resource?.price}€</span>
                   </div>
-                  <div className="text-right">
-                    <label className="text-sm font-medium text-green-300 block mb-1">Payé le</label>
-                    <span className="text-green-400 text-sm">
+                  <div className="text-left sm:text-right">
+                    <label className="text-xs sm:text-sm font-medium text-green-300 block mb-1">Payé le</label>
+                    <span className="text-green-400 text-xs sm:text-sm">
                       {moment(selectedEvent.resource?.paymentDate).format('DD/MM/YYYY')}
                     </span>
                   </div>
@@ -533,19 +483,20 @@ const CalendarComponent = () => {
               </div>
             </div>
 
-            <div className="flex gap-3 mt-8">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-6 sm:mt-8">
               <button
                 onClick={() => deleteEvent(selectedEvent.id)}
-                className="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 px-4 rounded-xl transition-all duration-300 font-medium flex items-center justify-center gap-2"
+                className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg sm:rounded-xl transition-all duration-300 font-medium flex items-center justify-center gap-2 text-sm sm:text-base"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
-                Annuler le RDV
+                <span className="hidden xs:inline">Annuler le RDV</span>
+                <span className="xs:hidden">Annuler</span>
               </button>
               <button
                 onClick={closeEventModal}
-                className="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-3 px-4 rounded-xl transition-all duration-300 font-medium"
+                className="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg sm:rounded-xl transition-all duration-300 font-medium text-sm sm:text-base"
               >
                 Fermer
               </button>
@@ -556,6 +507,37 @@ const CalendarComponent = () => {
 
       {/* Custom CSS adapté au design existant */}
       <style jsx global>{`
+        /* Custom scrollbar styles */
+        .overflow-y-auto::-webkit-scrollbar {
+          width: 8px;
+        }
+        
+        .overflow-y-auto::-webkit-scrollbar-track {
+          background: #1f2937;
+          border-radius: 4px;
+        }
+        
+        .overflow-y-auto::-webkit-scrollbar-thumb {
+          background: #4b5563;
+          border-radius: 4px;
+          transition: background 0.2s ease;
+        }
+        
+        .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+          background: #6b7280;
+        }
+        
+        /* Ensure scrollable content has proper height */
+        .overflow-y-auto {
+          min-height: calc(100vh - 200px);
+        }
+        
+        /* Fix for mobile scroll */
+        @media (max-width: 768px) {
+          .overflow-y-auto {
+            min-height: calc(100vh - 150px);
+          }
+        }
         .calendar-dashboard {
           background: transparent;
           color: #f9fafb;
@@ -704,18 +686,51 @@ const CalendarComponent = () => {
           border: 1px dashed #8A2BE2;
         }
         
+        /* Modal responsive styles */
+        @media (max-width: 640px) {
+          .fixed.inset-0 {
+            padding: 0.5rem;
+          }
+          
+          .max-w-lg {
+            max-width: calc(100vw - 1rem);
+          }
+          
+          .max-h-95vh {
+            max-height: calc(100vh - 1rem);
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .fixed.inset-0 {
+            padding: 0.25rem;
+          }
+          
+          .max-w-lg {
+            max-width: calc(100vw - 0.5rem);
+          }
+          
+          .max-h-95vh {
+            max-height: calc(100vh - 0.5rem);
+          }
+          
+          .text-lg {
+            font-size: 1rem;
+          }
+          
+          .text-xl {
+            font-size: 1.125rem;
+          }
+          
+          .text-2xl {
+            font-size: 1.25rem;
+          }
+        }
+        
         /* Responsive adjustments */
         @media (max-width: 1024px) {
-          .ml-64 {
+          .lg\\:ml-64 {
             margin-left: 0;
-          }
-          
-          .w-80 {
-            width: 18rem;
-          }
-          
-          .flex {
-            flex-direction: column;
           }
           
           .flex-1 {
@@ -728,11 +743,14 @@ const CalendarComponent = () => {
             flex-direction: column;
             align-items: stretch;
             gap: 12px;
+            padding: 16px;
           }
           
           .calendar-dashboard .rbc-toolbar button {
             margin: 2px 0;
             flex: 1;
+            padding: 8px 12px;
+            font-size: 12px;
           }
           
           .calendar-dashboard .rbc-toolbar-label {
@@ -741,44 +759,93 @@ const CalendarComponent = () => {
             margin-bottom: 8px;
           }
           
-          .w-80 {
-            width: 100%;
+          .calendar-dashboard .rbc-header {
+            padding: 12px 6px;
+            font-size: 13px;
           }
           
-          .flex-col {
-            flex-direction: column;
+          .calendar-dashboard .rbc-date-cell {
+            padding: 6px 4px;
+            font-size: 13px;
+          }
+          
+          .calendar-dashboard .rbc-event {
+            font-size: 10px;
+            padding: 4px 6px;
           }
           
           .h-screen {
             height: 100vh;
           }
-          
-          .p-6 {
-            padding: 1rem;
-          }
         }
         
         @media (max-width: 640px) {
+          .calendar-dashboard .rbc-toolbar {
+            padding: 12px;
+            gap: 8px;
+          }
+          
+          .calendar-dashboard .rbc-toolbar button {
+            padding: 6px 10px;
+            font-size: 11px;
+          }
+          
+          .calendar-dashboard .rbc-toolbar-label {
+            font-size: 1.125rem;
+          }
+          
           .calendar-dashboard .rbc-header {
             padding: 8px 4px;
-            font-size: 12px;
+            font-size: 11px;
           }
           
           .calendar-dashboard .rbc-date-cell {
-            padding: 4px;
-            font-size: 12px;
+            padding: 4px 2px;
+            font-size: 11px;
           }
           
-          .grid-cols-5 {
-            grid-template-columns: repeat(2, 1fr);
+          .calendar-dashboard .rbc-event {
+            font-size: 9px;
+            padding: 2px 4px;
           }
           
-          .text-2xl {
-            font-size: 1.5rem;
+          .calendar-dashboard .rbc-time-slot {
+            font-size: 10px;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .calendar-dashboard .rbc-toolbar {
+            padding: 8px;
+            gap: 6px;
           }
           
-          .text-xl {
-            font-size: 1.25rem;
+          .calendar-dashboard .rbc-toolbar button {
+            padding: 4px 8px;
+            font-size: 10px;
+          }
+          
+          .calendar-dashboard .rbc-toolbar-label {
+            font-size: 1rem;
+          }
+          
+          .calendar-dashboard .rbc-header {
+            padding: 6px 2px;
+            font-size: 10px;
+          }
+          
+          .calendar-dashboard .rbc-date-cell {
+            padding: 2px 1px;
+            font-size: 10px;
+          }
+          
+          .calendar-dashboard .rbc-event {
+            font-size: 8px;
+            padding: 1px 2px;
+          }
+          
+          .calendar-dashboard .rbc-time-slot {
+            font-size: 9px;
           }
         }
       `}</style>

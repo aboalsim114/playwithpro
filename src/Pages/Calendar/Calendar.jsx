@@ -3,8 +3,8 @@ import { GAMES } from '../DashboardUser/constants';
 
 // Configuration de la localisation française
 const MONTHS = [
-  'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-  'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+    'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+    'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
 ];
 
 const WEEKDAYS_SHORT = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
@@ -44,172 +44,179 @@ const addMonths = (date, months) => {
   return result;
 };
 
-// Données d'exemple pour les RDV payés
-const initialEvents = [
-  {
-    id: 1,
-    title: 'Session CS2 avec ProPlayer',
-    start: new Date(2025, 9, 25, 14, 0),
-    end: new Date(2025, 9, 25, 15, 0),
-    resource: {
-      game: 'CS2',
-      pro: 'ProPlayer',
-      type: 'coaching',
-      price: 50,
-      playerName: 'AlexGamer',
-      status: 'paid',
-      paymentDate: new Date(2025, 9, 20),
-      duration: 60
+// Fonction pour créer des événements dynamiques basés sur la date actuelle
+const createDynamicEvents = () => {
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  const currentMonth = today.getMonth();
+  const currentDay = today.getDate();
+  
+  return [
+    {
+      id: 1,
+      title: 'Session CS2 avec ProPlayer',
+      start: new Date(currentYear, currentMonth, currentDay - 2, 14, 0),
+      end: new Date(currentYear, currentMonth, currentDay - 2, 15, 0),
+      resource: {
+        game: 'CS2',
+        pro: 'ProPlayer',
+        type: 'coaching',
+        price: 50,
+        playerName: 'AlexGamer',
+        status: 'paid',
+        paymentDate: new Date(currentYear, currentMonth, currentDay - 7),
+        duration: 60
+      }
+    },
+    {
+      id: 2,
+      title: 'Match Valorant - Tournoi',
+      start: new Date(currentYear, currentMonth, currentDay + 1, 20, 0),
+      end: new Date(currentYear, currentMonth, currentDay + 1, 22, 0),
+      resource: {
+        game: 'Valorant',
+        pro: 'ValorantPro',
+        type: 'match',
+        price: 75,
+        playerName: 'SarahPro',
+        status: 'paid',
+        paymentDate: new Date(currentYear, currentMonth, currentDay - 5),
+        duration: 120
+      }
+    },
+    {
+      id: 3,
+      title: 'Coaching LoL - Stratégie',
+      start: new Date(currentYear, currentMonth, currentDay + 3, 16, 0),
+      end: new Date(currentYear, currentMonth, currentDay + 3, 17, 30),
+      resource: {
+        game: 'LoL',
+        pro: 'LoLMaster',
+        type: 'coaching',
+        price: 60,
+        playerName: 'MikeRising',
+        status: 'paid',
+        paymentDate: new Date(currentYear, currentMonth, currentDay - 3),
+        duration: 90
+      }
+    },
+    {
+      id: 4,
+      title: 'Session Fortnite - Build',
+      start: new Date(currentYear, currentMonth, currentDay + 5, 19, 0),
+      end: new Date(currentYear, currentMonth, currentDay + 5, 20, 0),
+      resource: {
+        game: 'Fortnite',
+        pro: 'FortniteBuilder',
+        type: 'coaching',
+        price: 40,
+        playerName: 'EmmaBuilder',
+        status: 'paid',
+        paymentDate: new Date(currentYear, currentMonth, currentDay - 1),
+        duration: 60
+      }
+    },
+    {
+      id: 5,
+      title: 'Session Apex Legends',
+      start: new Date(currentYear, currentMonth, currentDay + 8, 15, 0),
+      end: new Date(currentYear, currentMonth, currentDay + 8, 16, 30),
+      resource: {
+        game: 'Apex',
+        pro: 'ApexChampion',
+        type: 'coaching',
+        price: 55,
+        playerName: 'TomLegend',
+        status: 'paid',
+        paymentDate: new Date(currentYear, currentMonth, currentDay + 1),
+        duration: 90
+      }
+    },
+    {
+      id: 6,
+      title: 'Coaching CS2 - Techniques Avancées',
+      start: new Date(currentYear, currentMonth, currentDay + 11, 14, 0),
+      end: new Date(currentYear, currentMonth, currentDay + 11, 15, 30),
+      resource: {
+        game: 'CS2',
+        pro: 'CS2Master',
+        type: 'coaching',
+        price: 65,
+        playerName: 'AlexGamer',
+        status: 'paid',
+        paymentDate: new Date(currentYear, currentMonth, currentDay + 4),
+        duration: 90
+      }
+    },
+    {
+      id: 7,
+      title: 'Session Valorant - Aim Training',
+      start: new Date(currentYear, currentMonth, currentDay + 13, 16, 0),
+      end: new Date(currentYear, currentMonth, currentDay + 13, 17, 0),
+      resource: {
+        game: 'Valorant',
+        pro: 'AimMaster',
+        type: 'coaching',
+        price: 45,
+        playerName: 'SarahPro',
+        status: 'paid',
+        paymentDate: new Date(currentYear, currentMonth, currentDay + 6),
+        duration: 60
+      }
+    },
+    {
+      id: 8,
+      title: 'Match LoL - Ranked',
+      start: new Date(currentYear, currentMonth, currentDay + 15, 19, 0),
+      end: new Date(currentYear, currentMonth, currentDay + 15, 21, 0),
+      resource: {
+        game: 'LoL',
+        pro: 'LoLChallenger',
+        type: 'match',
+        price: 80,
+        playerName: 'MikeRising',
+        status: 'paid',
+        paymentDate: new Date(currentYear, currentMonth, currentDay + 8),
+        duration: 120
+      }
+    },
+    {
+      id: 9,
+      title: 'Session FIFA - Techniques Avancées',
+      start: new Date(currentYear, currentMonth, currentDay + 18, 18, 0),
+      end: new Date(currentYear, currentMonth, currentDay + 18, 19, 0),
+      resource: {
+        game: 'FIFA',
+        pro: 'FIFAMaster',
+        type: 'coaching',
+        price: 35,
+        playerName: 'EmmaBuilder',
+        status: 'paid',
+        paymentDate: new Date(currentYear, currentMonth, currentDay + 11),
+        duration: 60
+      }
+    },
+    {
+      id: 10,
+      title: 'Coaching COD - Stratégie Équipe',
+      start: new Date(currentYear, currentMonth, currentDay + 21, 20, 0),
+      end: new Date(currentYear, currentMonth, currentDay + 21, 22, 0),
+      resource: {
+        game: 'COD',
+        pro: 'CODPro',
+        type: 'coaching',
+        price: 70,
+        playerName: 'TomLegend',
+        status: 'paid',
+        paymentDate: new Date(currentYear, currentMonth, currentDay + 14),
+        duration: 120
+      }
     }
-  },
-  {
-    id: 2,
-    title: 'Match Valorant - Tournoi',
-    start: new Date(2025, 9, 28, 20, 0),
-    end: new Date(2025, 9, 28, 22, 0),
-    resource: {
-      game: 'Valorant',
-      pro: 'ValorantPro',
-      type: 'match',
-      price: 75,
-      playerName: 'SarahPro',
-      status: 'paid',
-      paymentDate: new Date(2025, 9, 22),
-      duration: 120
-    }
-  },
-  {
-    id: 3,
-    title: 'Coaching LoL - Stratégie',
-    start: new Date(2025, 9, 30, 16, 0),
-    end: new Date(2025, 9, 30, 17, 30),
-    resource: {
-      game: 'LoL',
-      pro: 'LoLMaster',
-      type: 'coaching',
-      price: 60,
-      playerName: 'MikeRising',
-      status: 'paid',
-      paymentDate: new Date(2025, 9, 24),
-      duration: 90
-    }
-  },
-  {
-    id: 4,
-    title: 'Session Fortnite - Build',
-    start: new Date(2025, 10, 2, 19, 0),
-    end: new Date(2025, 10, 2, 20, 0),
-    resource: {
-      game: 'Fortnite',
-      pro: 'FortniteBuilder',
-      type: 'coaching',
-      price: 40,
-      playerName: 'EmmaBuilder',
-      status: 'paid',
-      paymentDate: new Date(2025, 9, 26),
-      duration: 60
-    }
-  },
-  {
-    id: 5,
-    title: 'Session Apex Legends',
-    start: new Date(2025, 10, 5, 15, 0),
-    end: new Date(2025, 10, 5, 16, 30),
-    resource: {
-      game: 'Apex',
-      pro: 'ApexChampion',
-      type: 'coaching',
-      price: 55,
-      playerName: 'TomLegend',
-      status: 'paid',
-      paymentDate: new Date(2025, 9, 28),
-      duration: 90
-    }
-  },
-  {
-    id: 6,
-    title: 'Coaching CS2 - Techniques Avancées',
-    start: new Date(2025, 10, 8, 14, 0),
-    end: new Date(2025, 10, 8, 15, 30),
-    resource: {
-      game: 'CS2',
-      pro: 'CS2Master',
-      type: 'coaching',
-      price: 65,
-      playerName: 'AlexGamer',
-      status: 'paid',
-      paymentDate: new Date(2025, 10, 1),
-      duration: 90
-    }
-  },
-  {
-    id: 7,
-    title: 'Session Valorant - Aim Training',
-    start: new Date(2025, 10, 10, 16, 0),
-    end: new Date(2025, 10, 10, 17, 0),
-    resource: {
-      game: 'Valorant',
-      pro: 'AimMaster',
-      type: 'coaching',
-      price: 45,
-      playerName: 'SarahPro',
-      status: 'paid',
-      paymentDate: new Date(2025, 10, 3),
-      duration: 60
-    }
-  },
-  {
-    id: 8,
-    title: 'Match LoL - Ranked',
-    start: new Date(2025, 10, 12, 19, 0),
-    end: new Date(2025, 10, 12, 21, 0),
-    resource: {
-      game: 'LoL',
-      pro: 'LoLChallenger',
-      type: 'match',
-      price: 80,
-      playerName: 'MikeRising',
-      status: 'paid',
-      paymentDate: new Date(2025, 10, 5),
-      duration: 120
-    }
-  },
-  {
-    id: 9,
-    title: 'Session FIFA - Techniques Avancées',
-    start: new Date(2025, 10, 15, 18, 0),
-    end: new Date(2025, 10, 15, 19, 0),
-    resource: {
-      game: 'FIFA',
-      pro: 'FIFAMaster',
-      type: 'coaching',
-      price: 35,
-      playerName: 'EmmaBuilder',
-      status: 'paid',
-      paymentDate: new Date(2025, 10, 8),
-      duration: 60
-    }
-  },
-  {
-    id: 10,
-    title: 'Coaching COD - Stratégie Équipe',
-    start: new Date(2025, 10, 18, 20, 0),
-    end: new Date(2025, 10, 18, 22, 0),
-    resource: {
-      game: 'COD',
-      pro: 'CODPro',
-      type: 'coaching',
-      price: 70,
-      playerName: 'TomLegend',
-      status: 'paid',
-      paymentDate: new Date(2025, 10, 11),
-      duration: 120
-    }
-  }
-];
+  ];
+};
 
 const CalendarComponent = () => {
-  const [events, setEvents] = useState(initialEvents);
+  const [events, setEvents] = useState(createDynamicEvents());
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [filterGame, setFilterGame] = useState('all');
@@ -324,14 +331,14 @@ const CalendarComponent = () => {
         {/* Header Section avec Liquid Glass */}
         <div className="flex-shrink-0 backdrop-blur-xl bg-white/5 border-b border-white/10 p-4 sm:p-6 shadow-2xl">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            <div className="flex-1">
+             <div className="flex-1">
               <h1 className="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                📅 RDV Payés
-              </h1>
+                 📅 RDV Payés
+               </h1>
               <p className="text-gray-300/80 text-sm sm:text-base">
-                Consultez vos rendez-vous payés avec les pros
-              </p>
-            </div>
+                 Consultez vos rendez-vous payés avec les pros
+               </p>
+             </div>
             
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
               <select
@@ -350,7 +357,7 @@ const CalendarComponent = () => {
               <div className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 backdrop-blur-sm bg-green-500/20 border border-green-400/30 rounded-xl">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                 <span className="text-green-300 text-xs sm:text-sm font-medium">RDV Payés</span>
-              </div>
+               </div>
             </div>
           </div>
         </div>
@@ -362,18 +369,18 @@ const CalendarComponent = () => {
               {/* Stats Cards avec Liquid Glass */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
                 <div className="backdrop-blur-xl bg-white/5 rounded-2xl p-4 sm:p-6 border border-white/10 hover:bg-white/10 transition-all duration-500 hover:scale-105 shadow-2xl">
-                  <div className="flex items-center justify-between">
-                    <div>
+                   <div className="flex items-center justify-between">
+                     <div>
                       <p className="text-gray-300/80 text-xs sm:text-sm font-medium">RDV Payés</p>
-                      <p className="text-2xl sm:text-3xl font-bold text-white">{filteredEvents.length}</p>
-                    </div>
+                       <p className="text-2xl sm:text-3xl font-bold text-white">{filteredEvents.length}</p>
+                     </div>
                     <div className="w-10 h-10 sm:w-12 sm:h-12 backdrop-blur-sm bg-green-500/20 rounded-xl flex items-center justify-center border border-green-400/30">
                       <svg className="w-5 h-5 sm:w-6 sm:h-6 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
+                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                       </svg>
+                     </div>
+                   </div>
+                 </div>
 
                 <div className="backdrop-blur-xl bg-white/5 rounded-2xl p-4 sm:p-6 border border-white/10 hover:bg-white/10 transition-all duration-500 hover:scale-105 shadow-2xl">
                   <div className="flex items-center justify-between">

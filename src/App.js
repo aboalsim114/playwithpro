@@ -89,7 +89,7 @@ function App() {
               <CalendarComponent />
             </PrivateLayout>
           } />
-          <Route path="/support" element={
+          <Route path="/game/:name" element={
             <PrivateLayout>
               <div className="p-6">
                 <h1 className="text-2xl font-bold text-white mb-4">Support</h1>

@@ -20,6 +20,18 @@ function Payment() {
   // Only non-sensitive data can be stored in state
   const [cryptoType, setCryptoType] = useState('bitcoin')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  // State for UI updates only (not storing sensitive data, just validation status and display values)
+  const [validationStatus, setValidationStatus] = useState({
+    cardNumber: false,
+    paypalEmail: false,
+    cryptoWallet: false
+  })
+  // Display values for card preview (only for visual feedback, not stored)
+  const [cardPreview, setCardPreview] = useState({
+    cardNumber: '**** **** **** ****',
+    cardholderName: 'YOUR NAME',
+    expiryDate: 'MM/YY'
+  })
 
   // Moyens de paiement avec style élégant
   const existingPaymentMethods = [
@@ -188,6 +200,16 @@ function Payment() {
     if (accountNumberRef.current) accountNumberRef.current.value = ''
     if (paypalEmailRef.current) paypalEmailRef.current.value = ''
     if (cryptoWalletRef.current) cryptoWalletRef.current.value = ''
+    setValidationStatus({
+      cardNumber: false,
+      paypalEmail: false,
+      cryptoWallet: false
+    })
+    setCardPreview({
+      cardNumber: '**** **** **** ****',
+      cardholderName: 'YOUR NAME',
+      expiryDate: 'MM/YY'
+    })
   }
   
   // Handle closing modal - clear sensitive data
@@ -557,82 +579,178 @@ function Payment() {
           </div>
         )}
 
-        {/* Modal d'ajout avec validation sécurisée */}
+        {/* Modal d'ajout avec validation sécurisée - Design Fun & Interactif */}
         {showAddModal && (
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-            <div className="bg-white/5 backdrop-blur-xl border border-white/20 rounded-2xl p-8 w-full max-w-3xl max-h-[90vh] overflow-y-auto">
-              <div className="flex items-center justify-between mb-8">
-                <h2 className="text-2xl font-bold text-white flex items-center">
-                  <span className="w-8 h-8 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-lg flex items-center justify-center text-white font-bold mr-3 text-sm">
-                    ➕
-                  </span>
-                  Add Payment Method
-                </h2>
+          <div 
+            className="fixed inset-0 bg-gradient-to-br from-black/80 via-purple-900/20 to-black/80 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-fadeIn"
+            onClick={(e) => e.target === e.currentTarget && handleCloseModal()}
+          >
+            <div className="bg-gradient-to-br from-gray-900/95 via-gray-800/95 to-gray-900/95 backdrop-blur-2xl border-2 border-cyan-500/30 rounded-3xl p-8 w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl shadow-cyan-500/20 relative animate-slideUp">
+              {/* Animated Background Particles */}
+              <div className="absolute inset-0 overflow-hidden rounded-3xl pointer-events-none">
+                <div className="absolute top-10 left-10 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
+                <div className="absolute bottom-10 right-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+                <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-pink-500/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              </div>
+
+              {/* Header avec animation */}
+              <div className="flex items-center justify-between mb-8 relative z-10">
+                <div className="flex items-center space-x-4">
+                  <div className="relative">
+                    <div className="w-14 h-14 bg-gradient-to-br from-cyan-400 via-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-cyan-500/50 animate-bounce" style={{ animationDuration: '2s' }}>
+                      ➕
+                    </div>
+                    <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-gray-900 animate-ping"></div>
+                  </div>
+                  <div>
+                    <h2 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                      Add Payment Method
+                    </h2>
+                    <p className="text-gray-400 text-sm mt-1">Choose your preferred payment option</p>
+                  </div>
+                </div>
                 <button
                   onClick={handleCloseModal}
-                  className="text-gray-400 hover:text-white text-2xl transition-colors"
+                  className="w-10 h-10 rounded-xl bg-white/5 hover:bg-red-500/20 border border-white/20 hover:border-red-400/50 text-gray-400 hover:text-red-400 text-2xl transition-all duration-300 hover:rotate-90 hover:scale-110 flex items-center justify-center"
                 >
                   ×
                 </button>
               </div>
 
-              {/* Type Selection */}
-              <div className="mb-8">
-                <label className="block text-lg font-semibold text-white mb-4">
-                  Payment Method Type
-                </label>
-                <div className="grid grid-cols-2 gap-4">
+              {/* Type Selection avec animations interactives */}
+              <div className="mb-8 relative z-10">
+                <div className="flex items-center justify-between mb-6">
+                  <label className="block text-xl font-bold text-white flex items-center">
+                    <span className="mr-2">🎯</span>
+                    Payment Method Type
+                  </label>
+                  <div className="flex items-center space-x-2 text-sm text-gray-400">
+                    <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    <span>Secure</span>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {[
-                    { id: 'card', name: 'Credit Card', icon: '💳', color: 'from-blue-500 to-cyan-500' },
-                    { id: 'paypal', name: 'PayPal', icon: '🅿️', color: 'from-yellow-500 to-orange-500' },
-                    { id: 'crypto', name: 'Cryptocurrency', icon: '₿', color: 'from-purple-500 to-pink-500' },
-                    { id: 'bank', name: 'Bank Account', icon: '🏦', color: 'from-green-500 to-emerald-500' }
+                    { id: 'card', name: 'Credit Card', icon: '💳', color: 'from-blue-500 to-cyan-500', glow: 'shadow-blue-500/50' },
+                    { id: 'paypal', name: 'PayPal', icon: '🅿️', color: 'from-yellow-500 to-orange-500', glow: 'shadow-orange-500/50' },
+                    { id: 'crypto', name: 'Cryptocurrency', icon: '₿', color: 'from-purple-500 to-pink-500', glow: 'shadow-purple-500/50' },
+                    { id: 'bank', name: 'Bank Account', icon: '🏦', color: 'from-green-500 to-emerald-500', glow: 'shadow-green-500/50' }
                   ].map((method) => (
                     <button
                       key={method.id}
                       onClick={() => setSelectedMethod(method.id)}
-                      className={`p-6 rounded-xl border-2 transition-all duration-300 ${
+                      className={`relative group p-6 rounded-2xl border-2 transition-all duration-500 transform ${
                         selectedMethod === method.id
-                          ? `border-cyan-400 bg-gradient-to-r ${method.color} text-white shadow-lg transform -translate-y-1`
-                          : 'border-white/20 bg-white/5 backdrop-blur-sm hover:border-white/40 hover:bg-white/10 text-white'
+                          ? `border-cyan-400 bg-gradient-to-br ${method.color} text-white shadow-2xl ${method.glow} scale-105 rotate-1`
+                          : 'border-white/20 bg-white/5 backdrop-blur-sm hover:border-white/40 hover:bg-white/10 text-white hover:scale-105 hover:-rotate-1'
                       }`}
                     >
-                      <div className="text-center">
-                        <div className="text-3xl mb-3">{method.icon}</div>
-                        <div className="font-semibold text-sm">{method.name}</div>
+                      {/* Animated background effect when selected */}
+                      {selectedMethod === method.id && (
+                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/20 to-transparent animate-shimmer"></div>
+                      )}
+                      
+                      <div className="text-center relative z-10">
+                        <div className={`text-5xl mb-3 transition-transform duration-300 ${
+                          selectedMethod === method.id ? 'scale-125 rotate-12' : 'group-hover:scale-110 group-hover:rotate-6'
+                        }`}>
+                          {method.icon}
+                        </div>
+                        <div className={`font-bold text-sm transition-all duration-300 ${
+                          selectedMethod === method.id ? 'text-white drop-shadow-lg' : ''
+                        }`}>
+                          {method.name}
+                        </div>
+                        {selectedMethod === method.id && (
+                          <div className="mt-2 flex items-center justify-center">
+                            <span className="text-xs bg-white/20 px-2 py-1 rounded-full animate-pulse">✓ Selected</span>
+                          </div>
+                        )}
                       </div>
+                      
+                      {/* Ripple effect on click */}
+                      {selectedMethod === method.id && (
+                        <div className="absolute inset-0 rounded-2xl bg-white/10 animate-ping opacity-20"></div>
+                      )}
                     </button>
                   ))}
                 </div>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-8">
-                {/* Card Form avec validation sécurisée */}
+              <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
+                {/* Card Form avec validation sécurisée et animations */}
                 {selectedMethod === 'card' && (
-                  <div className="space-y-6">
+                  <div className="space-y-6 animate-fadeIn">
+                    {/* Animated Card Preview */}
+                    <div className="relative mb-6">
+                      <div className="h-48 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-2xl p-6 shadow-2xl transform perspective-1000 hover:rotate-y-5 transition-transform duration-500">
+                        <div className="flex flex-col justify-between h-full">
+                          <div className="flex justify-between items-start">
+                            <div className="text-4xl">💳</div>
+                            <div className="text-white/80 text-sm font-mono">
+                              {cardPreview.cardNumber}
+                            </div>
+                          </div>
+                          <div className="space-y-2">
+                            <div className="text-white/90 text-sm">Cardholder Name</div>
+                            <div className="text-white text-xl font-semibold">
+                              {cardPreview.cardholderName}
+                            </div>
+                            <div className="flex justify-between items-end">
+                              <div>
+                                <div className="text-white/80 text-xs">Expires</div>
+                                <div className="text-white text-sm font-mono">
+                                  {cardPreview.expiryDate}
+                                </div>
+                              </div>
+                              <div className="text-white text-2xl font-bold">VISA</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     <div>
-                      <label className="block text-lg font-semibold text-white mb-3">
+                      <label className="block text-lg font-bold text-white mb-3 flex items-center">
+                        <span className="mr-2">🔢</span>
                         Card Number
                       </label>
-                      <input
-                        type="text"
-                        name="cardNumber"
-                        ref={cardNumberRef}
+                      <div className="relative">
+                        <input
+                          type="text"
+                          name="cardNumber"
+                          ref={cardNumberRef}
                         onChange={(e) => {
                           const formatted = formatCardNumber(e.target.value)
                           e.target.value = formatted
+                          const isValid = formatted.replace(/\s/g, '').length >= 16
+                          setValidationStatus(prev => ({
+                            ...prev,
+                            cardNumber: isValid
+                          }))
+                          setCardPreview(prev => ({
+                            ...prev,
+                            cardNumber: formatted || '**** **** **** ****'
+                          }))
                         }}
-                        placeholder="1234 5678 9012 3456"
-                        maxLength="19"
-                        className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-lg font-mono"
-                        required
-                        autoComplete="cc-number"
-                      />
+                          placeholder="1234 5678 9012 3456"
+                          maxLength="19"
+                          className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border-2 border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/30 transition-all duration-300 text-lg font-mono hover:border-cyan-400/50"
+                          required
+                          autoComplete="cc-number"
+                        />
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2">
+                          {validationStatus.cardNumber && (
+                            <span className="text-green-400 text-xl animate-bounce">✓</span>
+                          )}
+                        </div>
+                      </div>
                     </div>
                     
                     <div className="grid grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-lg font-semibold text-white mb-3">
+                        <label className="block text-lg font-bold text-white mb-3 flex items-center">
+                          <span className="mr-2">📅</span>
                           Expiry Date
                         </label>
                         <input
@@ -642,33 +760,44 @@ function Payment() {
                           onChange={(e) => {
                             const formatted = formatExpiryDate(e.target.value)
                             e.target.value = formatted
+                            setCardPreview(prev => ({
+                              ...prev,
+                              expiryDate: formatted || 'MM/YY'
+                            }))
                           }}
                           placeholder="MM/YY"
                           maxLength="5"
-                          className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-lg font-mono"
+                          className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border-2 border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/30 transition-all duration-300 text-lg font-mono hover:border-cyan-400/50"
                           required
                           autoComplete="cc-exp"
                         />
                       </div>
                       <div>
-                        <label className="block text-lg font-semibold text-white mb-3">
+                        <label className="block text-lg font-bold text-white mb-3 flex items-center">
+                          <span className="mr-2">🔐</span>
                           CVV
                         </label>
-                        <input
-                          type="password"
-                          name="cvv"
-                          ref={cvvRef}
-                          placeholder="123"
-                          maxLength="4"
-                          className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-lg font-mono"
-                          required
-                          autoComplete="cc-csc"
-                        />
+                        <div className="relative">
+                          <input
+                            type="password"
+                            name="cvv"
+                            ref={cvvRef}
+                            placeholder="123"
+                            maxLength="4"
+                            className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border-2 border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/30 transition-all duration-300 text-lg font-mono hover:border-cyan-400/50"
+                            required
+                            autoComplete="cc-csc"
+                          />
+                          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
+                            🔒
+                          </div>
+                        </div>
                       </div>
                     </div>
                     
                     <div>
-                      <label className="block text-lg font-semibold text-white mb-3">
+                      <label className="block text-lg font-bold text-white mb-3 flex items-center">
+                        <span className="mr-2">👤</span>
                         Cardholder Name
                       </label>
                       <input
@@ -676,7 +805,13 @@ function Payment() {
                         name="cardholderName"
                         ref={cardholderNameRef}
                         placeholder="John Doe"
-                        className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-lg"
+                        onChange={(e) => {
+                          setCardPreview(prev => ({
+                            ...prev,
+                            cardholderName: e.target.value.toUpperCase() || 'YOUR NAME'
+                          }))
+                        }}
+                        className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border-2 border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/30 transition-all duration-300 text-lg hover:border-cyan-400/50"
                         required
                         autoComplete="cc-name"
                       />
@@ -684,81 +819,129 @@ function Payment() {
                   </div>
                 )}
 
-                {/* PayPal Form */}
+                {/* PayPal Form avec animations */}
                 {selectedMethod === 'paypal' && (
-                  <div className="space-y-6">
-                    <div className="text-center py-8">
-                      <div className="text-8xl mb-6">🅿️</div>
-                      <p className="text-gray-300 text-xl mb-6">Connect your PayPal account</p>
+                  <div className="space-y-6 animate-fadeIn">
+                    <div className="text-center py-8 relative">
+                      <div className="relative inline-block">
+                        <div className="text-9xl mb-6 animate-bounce" style={{ animationDuration: '2s' }}>🅿️</div>
+                        <div className="absolute inset-0 text-9xl opacity-20 blur-2xl animate-pulse">🅿️</div>
+                      </div>
+                      <p className="text-white text-2xl font-bold mb-2 bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+                        Connect your PayPal account
+                      </p>
+                      <p className="text-gray-400 text-sm">Secure & Instant connection</p>
                     </div>
                     
                     <div>
-                      <label className="block text-lg font-semibold text-white mb-3">
+                      <label className="block text-lg font-bold text-white mb-3 flex items-center">
+                        <span className="mr-2">📧</span>
                         PayPal Email
                       </label>
-                      <input
-                        type="email"
-                        name="paypalEmail"
-                        ref={paypalEmailRef}
-                        placeholder="your@email.com"
-                        className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-lg"
-                        required
-                        autoComplete="email"
-                      />
+                      <div className="relative">
+                        <input
+                          type="email"
+                          name="paypalEmail"
+                          ref={paypalEmailRef}
+                          placeholder="your@email.com"
+                          onChange={(e) => {
+                            setValidationStatus(prev => ({
+                              ...prev,
+                              paypalEmail: e.target.value.includes('@')
+                            }))
+                          }}
+                          className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border-2 border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-orange-400 focus:ring-4 focus:ring-orange-400/30 transition-all duration-300 text-lg hover:border-orange-400/50"
+                          required
+                          autoComplete="email"
+                        />
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2">
+                          {validationStatus.paypalEmail && (
+                            <span className="text-orange-400 text-xl animate-bounce">✓</span>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
 
-                {/* Crypto Form */}
+                {/* Crypto Form avec animations */}
                 {selectedMethod === 'crypto' && (
-                  <div className="space-y-6">
-                    <div className="text-center py-8">
-                      <div className="text-8xl mb-6">₿</div>
-                      <p className="text-gray-300 text-xl mb-6">Add cryptocurrency wallet</p>
+                  <div className="space-y-6 animate-fadeIn">
+                    <div className="text-center py-8 relative">
+                      <div className="relative inline-block">
+                        <div className="text-9xl mb-6 animate-pulse" style={{ animationDuration: '1.5s' }}>₿</div>
+                        <div className="absolute inset-0 text-9xl opacity-30 blur-3xl animate-ping" style={{ animationDuration: '2s' }}>₿</div>
+                      </div>
+                      <p className="text-white text-2xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                        Add cryptocurrency wallet
+                      </p>
+                      <p className="text-gray-400 text-sm">Decentralized & Secure</p>
                     </div>
                     
                     <div>
-                      <label className="block text-lg font-semibold text-white mb-3">
+                      <label className="block text-lg font-bold text-white mb-3 flex items-center">
+                        <span className="mr-2">🪙</span>
                         Cryptocurrency Type
                       </label>
                       <select
                         name="cryptoType"
                         value={cryptoType}
                         onChange={(e) => setCryptoType(e.target.value)}
-                        className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-lg"
+                        className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border-2 border-white/20 rounded-xl text-white focus:border-purple-400 focus:ring-4 focus:ring-purple-400/30 transition-all duration-300 text-lg hover:border-purple-400/50 cursor-pointer"
                       >
-                        <option value="bitcoin">Bitcoin (BTC)</option>
-                        <option value="ethereum">Ethereum (ETH)</option>
-                        <option value="litecoin">Litecoin (LTC)</option>
+                        <option value="bitcoin">₿ Bitcoin (BTC)</option>
+                        <option value="ethereum">Ξ Ethereum (ETH)</option>
+                        <option value="litecoin">Ł Litecoin (LTC)</option>
                       </select>
                     </div>
                     
                     <div>
-                      <label className="block text-lg font-semibold text-white mb-3">
+                      <label className="block text-lg font-bold text-white mb-3 flex items-center">
+                        <span className="mr-2">🔑</span>
                         Wallet Address
                       </label>
-                      <input
-                        type="text"
-                        name="cryptoWallet"
-                        ref={cryptoWalletRef}
-                        placeholder="1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
-                        className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 font-mono text-sm"
-                        required
-                      />
+                      <div className="relative">
+                        <input
+                          type="text"
+                          name="cryptoWallet"
+                          ref={cryptoWalletRef}
+                          placeholder="1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+                          onChange={(e) => {
+                            setValidationStatus(prev => ({
+                              ...prev,
+                              cryptoWallet: e.target.value.length >= 26
+                            }))
+                          }}
+                          className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border-2 border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-purple-400 focus:ring-4 focus:ring-purple-400/30 transition-all duration-300 font-mono text-sm hover:border-purple-400/50"
+                          required
+                        />
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2">
+                          {validationStatus.cryptoWallet && (
+                            <span className="text-purple-400 text-xl animate-bounce">✓</span>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
 
-                {/* Bank Form */}
+                {/* Bank Form avec animations */}
                 {selectedMethod === 'bank' && (
-                  <div className="space-y-6">
-                    <div className="text-center py-8">
-                      <div className="text-8xl mb-6">🏦</div>
-                      <p className="text-gray-300 text-xl mb-6">Add bank account</p>
+                  <div className="space-y-6 animate-fadeIn">
+                    <div className="text-center py-8 relative">
+                      <div className="relative inline-block">
+                        <div className="text-9xl mb-6 animate-pulse" style={{ animationDuration: '2s' }}>🏦</div>
+                        <div className="absolute inset-0 text-9xl opacity-20 blur-2xl animate-ping" style={{ animationDuration: '3s' }}>🏦</div>
+                      </div>
+                      <p className="text-white text-2xl font-bold mb-2 bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                        Add bank account
+                      </p>
+                      <p className="text-gray-400 text-sm">Traditional & Reliable</p>
                     </div>
                     
                     <div>
-                      <label className="block text-lg font-semibold text-white mb-3">
+                      <label className="block text-lg font-bold text-white mb-3 flex items-center">
+                        <span className="mr-2">🏛️</span>
                         Bank Name
                       </label>
                       <input
@@ -766,44 +949,54 @@ function Payment() {
                         name="bankName"
                         ref={bankNameRef}
                         placeholder="Bank Name"
-                        className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-lg"
+                        className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border-2 border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-green-400 focus:ring-4 focus:ring-green-400/30 transition-all duration-300 text-lg hover:border-green-400/50"
                         required
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-lg font-semibold text-white mb-3">
+                      <label className="block text-lg font-bold text-white mb-3 flex items-center">
+                        <span className="mr-2">🔢</span>
                         Account Number
                       </label>
-                      <input
-                        type="password"
-                        name="accountNumber"
-                        ref={accountNumberRef}
-                        placeholder="1234567890"
-                        className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-lg font-mono"
-                        required
-                        autoComplete="off"
-                      />
+                      <div className="relative">
+                        <input
+                          type="password"
+                          name="accountNumber"
+                          ref={accountNumberRef}
+                          placeholder="1234567890"
+                          className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border-2 border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-green-400 focus:ring-4 focus:ring-green-400/30 transition-all duration-300 text-lg font-mono hover:border-green-400/50"
+                          required
+                          autoComplete="off"
+                        />
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
+                          🔒
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
 
-                {/* Submit Buttons */}
-                <div className="flex space-x-6 pt-8">
+                {/* Submit Buttons avec animations interactives */}
+                <div className="flex space-x-6 pt-8 border-t border-white/10">
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="flex-1 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 backdrop-blur-sm border border-cyan-400/30 text-white font-bold py-6 px-8 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25 flex items-center justify-center space-x-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="group relative flex-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 backdrop-blur-sm border-2 border-cyan-400/50 text-white font-bold py-6 px-8 rounded-xl transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/50 flex items-center justify-center space-x-3 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
                   >
+                    {/* Animated background shimmer */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></div>
+                    
                     {isSubmitting ? (
                       <>
-                        <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                        <span>Processing...</span>
+                        <span className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin relative z-10"></span>
+                        <span className="relative z-10">Processing...</span>
                       </>
                     ) : (
                       <>
-                        <span className="text-xl">💾</span>
-                        <span>Save Payment Method</span>
+                        <span className="text-2xl relative z-10 animate-bounce">💾</span>
+                        <span className="relative z-10">Save Payment Method</span>
+                        <span className="absolute right-4 text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-x-[-10px] group-hover:translate-x-0">✨</span>
                       </>
                     )}
                   </button>
@@ -811,9 +1004,10 @@ function Payment() {
                     type="button"
                     onClick={handleCloseModal}
                     disabled={isSubmitting}
-                    className="px-8 py-6 bg-white/5 backdrop-blur-sm border border-white/20 hover:bg-white/10 text-white font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-8 py-6 bg-white/5 backdrop-blur-sm border-2 border-white/20 hover:bg-red-500/20 hover:border-red-400/50 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-red-500/25 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
                   >
-                    Cancel
+                    <span>✕</span>
+                    <span>Cancel</span>
                   </button>
                 </div>
               </form>

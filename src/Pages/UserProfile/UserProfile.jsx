@@ -112,37 +112,85 @@ function UserProfile() {
                 userData={userData}
                 activeTab={activeTab}
                 onTabChange={setActiveTab}
+                onProfileUpdate={(updatedData) => {
+                  setUserData(prev => ({
+                    ...prev,
+                    ...updatedData
+                  }))
+                }}
               />
 
               {/* Tab Content */}
               <div className="mt-8">
                 {activeTab === 'overview' && (
                   <div className="space-y-6">
-                    {/* About Me Section */}
-                    <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
-                      <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
-                        <span className="text-xl">👤</span>
-                        À propos de moi
-                      </h3>
-                      <p className="text-gray-300 mb-4">
-                        Salut, je m'appelle {userData.fullName} mais certains me connaissent peut-être sous le nom de {userData.username}. 
-                        Je suis un passionné de gaming et j'adore relever des défis dans les jeux compétitifs. 
-                        Mon objectif est de devenir l'un des meilleurs joueurs de ma région !
-                      </p>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="bg-gray-700 rounded-lg p-4">
-                          <div className="text-gray-400 text-sm">Rejoint</div>
-                          <div className="text-white font-semibold">
-                            {new Date(userData.joinDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    {/* About Me Section - Design Ultra Fun 🎨 */}
+                    <div className="group relative overflow-hidden bg-gradient-to-br from-gray-800 via-gray-800 to-gray-900 rounded-2xl p-8 border-4 border-purple-500/30 hover:border-purple-400/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(168,85,247,0.5)]">
+                      {/* Effet de glow animé */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      
+                      {/* Particules décoratives */}
+                      <div className="absolute top-4 right-4 text-2xl animate-bounce" style={{ animationDuration: '2s' }}>✨</div>
+                      <div className="absolute bottom-4 left-4 text-xl animate-pulse">🌟</div>
+                      <div className="absolute top-1/2 right-8 text-lg animate-spin" style={{ animationDuration: '3s' }}>💫</div>
+                      
+                      {/* Header avec style fun */}
+                      <div className="relative z-10 mb-6">
+                        <div className="flex items-center gap-4 mb-2">
+                          <div className="relative">
+                            <div className="text-4xl animate-bounce" style={{ animationDuration: '2.5s' }}>👤</div>
+                            <div className="absolute -top-1 -right-1 text-sm animate-pulse">✨</div>
+                          </div>
+                          <h3 className="text-3xl font-black bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent animate-pulse">
+                            À propos de moi
+                          </h3>
+                        </div>
+                        
+                        {/* Description avec style moderne */}
+                        <div className="relative mt-6">
+                          <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-500 via-pink-500 to-cyan-500 rounded-full"></div>
+                          <p className="text-gray-200 text-lg leading-relaxed pl-6 relative">
+                            <span className="inline-block text-2xl mr-2 animate-bounce" style={{ animationDuration: '2s' }}>👋</span>
+                            Salut ! Je m'appelle <span className="font-bold text-purple-300">{userData.fullName}</span> mais certains me connaissent peut-être sous le nom de <span className="font-bold text-pink-300">@{userData.username}</span>.
+                            <br /><br />
+                            <span className="inline-block text-xl mr-2 animate-pulse">🎮</span>
+                            Je suis un <span className="font-bold text-cyan-300">passionné de gaming</span> et j'adore relever des défis dans les jeux compétitifs !
+                            <br /><br />
+                            <span className="inline-block text-xl mr-2 animate-bounce" style={{ animationDuration: '1.5s' }}>🚀</span>
+                            Mon objectif est de devenir <span className="font-bold text-yellow-300">l'un des meilleurs joueurs</span> de ma région !
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Cards d'information avec design fun */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-8 relative z-10">
+                        {/* Card 1: Rejoint */}
+                        <div className="group/card relative overflow-hidden bg-gradient-to-br from-blue-600/30 via-purple-600/30 to-pink-600/30 rounded-xl p-5 border-2 border-blue-400/30 hover:border-blue-300/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30">
+                          <div className="absolute top-2 right-2 text-lg animate-bounce" style={{ animationDuration: '2s' }}>📅</div>
+                          <div className="relative z-10">
+                            <div className="text-gray-300 text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                              <span className="text-sm">🎯</span>
+                              Rejoint
+                            </div>
+                            <div className="text-white font-bold text-lg group-hover/card:text-blue-200 transition-colors">
+                              {new Date(userData.joinDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
+                            </div>
                           </div>
                         </div>
-                        <div className="bg-gray-700 rounded-lg p-4">
-                          <div className="text-gray-400 text-sm">Localisation</div>
-                          <div className="text-white font-semibold">Paris, France</div>
-                        </div>
-                        <div className="bg-gray-700 rounded-lg p-4">
-                          <div className="text-gray-400 text-sm">Site web</div>
-                          <div className="text-white font-semibold">playwithpro.com</div>
+
+                        {/* Card 2: Localisation */}
+                        <div className="group/card relative overflow-hidden bg-gradient-to-br from-green-600/30 via-emerald-600/30 to-teal-600/30 rounded-xl p-5 border-2 border-green-400/30 hover:border-green-300/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/30">
+                          <div className="absolute top-2 right-2 text-lg animate-pulse">📍</div>
+                          <div className="relative z-10">
+                            <div className="text-gray-300 text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                              <span className="text-sm">🌍</span>
+                              Localisation
+                            </div>
+                            <div className="text-white font-bold text-lg group-hover/card:text-green-200 transition-colors flex items-center gap-2">
+                              <span className="text-xl">🗺️</span>
+                              Paris, France
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>

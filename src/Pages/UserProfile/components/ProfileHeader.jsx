@@ -1,12 +1,22 @@
 import React, { useState, useRef } from 'react'
 import DefaultAvatar from './DefaultAvatar'
 
-function ProfileHeader({ userData, activeTab, onTabChange }) {
+function ProfileHeader({ userData, activeTab, onTabChange, onProfileUpdate }) {
   const [avatarError, setAvatarError] = useState(false)
   const [showUploadModal, setShowUploadModal] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
   const [previewImage, setPreviewImage] = useState(null)
   const fileInputRef = useRef(null)
+  
+  // États pour le modal de modification de profil
+  const [showEditModal, setShowEditModal] = useState(false)
+  const [editFormData, setEditFormData] = useState({
+    fullName: '',
+    username: '',
+    email: '',
+    userType: 'gamer'
+  })
+  const [isSaving, setIsSaving] = useState(false)
   
   // Fonction pour déterminer si on doit afficher l'avatar par défaut
   const shouldShowDefaultAvatar = () => {
@@ -120,6 +130,55 @@ function ProfileHeader({ userData, activeTab, onTabChange }) {
     }
   }
 
+  // Fonctions pour le modal d'édition de profil
+  const handleOpenEditModal = () => {
+    setEditFormData({
+      fullName: userData.fullName || '',
+      username: userData.username || '',
+      email: userData.email || '',
+      userType: userData.userType || 'gamer'
+    })
+    setShowEditModal(true)
+  }
+
+  const handleCloseEditModal = () => {
+    setShowEditModal(false)
+    setEditFormData({
+      fullName: '',
+      username: '',
+      email: '',
+      userType: 'gamer'
+    })
+  }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setEditFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSaveProfile = async () => {
+    setIsSaving(true)
+    try {
+      // Simuler un appel API
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      // Appeler la fonction de callback si elle existe
+      if (onProfileUpdate) {
+        onProfileUpdate(editFormData)
+      }
+      
+      // Fermer le modal
+      handleCloseEditModal()
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde:', error)
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
   const tabs = [
     { id: 'overview', label: 'Vue d\'ensemble', icon: '📊' },
     { id: 'settings', label: 'Paramètres', icon: '⚙️' }
@@ -202,7 +261,20 @@ function ProfileHeader({ userData, activeTab, onTabChange }) {
               />
             </div>
             <div className="text-center lg:text-left">
-              <h1 className="text-3xl font-bold text-white mb-1">{userData.fullName}</h1>
+              <div className="flex items-center gap-3 justify-center lg:justify-start mb-1">
+                <h1 className="text-3xl font-bold text-white">{userData.fullName}</h1>
+                {/* Bouton Modifier le profil */}
+                <button
+                  onClick={handleOpenEditModal}
+                  className="group relative p-2 bg-gradient-to-br from-purple-500/20 to-pink-500/20 hover:from-purple-500/40 hover:to-pink-500/40 rounded-lg border border-purple-400/30 hover:border-purple-400/50 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/30"
+                  title="Modifier le profil"
+                >
+                  <span className="text-lg">✏️</span>
+                  <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
+                    Modifier
+                  </span>
+                </button>
+              </div>
               <p className="text-lg text-gray-300 mb-3">@{userData.username}</p>
               <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
                 <span className={`px-3 py-1 rounded-full text-white font-bold text-xs shadow-lg ${getUserTypeColor(userData.userType)}`}>
@@ -581,6 +653,185 @@ function ProfileHeader({ userData, activeTab, onTabChange }) {
                   <div
                     key={i}
                     className="absolute w-2 h-2 bg-gradient-to-r from-pink-400 to-cyan-400 rounded-full opacity-60 animate-float"
+                    style={{
+                      top: `${Math.random() * 100}%`,
+                      left: `${Math.random() * 100}%`,
+                      animationDelay: `${i * 0.2}s`,
+                      animationDuration: `${3 + Math.random() * 2}s`
+                    }}
+                  ></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de modification de profil - Design Fun & Moderne 🎨 */}
+      {showEditModal && (
+        <div 
+          className="fixed inset-0 bg-gradient-to-br from-purple-900/40 via-pink-900/40 to-cyan-900/40 backdrop-blur-lg flex items-center justify-center z-50 p-4 animate-fadeIn"
+          onClick={handleCloseEditModal}
+        >
+          <div 
+            className="relative w-full max-w-2xl animate-slideUp"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Fond animé */}
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-pink-500/20 to-cyan-500/20 rounded-[3rem] blur-3xl"></div>
+            
+            {/* Container principal */}
+            <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 border-4 border-purple-500/50 rounded-[3rem] p-8 shadow-[0_0_50px_rgba(168,85,247,0.5)]">
+              {/* Étoiles animées */}
+              <div className="absolute inset-0 overflow-hidden rounded-[3rem] pointer-events-none">
+                {[...Array(10)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute text-yellow-400 text-xl animate-pulse"
+                    style={{
+                      top: `${Math.random() * 100}%`,
+                      left: `${Math.random() * 100}%`,
+                      animationDelay: `${i * 0.2}s`,
+                      animationDuration: `${1 + Math.random() * 2}s`
+                    }}
+                  >
+                    ✨
+                  </div>
+                ))}
+              </div>
+
+              {/* Header */}
+              <div className="flex items-center justify-between mb-8 relative z-10">
+                <div className="flex items-center space-x-4">
+                  <div className="relative">
+                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 via-pink-500 to-cyan-500 rounded-2xl flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-purple-500/50 transform rotate-12 hover:rotate-[-12deg] transition-transform duration-300">
+                      ✏️
+                    </div>
+                    <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center text-xs font-bold animate-bounce">
+                      ✨
+                    </div>
+                  </div>
+                  <div>
+                    <h2 className="text-3xl font-black bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent animate-pulse">
+                      🎨 MODIFIER LE PROFIL
+                    </h2>
+                    <p className="text-gray-300 text-sm mt-1 flex items-center gap-2">
+                      <span className="animate-bounce">🚀</span>
+                      Personnalisez votre profil !
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={handleCloseEditModal}
+                  className="w-12 h-12 rounded-full bg-red-500/20 hover:bg-red-500/40 border-2 border-red-400 text-red-400 hover:text-red-300 text-2xl transition-all duration-300 hover:rotate-180 hover:scale-125 flex items-center justify-center font-bold shadow-lg"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Formulaire */}
+              <div className="space-y-6 relative z-10">
+                {/* Nom complet */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-bold text-white flex items-center gap-2">
+                    <span className="text-lg">👤</span>
+                    Nom complet
+                  </label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={editFormData.fullName}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-gray-700/50 border-2 border-purple-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300"
+                    placeholder="Votre nom complet"
+                  />
+                </div>
+
+                {/* Username */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-bold text-white flex items-center gap-2">
+                    <span className="text-lg">🏷️</span>
+                    Nom d'utilisateur
+                  </label>
+                  <input
+                    type="text"
+                    name="username"
+                    value={editFormData.username}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-gray-700/50 border-2 border-purple-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300"
+                    placeholder="@username"
+                  />
+                </div>
+
+                {/* Email */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-bold text-white flex items-center gap-2">
+                    <span className="text-lg">📧</span>
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={editFormData.email}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-gray-700/50 border-2 border-purple-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300"
+                    placeholder="votre@email.com"
+                  />
+                </div>
+
+                {/* Type d'utilisateur */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-bold text-white flex items-center gap-2">
+                    <span className="text-lg">🎮</span>
+                    Type de joueur
+                  </label>
+                  <select
+                    name="userType"
+                    value={editFormData.userType}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-gray-700/50 border-2 border-purple-500/30 rounded-xl text-white focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300"
+                  >
+                    <option value="gamer" className="bg-gray-800">🎮 GAMER</option>
+                    <option value="pro" className="bg-gray-800">⚡ PRO GAMER</option>
+                    <option value="streamer" className="bg-gray-800">📺 STREAMER</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Boutons d'action */}
+              <div className="flex space-x-4 pt-8 border-t-2 border-purple-500/30 mt-8 relative z-10">
+                <button
+                  onClick={handleSaveProfile}
+                  disabled={isSaving}
+                  className="group flex-1 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 border-4 border-white/20 text-white font-black py-5 px-6 rounded-2xl transition-all duration-300 hover:scale-110 hover:rotate-1 hover:shadow-[0_0_30px_rgba(168,85,247,0.8)] flex items-center justify-center space-x-3 transform disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSaving ? (
+                    <>
+                      <span className="text-2xl animate-spin">⏳</span>
+                      <span className="text-lg">ENREGISTREMENT...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-2xl group-hover:animate-spin">💾</span>
+                      <span className="text-lg">SAUVEGARDER</span>
+                      <span className="text-xl opacity-0 group-hover:opacity-100 transition-opacity">✨</span>
+                    </>
+                  )}
+                </button>
+                <button
+                  onClick={handleCloseEditModal}
+                  className="px-6 py-5 bg-gray-700/50 border-4 border-gray-600/50 hover:border-red-400 hover:bg-red-500/20 text-gray-300 hover:text-red-300 font-bold rounded-2xl transition-all duration-300 hover:scale-110 hover:rotate-[-2deg]"
+                >
+                  ANNULER
+                </button>
+              </div>
+
+              {/* Particules flottantes */}
+              <div className="absolute inset-0 overflow-hidden rounded-[3rem] pointer-events-none">
+                {[...Array(12)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute w-2 h-2 bg-gradient-to-r from-purple-400 to-cyan-400 rounded-full opacity-60 animate-float"
                     style={{
                       top: `${Math.random() * 100}%`,
                       left: `${Math.random() * 100}%`,

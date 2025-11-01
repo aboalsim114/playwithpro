@@ -216,41 +216,150 @@ function ProfileHeader({ userData, activeTab, onTabChange }) {
           </div>
         </div>
 
-        {/* Stats Cards Row */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-6">
-          <div className="bg-gray-700/50 rounded-lg p-3 border border-white/10 hover:bg-gray-700/70 transition-all duration-300">
-            <div className="flex items-center gap-2">
-              <div className="text-lg">🎮</div>
-              <div>
-                <div className="text-lg font-bold text-white">{userData.stats.gamesPlayed}</div>
-                <div className="text-xs text-gray-400">Parties</div>
+        {/* Stats Cards Row - Design Ultra Fun 🎉 */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mt-6">
+          {/* Card 1: Parties - Style Arcade 🎮 */}
+          <div className="group relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-cyan-500 rounded-2xl p-5 border-4 border-blue-400/50 hover:border-blue-300 transition-all duration-500 hover:scale-110 hover:rotate-[-2deg] hover:shadow-[0_0_40px_rgba(59,130,246,0.8)]">
+            {/* Effet de glow animé */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-400/30 via-purple-400/30 to-cyan-400/30 opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-500"></div>
+            
+            {/* Particules flottantes */}
+            <div className="absolute top-2 right-2 text-xl animate-bounce" style={{ animationDelay: '0s', animationDuration: '2s' }}>✨</div>
+            <div className="absolute bottom-2 left-2 text-lg animate-bounce" style={{ animationDelay: '1s', animationDuration: '2.5s' }}>⭐</div>
+            
+            <div className="relative z-10 flex flex-col items-center text-center space-y-3">
+              {/* Emoji géant avec animation */}
+              <div className="text-5xl mb-2 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 animate-bounce" style={{ animationDuration: '2s' }}>
+                🎮
+              </div>
+              
+              {/* Nombre avec effet de glow */}
+              <div className="relative">
+                <div className="text-3xl font-black text-white drop-shadow-[0_0_10px_rgba(59,130,246,0.8)] group-hover:text-blue-200 transition-all duration-300 group-hover:scale-110">
+                  {userData.stats.gamesPlayed}
+                </div>
+                {/* Effet de glow derrière le texte */}
+                <div className="absolute inset-0 text-3xl font-black text-blue-400 blur-xl opacity-50 group-hover:opacity-100 transition-opacity">
+                  {userData.stats.gamesPlayed}
+                </div>
+              </div>
+              
+              {/* Label avec badge */}
+              <div className="relative">
+                <div className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full border-2 border-white/30">
+                  <span className="text-xs font-bold text-white uppercase tracking-widest">Parties</span>
+                </div>
+                <div className="absolute -top-1 -right-1 text-sm animate-spin" style={{ animationDuration: '3s' }}>🎯</div>
               </div>
             </div>
           </div>
-          <div className="bg-gray-700/50 rounded-lg p-3 border border-white/10 hover:bg-gray-700/70 transition-all duration-300">
-            <div className="flex items-center gap-2">
-              <div className="text-lg">🏆</div>
-              <div>
-                <div className="text-lg font-bold text-white">{userData.stats.winRate}%</div>
-                <div className="text-xs text-gray-400">Victoires</div>
+
+          {/* Card 2: Victoires - Style Champion 🏆 */}
+          <div className="group relative overflow-hidden bg-gradient-to-br from-yellow-500 via-orange-500 to-red-500 rounded-2xl p-5 border-4 border-yellow-400/50 hover:border-yellow-300 transition-all duration-500 hover:scale-110 hover:rotate-[2deg] hover:shadow-[0_0_40px_rgba(234,179,8,0.8)]">
+            {/* Effet de glow animé */}
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/30 via-orange-400/30 to-red-400/30 opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-500"></div>
+            
+            {/* Particules flottantes */}
+            <div className="absolute top-2 left-2 text-xl animate-bounce" style={{ animationDelay: '0.5s', animationDuration: '2.2s' }}>🔥</div>
+            <div className="absolute bottom-2 right-2 text-lg animate-bounce" style={{ animationDelay: '1.5s', animationDuration: '2.3s' }}>💫</div>
+            
+            <div className="relative z-10 flex flex-col items-center text-center space-y-3">
+              {/* Emoji géant avec animation */}
+              <div className="text-5xl mb-2 group-hover:scale-125 group-hover:rotate-[-12deg] transition-all duration-500 animate-bounce" style={{ animationDuration: '2.5s' }}>
+                🏆
+              </div>
+              
+              {/* Nombre avec effet de glow */}
+              <div className="relative">
+                <div className="text-3xl font-black text-white drop-shadow-[0_0_10px_rgba(234,179,8,0.8)] group-hover:text-yellow-200 transition-all duration-300 group-hover:scale-110">
+                  {userData.stats.winRate}%
+                </div>
+                {/* Effet de glow derrière le texte */}
+                <div className="absolute inset-0 text-3xl font-black text-yellow-400 blur-xl opacity-50 group-hover:opacity-100 transition-opacity">
+                  {userData.stats.winRate}%
+                </div>
+              </div>
+              
+              {/* Label avec badge */}
+              <div className="relative">
+                <div className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full border-2 border-white/30">
+                  <span className="text-xs font-bold text-white uppercase tracking-widest">Victoires</span>
+                </div>
+                <div className="absolute -top-1 -left-1 text-sm animate-pulse">👑</div>
               </div>
             </div>
           </div>
-          <div className="bg-gray-700/50 rounded-lg p-3 border border-white/10 hover:bg-gray-700/70 transition-all duration-300">
-            <div className="flex items-center gap-2">
-              <div className="text-lg">⏱️</div>
-              <div>
-                <div className="text-lg font-bold text-white">{userData.stats.totalHours}h</div>
-                <div className="text-xs text-gray-400">Heures</div>
+
+          {/* Card 3: Heures - Style Energy ⏱️ */}
+          <div className="group relative overflow-hidden bg-gradient-to-br from-green-500 via-emerald-500 to-teal-500 rounded-2xl p-5 border-4 border-green-400/50 hover:border-green-300 transition-all duration-500 hover:scale-110 hover:rotate-[-2deg] hover:shadow-[0_0_40px_rgba(34,197,94,0.8)]">
+            {/* Effet de glow animé */}
+            <div className="absolute inset-0 bg-gradient-to-r from-green-400/30 via-emerald-400/30 to-teal-400/30 opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-500"></div>
+            
+            {/* Particules flottantes */}
+            <div className="absolute top-3 right-3 text-xl animate-bounce" style={{ animationDelay: '0.3s', animationDuration: '2.1s' }}>⚡</div>
+            <div className="absolute bottom-3 left-3 text-lg animate-bounce" style={{ animationDelay: '1.3s', animationDuration: '2.4s' }}>💚</div>
+            
+            <div className="relative z-10 flex flex-col items-center text-center space-y-3">
+              {/* Emoji géant avec animation */}
+              <div className="text-5xl mb-2 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 animate-spin" style={{ animationDuration: '4s' }}>
+                ⏱️
+              </div>
+              
+              {/* Nombre avec effet de glow */}
+              <div className="relative">
+                <div className="text-3xl font-black text-white drop-shadow-[0_0_10px_rgba(34,197,94,0.8)] group-hover:text-green-200 transition-all duration-300 group-hover:scale-110">
+                  {userData.stats.totalHours}h
+                </div>
+                {/* Effet de glow derrière le texte */}
+                <div className="absolute inset-0 text-3xl font-black text-green-400 blur-xl opacity-50 group-hover:opacity-100 transition-opacity">
+                  {userData.stats.totalHours}h
+                </div>
+              </div>
+              
+              {/* Label avec badge */}
+              <div className="relative">
+                <div className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full border-2 border-white/30">
+                  <span className="text-xs font-bold text-white uppercase tracking-widest">Heures</span>
+                </div>
+                <div className="absolute -top-1 -right-1 text-sm animate-bounce" style={{ animationDuration: '1.5s' }}>🚀</div>
               </div>
             </div>
           </div>
-          <div className="bg-gray-700/50 rounded-lg p-3 border border-white/10 hover:bg-gray-700/70 transition-all duration-300">
-            <div className="flex items-center gap-2">
-              <div className="text-lg">💎</div>
-              <div>
-                <div className="text-lg font-bold text-white">{userData.stats.rank}</div>
-                <div className="text-xs text-gray-400">Rang</div>
+
+          {/* Card 4: Rang - Style Premium 💎 */}
+          <div className="group relative overflow-hidden bg-gradient-to-br from-pink-500 via-purple-600 to-indigo-600 rounded-2xl p-5 border-4 border-pink-400/50 hover:border-pink-300 transition-all duration-500 hover:scale-110 hover:rotate-[2deg] hover:shadow-[0_0_40px_rgba(236,72,153,0.8)]">
+            {/* Effet de glow animé */}
+            <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 via-purple-400/30 to-indigo-400/30 opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-500"></div>
+            
+            {/* Particules flottantes */}
+            <div className="absolute top-2 left-2 text-xl animate-bounce" style={{ animationDelay: '0.2s', animationDuration: '2.3s' }}>💎</div>
+            <div className="absolute bottom-2 right-2 text-lg animate-bounce" style={{ animationDelay: '1.2s', animationDuration: '2.6s' }}>✨</div>
+            <div className="absolute top-1/2 right-1 text-xs animate-spin" style={{ animationDuration: '3s' }}>💫</div>
+            
+            <div className="relative z-10 flex flex-col items-center text-center space-y-3">
+              {/* Emoji géant avec animation */}
+              <div className="text-5xl mb-2 group-hover:scale-125 group-hover:rotate-[-12deg] transition-all duration-500 animate-bounce" style={{ animationDuration: '2.8s' }}>
+                💎
+              </div>
+              
+              {/* Nombre avec effet de glow */}
+              <div className="relative">
+                <div className="text-3xl font-black text-white drop-shadow-[0_0_10px_rgba(236,72,153,0.8)] group-hover:text-pink-200 transition-all duration-300 group-hover:scale-110">
+                  {userData.stats.rank}
+                </div>
+                {/* Effet de glow derrière le texte */}
+                <div className="absolute inset-0 text-3xl font-black text-pink-400 blur-xl opacity-50 group-hover:opacity-100 transition-opacity">
+                  {userData.stats.rank}
+                </div>
+              </div>
+              
+              {/* Label avec badge */}
+              <div className="relative">
+                <div className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full border-2 border-white/30">
+                  <span className="text-xs font-bold text-white uppercase tracking-widest">Rang</span>
+                </div>
+                <div className="absolute -top-1 -left-1 text-sm animate-pulse">👑</div>
+                <div className="absolute -bottom-1 -right-1 text-xs animate-spin" style={{ animationDuration: '2s' }}>🌟</div>
               </div>
             </div>
           </div>

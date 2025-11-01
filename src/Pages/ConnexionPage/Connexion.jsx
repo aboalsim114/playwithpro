@@ -6,6 +6,7 @@ import { loginUser, clearError, forgotPassword } from '../../store/slices/authSl
 import { formatApiError } from '../../utils/validation'
 import { loginSchema, forgotPasswordSchema, initialValues, getFieldError, hasFieldError } from '../../schemas/validationSchemas'
 import '../../Composants/Hero/Hero.css'
+import Model3D from '../../Composants/Model3D/Model3D'
 
 // Gaming Background (same as Hero section)
 const GamingBackground = () => (
@@ -73,10 +74,10 @@ function Connexion() {
       <GamingBackground />
       
       {/* Gaming Interface */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-8 pt-24">
+      <div className="relative z-10 min-h-screen flex items-stretch justify-center px-4 py-8 pt-24">
         {/* Gaming Border Container */}
-        <div className="gaming-border-container">
-          <div className="gaming-border-frame">
+        <div className="gaming-border-container" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+          <div className="gaming-border-frame" style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
             {/* Corner Decorations */}
             <div className="gaming-corner gaming-corner-tl"></div>
             <div className="gaming-corner gaming-corner-tr"></div>
@@ -90,120 +91,21 @@ function Connexion() {
             <div className="gaming-side-border gaming-side-border-right"></div>
             
             {/* Content Container */}
-            <div className="gaming-content-container">
+            <div className="gaming-content-container" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
           
          
           
           {/* Gaming Grid Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch flex-1" style={{ minHeight: 0 }}>
             
-            {/* Left Side - Gaming Stats */}
-            <div className="space-y-8">
-            
-              
-              {/* Feature Cards - Fun Interactive Design */}
-              <div className="space-y-4">
-                {/* Match avec un Pro */}
-                <div className="group relative feature-card-fun">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="relative bg-black/40 backdrop-blur-xl border border-cyan-400/30 rounded-2xl p-5 hover:border-cyan-400/60 transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] hover:scale-[1.02] hover:-translate-y-1">
-                    <div className="flex items-start space-x-4">
-                      <div className="relative flex-shrink-0">
-                        <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/50 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
-                          <span className="text-2xl animate-bounce">🎮</span>
-                        </div>
-                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-black animate-ping"></div>
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-2">
-                          <h4 className="text-white font-bold text-lg group-hover:text-cyan-300 transition-colors">Match avec un Pro</h4>
-                          <div className="flex gap-1">
-                            <span className="px-2 py-0.5 bg-cyan-500/20 text-cyan-300 text-xs rounded-full border border-cyan-400/30">15min</span>
-                            <span className="px-2 py-0.5 bg-purple-500/20 text-purple-300 text-xs rounded-full border border-purple-400/30">30min</span>
-                            <span className="px-2 py-0.5 bg-pink-500/20 text-pink-300 text-xs rounded-full border border-pink-400/30">1h</span>
-                          </div>
-                        </div>
-                        <p className="text-gray-300 text-sm leading-relaxed">Réservez un pro pour une partie et montez en compétence</p>
-                        <div className="mt-2 flex items-center gap-2 text-xs text-cyan-400/70">
-                          <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                          <span>Pros disponibles maintenant</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-500/10 to-transparent rounded-bl-2xl pointer-events-none"></div>
-                  </div>
-                </div>
-                
-                {/* Coaching Personnalisé */}
-                <div className="group relative feature-card-fun">
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-orange-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="relative bg-black/40 backdrop-blur-xl border border-purple-400/30 rounded-2xl p-5 hover:border-purple-400/60 transition-all duration-300 hover:shadow-[0_0_30px_rgba(168,85,247,0.4)] hover:scale-[1.02] hover:-translate-y-1">
-                    <div className="flex items-start space-x-4">
-                      <div className="relative flex-shrink-0">
-                        <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-400 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/50 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
-                          <span className="text-2xl animate-pulse">🧠</span>
-                        </div>
-                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full border-2 border-black animate-pulse"></div>
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-2">
-                          <h4 className="text-white font-bold text-lg group-hover:text-purple-300 transition-colors">Coaching Personnalisé</h4>
-                          <span className="px-2 py-0.5 bg-yellow-500/20 text-yellow-300 text-xs rounded-full border border-yellow-400/30 animate-pulse">NEW</span>
-                        </div>
-                        <p className="text-gray-300 text-sm leading-relaxed">Sessions d'apprentissage avec feedback détaillé et stratégies avancées</p>
-                        <div className="mt-2 flex items-center gap-3 text-xs">
-                          <span className="text-purple-300 flex items-center gap-1">
-                            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                            Expert
-                          </span>
-                          <span className="text-pink-300 flex items-center gap-1">
-                            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/></svg>
-                            Sessions
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-500/10 to-transparent rounded-bl-2xl pointer-events-none"></div>
-                  </div>
-                </div>
-                
-                {/* Classements & Badges */}
-                <div className="group relative feature-card-fun">
-                  <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 via-orange-500/20 to-red-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="relative bg-black/40 backdrop-blur-xl border border-yellow-400/30 rounded-2xl p-5 hover:border-yellow-400/60 transition-all duration-300 hover:shadow-[0_0_30px_rgba(250,204,21,0.4)] hover:scale-[1.02] hover:-translate-y-1">
-                    <div className="flex items-start space-x-4">
-                      <div className="relative flex-shrink-0">
-                        <div className="w-14 h-14 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg shadow-yellow-500/50 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
-                          <span className="text-2xl animate-spin-slow">🏆</span>
-                        </div>
-                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-400 rounded-full border-2 border-black animate-bounce"></div>
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-2">
-                          <h4 className="text-white font-bold text-lg group-hover:text-yellow-300 transition-colors">Classements & Badges</h4>
-                          <div className="flex gap-1">
-                            <span className="px-2 py-0.5 bg-yellow-500/20 text-yellow-300 text-xs rounded-full border border-yellow-400/30">Gold</span>
-                            <span className="px-2 py-0.5 bg-gray-500/20 text-gray-300 text-xs rounded-full border border-gray-400/30">Silver</span>
-                            <span className="px-2 py-0.5 bg-orange-500/20 text-orange-300 text-xs rounded-full border border-orange-400/30">Bronze</span>
-                          </div>
-                        </div>
-                        <p className="text-gray-300 text-sm leading-relaxed">Système de progression pour pros et joueurs avec récompenses</p>
-                        <div className="mt-2 flex items-center gap-2">
-                          <div className="flex -space-x-2">
-                            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 border-2 border-black flex items-center justify-center text-xs">🥇</div>
-                            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gray-300 to-gray-500 border-2 border-black flex items-center justify-center text-xs">🥈</div>
-                            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-orange-600 to-orange-800 border-2 border-black flex items-center justify-center text-xs">🥉</div>
-                          </div>
-                          <span className="text-xs text-yellow-400/70">+12 badges débloqués</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-yellow-500/10 to-transparent rounded-bl-2xl pointer-events-none"></div>
-                  </div>
-                </div>
+            {/* Left Side - 3D Model Illustration */}
+            <div className="w-full h-full flex" style={{ width: '100%', maxWidth: '100%', minWidth: 0, height: '100%', minHeight: 0 }}>
+              <div className="w-full h-full flex-1" style={{ width: '100%', maxWidth: '100%', minWidth: 0, height: '100%', minHeight: 0 }}>
+                <Model3D 
+                  modelPath="/models/gendarprotivogazz.glb"
+                  className="w-full h-full"
+                />
               </div>
-              
-          
             </div>
             
             {/* Right Side - Gaming Login Form */}

@@ -11,6 +11,7 @@ import UserProfile from './Pages/UserProfile/UserProfile';
 import CalendarComponent from './Pages/Calendar/Calendar';
 import PrivateRoute from './utils/PrivateRoute';
 import NotFound from './Pages/NotFound/NotFound';
+import Payment from './Pages/Payement/Payment'
 
 function App() {
   return (
@@ -89,6 +90,15 @@ function App() {
               <CalendarComponent />
             </PrivateLayout>
           } />
+
+
+          <Route path="/user/:id/payment" element={
+           <PrivateLayout>
+           <Payment />
+         </PrivateLayout>
+                    } />
+
+
           <Route path="/game/:name" element={
             <PrivateLayout>
               <div className="p-6">

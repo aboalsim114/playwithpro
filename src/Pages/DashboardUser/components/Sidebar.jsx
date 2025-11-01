@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../../store/hooks';
+import { useAppDispatch, useCurrentUser } from '../../../store/hooks';
 import { logoutUser } from '../../../store/slices/authSlice';
 import { NAV_SECTIONS, SVG_ICONS } from '../constants';
 
@@ -12,6 +12,8 @@ const Sidebar = ({
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const currentUser = useCurrentUser();
+  const userId = currentUser?.id || currentUser?._id || '1'; // Fallback to '1' if user ID not available
   
   const handleLogout = async () => {
     try {
@@ -28,7 +30,7 @@ const Sidebar = ({
     matches: '/dash-user/matches',
     coaching: '/dash-user/coaching',
     calendar: '/dash-user/calendar',
-    payments: '/dash-user/payments',
+    payments: `/user/${userId}/payment`,
     profile: '/dash-user/profile'
   };
 
@@ -39,6 +41,10 @@ const Sidebar = ({
     
     if (navId === 'dashboard') {
       return location.pathname === route;
+    }
+    if (navId === 'payments') {
+      // Check if path matches /user/:id/payment pattern
+      return location.pathname.match(/^\/user\/[^/]+\/payment$/);
     }
     return location.pathname.startsWith(route);
   };

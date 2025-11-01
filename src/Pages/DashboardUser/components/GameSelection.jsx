@@ -67,11 +67,10 @@ const GameSelection = () => {
         ))}
       </div>
 
-      {/* Game Cards Grid */}
+      {/* Game Cards Grid - Nouveau Design Moderne */}
       <div className="grid grid-cols-5 gap-3">
-        {gameCards.map((game) => {
+        {gameCards.map((game, index) => {
           // Utiliser l'image locale si disponible (dans /public/game-images/), sinon utiliser l'URL
-          // Priorité: image locale > imageUrl
           const imageSrc = game.image && game.image.startsWith('/game-images/') 
             ? game.image 
             : (game.imageUrl || game.image);
@@ -79,57 +78,82 @@ const GameSelection = () => {
           return (
             <div
               key={game.id}
-              className="relative rounded-xl cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 group overflow-hidden aspect-square"
+              className="group relative cursor-pointer"
             >
-              {/* Image en plein écran en arrière-plan */}
-              <div className="absolute inset-0 w-full h-full">
-                <img 
-                  src={imageSrc} 
-                  alt={game.fullName}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  onError={(e) => {
-                    // En cas d'erreur de chargement, afficher un placeholder
-                    e.target.style.display = 'none';
-                    const placeholder = e.target.parentElement.parentElement.querySelector('.image-placeholder');
-                    if (placeholder) {
-                      placeholder.style.display = 'flex';
-                    }
-                  }}
-                />
-                {/* Placeholder si l'image ne charge pas */}
-                <div className="image-placeholder hidden absolute inset-0 w-full h-full items-center justify-center text-2xl font-bold text-gray-400 bg-gradient-to-br from-gray-700 to-gray-800">
-                  {game.name}
+              {/* Carte avec design moderne */}
+              <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden border border-gray-700 shadow-lg hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-blue-500/50">
+                {/* Image du jeu */}
+                <div className="relative aspect-square overflow-hidden bg-gray-800">
+                  <img 
+                    src={imageSrc} 
+                    alt={game.fullName}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      const placeholder = e.target.parentElement.querySelector('.image-placeholder');
+                      if (placeholder) {
+                        placeholder.style.display = 'flex';
+                      }
+                    }}
+                  />
+                  {/* Placeholder */}
+                  <div className="image-placeholder hidden absolute inset-0 w-full h-full items-center justify-center text-xl font-bold text-gray-500 bg-gradient-to-br from-gray-800 to-gray-900">
+                    {game.name}
+                  </div>
+                  
+                  {/* Overlay gradient subtil */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/50 to-transparent"></div>
+                  
+                  {/* Badge trophée si disponible */}
+                  {game.hasTrophy && (
+                    <div className="absolute top-2 left-2 z-10">
+                      <div className="bg-yellow-500 rounded-lg px-2 py-1 shadow-lg flex items-center gap-1">
+                        <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Indicateur online */}
+                  <div className="absolute top-2 right-2 z-10">
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-75"></div>
+                      <div className="relative bg-green-500 rounded-full w-3 h-3 border-2 border-white/80"></div>
+                    </div>
+                  </div>
+                  
+                  {/* Barre de progression stylisée */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-700/50">
+                    <div 
+                      className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-500"
+                      style={{ width: `${(game.prosOnline / 15) * 100}%` }}
+                    ></div>
+                  </div>
                 </div>
+                
+                {/* Contenu texte */}
+                <div className="p-3 bg-gradient-to-b from-gray-800 to-gray-900">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-white font-bold text-sm truncate group-hover:text-blue-400 transition-colors">
+                      {game.name}
+                    </h3>
+                    <div className="flex items-center gap-1 bg-gray-700/50 rounded-md px-2 py-0.5">
+                      <svg className="w-3 h-3 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                      </svg>
+                      <span className="text-yellow-400 text-xs font-semibold">{game.prosOnline}</span>
+                    </div>
+                  </div>
+                  <p className="text-gray-400 text-xs truncate">{game.fullName}</p>
+                </div>
+                
+                {/* Effet de hover - bordure lumineuse */}
+                <div className="absolute inset-0 rounded-xl border-2 border-blue-500/0 group-hover:border-blue-500/50 transition-all duration-300 pointer-events-none"></div>
+                
+                {/* Effet de glow au hover */}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/0 via-purple-500/0 to-blue-500/0 group-hover:from-blue-500/20 group-hover:via-purple-500/20 group-hover:to-blue-500/20 rounded-xl blur-md transition-all duration-300 -z-10"></div>
               </div>
-              
-              {/* Overlay sombre pour la lisibilité du texte */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20 rounded-xl"></div>
-              
-              {/* Contenu texte superposé */}
-              <div className="relative z-10 h-full flex flex-col justify-end p-3">
-                {/* Game Name */}
-                <div className="text-center">
-                  <div className="text-white text-sm font-bold mb-0.5 drop-shadow-lg">{game.name}</div>
-                  <div className="text-gray-200 text-xs drop-shadow-md">{game.prosOnline} pros</div>
-                </div>
-              </div>
-              
-              {/* Status Icons */}
-              {game.hasTrophy && (
-                <div className="absolute top-2 left-2 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center z-20 shadow-lg">
-                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                  </svg>
-                </div>
-              )}
-              
-              {/* Online Indicator */}
-              <div className="absolute top-2 right-2 w-3 h-3 bg-green-500 rounded-full animate-pulse z-20 shadow-lg border-2 border-white/50"></div>
-              
-              {/* Hover Effect - Amélioré pour couvrir toute la carte */}
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-600/50 via-blue-500/30 to-blue-400/10 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-10"></div>
-              {/* Bordure lumineuse au survol */}
-              <div className="absolute inset-0 border-2 border-blue-400/50 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10"></div>
             </div>
           );
         })}

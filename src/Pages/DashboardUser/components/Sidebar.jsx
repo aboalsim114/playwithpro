@@ -113,27 +113,56 @@ const Sidebar = ({
         
         {/* Quick Match Section */}
         <div className="p-4 border-t border-gray-700">
-          <div className="bg-gray-700 rounded-xl p-4">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <div>
-                <div className="text-white text-sm font-medium">Match avec un Pro</div>
-                <div className="text-gray-400 text-xs">Réservez dès maintenant</div>
-              </div>
+          <div className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-xl p-4 overflow-hidden group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/50">
+            {/* Animated background shimmer */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <div className="absolute inset-0 animate-shimmer"></div>
             </div>
-            <Link 
-              to="/dash-user/matches" 
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-              Réserver
-            </Link>
+            
+            {/* Sparkle effects */}
+            <div className="absolute top-2 right-2 w-2 h-2 bg-yellow-300 rounded-full animate-ping opacity-75"></div>
+            <div className="absolute top-3 right-6 w-1.5 h-1.5 bg-white rounded-full animate-pulse delay-150"></div>
+            <div className="absolute bottom-2 left-2 w-1 h-1 bg-blue-300 rounded-full animate-pulse delay-300"></div>
+            
+            {/* Content */}
+            <div className="relative z-10">
+              <div className="flex items-center gap-3 mb-4">
+                {/* Animated icon container */}
+                <div className="relative w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300 shadow-lg">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent rounded-xl"></div>
+                  <svg className="w-5 h-5 text-white relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <div className="text-white text-sm font-bold mb-1 transform group-hover:translate-x-1 transition-transform duration-300">
+                    Match avec un Pro
+                  </div>
+                  <div className="text-white/80 text-xs font-medium">
+                    Réservez dès maintenant
+                  </div>
+                </div>
+              </div>
+              
+              {/* CTA Button */}
+              <Link 
+                to="/dash-user/matches" 
+                className="relative w-full bg-white text-purple-600 py-3 px-4 rounded-xl text-sm font-bold transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden group/button shadow-lg hover:shadow-xl hover:shadow-white/25 transform hover:scale-105"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Button shine effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent translate-x-[-100%] group-hover/button:translate-x-[100%] transition-transform duration-1000"></div>
+                
+                {/* Button content */}
+                <svg className="w-5 h-5 relative z-10 transform group-hover/button:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span className="relative z-10">Réserver</span>
+                
+                {/* Pulse effect */}
+                <div className="absolute inset-0 rounded-xl bg-white/30 animate-ping opacity-0 group-hover/button:opacity-100"></div>
+              </Link>
+            </div>
           </div>
         </div>
         

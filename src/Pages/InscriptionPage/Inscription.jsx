@@ -254,99 +254,162 @@ function Inscription() {
             
             {/* Left Side - Gaming Visual */}
             <div className="hidden lg:block relative">
-              <div className="relative bg-gradient-to-br from-slate-900/90 via-purple-900/90 to-slate-900/90 backdrop-blur-xl rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 border border-cyan-500/20 shadow-2xl">
+              <div className="relative bg-gradient-to-br from-slate-900/90 via-purple-900/90 to-slate-900/90 backdrop-blur-xl rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 border border-cyan-500/20 shadow-2xl overflow-hidden group">
+                {/* Animated Background Particles */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                  {[...Array(15)].map((_, i) => (
+                    <div 
+                      key={i}
+                      className="absolute w-1 h-1 bg-cyan-400/40 rounded-full animate-ping"
+                      style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                        animationDelay: `${i * 0.3}s`,
+                        animationDuration: `${2 + (i % 3)}s`
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Glow Effects */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-cyan-500/20 via-purple-500/20 to-pink-500/20 rounded-full blur-3xl opacity-50 group-hover:opacity-70 transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-purple-500/20 via-pink-500/20 to-orange-500/20 rounded-full blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-500"></div>
+
                 {/* Gaming Header */}
-                <div className="text-center mb-6 lg:mb-8">
-                  <div className="inline-flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mb-3 lg:mb-4 animate-pulse">
-                    <svg className="w-8 h-8 lg:w-10 lg:h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
-                      <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
-                      <path d="M4 22h16"/>
-                      <path d="M10 14.66V17c0 .55.47.98.97 1.21l1.03.4c.5.23 1.03.23 1.53 0l1.03-.4c.5-.23.97-.66.97-1.21v-2.34"/>
-                      <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
-                    </svg>
+                <div className="text-center mb-6 lg:mb-8 relative z-10">
+                  <div className="relative inline-block mb-3 lg:mb-4">
+                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 rounded-full blur-xl opacity-50 animate-pulse"></div>
+                    <div className="relative inline-flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 rounded-full mb-3 lg:mb-4 transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 shadow-lg shadow-cyan-500/50">
+                      <div className="text-3xl lg:text-4xl animate-bounce">🏆</div>
+                      <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full border-2 border-black animate-ping"></div>
+                    </div>
                   </div>
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">
+                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 via-purple-600 to-pink-500 bg-clip-text text-transparent mb-2 animate-pulse group-hover:animate-none">
                     Rejoins l'Élite
                   </h1>
-                  <p className="text-gray-300 text-base lg:text-lg">
-                    Deviens un champion e-sport
-                  </p>
-                </div>
-
-                {/* Gaming Stats */}
-                <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:gap-4 mb-6 lg:mb-8">
-                  <div className="text-center p-2 sm:p-3 lg:p-4 bg-slate-800/50 rounded-lg border border-cyan-500/20">
-                    <div className="text-lg sm:text-xl lg:text-2xl font-bold text-cyan-400">10K+</div>
-                    <div className="text-xs sm:text-sm text-gray-400">Joueurs</div>
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    <p className="text-gray-300 text-base lg:text-lg font-medium">
+                      Deviens un champion e-sport
+                    </p>
+                    <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                   </div>
-                  <div className="text-center p-2 sm:p-3 lg:p-4 bg-slate-800/50 rounded-lg border border-purple-500/20">
-                    <div className="text-lg sm:text-xl lg:text-2xl font-bold text-purple-400">500+</div>
-                    <div className="text-xs sm:text-sm text-gray-400">Tournois</div>
-                  </div>
-                  <div className="text-center p-2 sm:p-3 lg:p-4 bg-slate-800/50 rounded-lg border border-pink-500/20">
-                    <div className="text-lg sm:text-xl lg:text-2xl font-bold text-pink-400">50+</div>
-                    <div className="text-xs sm:text-sm text-gray-400">Jeux</div>
+                  <div className="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full border border-cyan-400/30">
+                    <span className="text-xs text-cyan-300">⚡</span>
+                    <span className="text-xs text-cyan-300 font-medium">Légende en devenir</span>
+                    <span className="text-xs text-cyan-300">⚡</span>
                   </div>
                 </div>
 
-                {/* Gaming Elements */}
-                <div className="relative h-48 sm:h-56 lg:h-64 bg-gradient-to-br from-slate-800/50 to-purple-900/50 rounded-lg lg:rounded-xl overflow-hidden border border-cyan-500/20">
-                  <div className="absolute inset-0 opacity-30" style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2300FFFF' fill-opacity='0.1'%3E%3Cpath d='M20 20c0-11.046-8.954-20-20-20v20h20z'/%3E%3C/g%3E%3C/svg%3E")`
+                {/* Gaming Stats - Interactive Cards */}
+                <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:gap-4 mb-6 lg:mb-8 relative z-10">
+                  {/* Stat Card 1 */}
+                  <div className="group relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-cyan-500/20 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="relative text-center p-3 sm:p-4 lg:p-5 bg-slate-800/60 backdrop-blur-sm rounded-lg border-2 border-cyan-500/30 group-hover:border-cyan-400/60 transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-cyan-500/30 cursor-pointer">
+                      <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-br from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-1 group-hover:scale-110 transition-transform duration-300">
+                        10K+
+                      </div>
+                      <div className="flex items-center justify-center gap-1 text-xs sm:text-sm text-gray-400 group-hover:text-cyan-300 transition-colors">
+                        <span>👥</span>
+                        <span>Joueurs</span>
+                      </div>
+                      <div className="absolute top-1 right-1 w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    </div>
+                  </div>
+
+                  {/* Stat Card 2 */}
+                  <div className="group relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-purple-500/20 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="relative text-center p-3 sm:p-4 lg:p-5 bg-slate-800/60 backdrop-blur-sm rounded-lg border-2 border-purple-500/30 group-hover:border-purple-400/60 transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-purple-500/30 cursor-pointer">
+                      <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-br from-purple-400 to-pink-400 bg-clip-text text-transparent mb-1 group-hover:scale-110 transition-transform duration-300">
+                        500+
+                      </div>
+                      <div className="flex items-center justify-center gap-1 text-xs sm:text-sm text-gray-400 group-hover:text-purple-300 transition-colors">
+                        <span>🏆</span>
+                        <span>Tournois</span>
+                      </div>
+                      <div className="absolute top-1 right-1 w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                    </div>
+                  </div>
+
+                  {/* Stat Card 3 */}
+                  <div className="group relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-pink-500/20 via-orange-500/20 to-pink-500/20 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="relative text-center p-3 sm:p-4 lg:p-5 bg-slate-800/60 backdrop-blur-sm rounded-lg border-2 border-pink-500/30 group-hover:border-pink-400/60 transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-pink-500/30 cursor-pointer">
+                      <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-br from-pink-400 to-orange-400 bg-clip-text text-transparent mb-1 group-hover:scale-110 transition-transform duration-300">
+                        50+
+                      </div>
+                      <div className="flex items-center justify-center gap-1 text-xs sm:text-sm text-gray-400 group-hover:text-pink-300 transition-colors">
+                        <span>🎮</span>
+                        <span>Jeux</span>
+                      </div>
+                      <div className="absolute top-1 right-1 w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Gaming Elements - Enhanced */}
+                <div className="relative h-48 sm:h-56 lg:h-64 bg-gradient-to-br from-slate-800/60 via-purple-900/60 to-slate-800/60 backdrop-blur-sm rounded-lg lg:rounded-xl overflow-hidden border-2 border-cyan-500/30 group-hover:border-cyan-400/60 transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-cyan-500/20">
+                  {/* Animated Grid Background */}
+                  <div className="absolute inset-0 opacity-20" style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2300FFFF' fill-opacity='0.3'%3E%3Cpath d='M20 20c0-11.046-8.954-20-20-20v20h20z'/%3E%3C/g%3E%3C/svg%3E")`
                   }}></div>
                   
-                  {/* Floating Gaming Icons */}
-                  <div className="absolute top-4 left-4 w-8 h-8 bg-gradient-to-r from-red-500 to-pink-500 rounded-lg animate-bounce">
-                    <svg className="w-full h-full text-white p-1" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
-                    </svg>
+                  {/* Floating Gaming Icons with Enhanced Animations */}
+                  <div className="absolute top-4 left-4 w-10 h-10 bg-gradient-to-r from-red-500 to-pink-500 rounded-lg shadow-lg shadow-red-500/50 animate-bounce group-hover:animate-pulse">
+                    <div className="w-full h-full flex items-center justify-center text-white text-xl">⚔️</div>
                   </div>
                   
-                  <div className="absolute top-8 right-6 w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-pulse">
-                    <svg className="w-full h-full text-white p-1" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M6 3h12l4 6-10 13L2 9l4-6z"/>
-                    </svg>
+                  <div className="absolute top-8 right-6 w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full shadow-lg shadow-yellow-500/50 animate-pulse group-hover:animate-spin-slow">
+                    <div className="w-full h-full flex items-center justify-center text-white text-lg">💎</div>
                   </div>
                   
-                  <div className="absolute bottom-6 left-8 w-7 h-7 bg-gradient-to-r from-green-400 to-emerald-500 rounded animate-spin-slow">
-                    <svg className="w-full h-full text-white p-1" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M14.5 2L20 7.5L14.5 13"/>
-                    </svg>
+                  <div className="absolute bottom-6 left-8 w-9 h-9 bg-gradient-to-r from-green-400 to-emerald-500 rounded-lg shadow-lg shadow-green-500/50 animate-spin-slow group-hover:animate-bounce">
+                    <div className="w-full h-full flex items-center justify-center text-white text-xl">⭐</div>
                   </div>
                   
-                  <div className="absolute bottom-4 right-4 w-5 h-5 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full animate-ping">
-                    <svg className="w-full h-full text-white p-1" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                    </svg>
+                  <div className="absolute bottom-4 right-4 w-7 h-7 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full shadow-lg shadow-blue-500/50 animate-ping">
+                    <div className="w-full h-full flex items-center justify-center text-white text-sm">✨</div>
                   </div>
 
-                  {/* Center Gaming Text */}
+                  {/* Center Gaming Text - Enhanced */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="text-3xl sm:text-4xl lg:text-6xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent mb-2 animate-pulse">
+                    <div className="text-center transform group-hover:scale-110 transition-transform duration-300">
+                      <div className="text-3xl sm:text-4xl lg:text-6xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 via-purple-600 to-pink-500 bg-clip-text text-transparent mb-2 animate-pulse group-hover:animate-none">
                         E-SPORT
                       </div>
-                      <div className="text-sm sm:text-base lg:text-lg text-gray-300">
-                        Légende en devenir
+                      <div className="text-sm sm:text-base lg:text-lg text-gray-300 flex items-center justify-center gap-2">
+                        <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>
+                        <span>Légende en devenir</span>
+                        <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Features */}
-                <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-3">
-                  <div className="flex items-center text-gray-300 text-sm sm:text-base">
-                    <div className="w-2 h-2 bg-cyan-400 rounded-full mr-2 sm:mr-3 animate-pulse"></div>
-                    <span>Compétitions internationales</span>
+                {/* Features - Enhanced */}
+                <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-3 relative z-10">
+                  <div className="group flex items-center text-gray-300 text-sm sm:text-base hover:text-cyan-300 transition-colors duration-300 cursor-pointer">
+                    <div className="w-3 h-3 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mr-3 animate-pulse group-hover:scale-125 transition-transform duration-300 shadow-lg shadow-cyan-500/50"></div>
+                    <span className="flex items-center gap-2">
+                      <span className="text-lg group-hover:animate-bounce">🌍</span>
+                      <span>Compétitions internationales</span>
+                    </span>
                   </div>
-                  <div className="flex items-center text-gray-300 text-sm sm:text-base">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full mr-2 sm:mr-3 animate-pulse"></div>
-                    <span>Équipes professionnelles</span>
+                  <div className="group flex items-center text-gray-300 text-sm sm:text-base hover:text-purple-300 transition-colors duration-300 cursor-pointer">
+                    <div className="w-3 h-3 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full mr-3 animate-pulse group-hover:scale-125 transition-transform duration-300 shadow-lg shadow-purple-500/50"></div>
+                    <span className="flex items-center gap-2">
+                      <span className="text-lg group-hover:animate-bounce">👥</span>
+                      <span>Équipes professionnelles</span>
+                    </span>
                   </div>
-                  <div className="flex items-center text-gray-300 text-sm sm:text-base">
-                    <div className="w-2 h-2 bg-pink-400 rounded-full mr-2 sm:mr-3 animate-pulse"></div>
-                    <span>Prix et récompenses</span>
+                  <div className="group flex items-center text-gray-300 text-sm sm:text-base hover:text-pink-300 transition-colors duration-300 cursor-pointer">
+                    <div className="w-3 h-3 bg-gradient-to-r from-pink-400 to-orange-500 rounded-full mr-3 animate-pulse group-hover:scale-125 transition-transform duration-300 shadow-lg shadow-pink-500/50"></div>
+                    <span className="flex items-center gap-2">
+                      <span className="text-lg group-hover:animate-bounce">💰</span>
+                      <span>Prix et récompenses</span>
+                    </span>
                   </div>
                 </div>
               </div>

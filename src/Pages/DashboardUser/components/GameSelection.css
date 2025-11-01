@@ -1,0 +1,70 @@
+/* Animations personnalisées pour les cartes de jeux - Format Grid 3 colonnes */
+
+@keyframes shimmer {
+  0% { 
+    transform: translateX(-100%); 
+  }
+  100% { 
+    transform: translateX(100%); 
+  }
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0) translateX(0); 
+    opacity: 0; 
+  }
+  50% { 
+    transform: translateY(-30px) translateX(15px); 
+    opacity: 1; 
+  }
+}
+
+@keyframes scan {
+  0% { 
+    transform: translateY(-100%); 
+  }
+  100% { 
+    transform: translateY(600%); 
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-scan {
+  animation: scan 2s ease-in-out infinite;
+}
+
+/* Style pour les cartes de jeux - Format plus grand */
+.game-card {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.game-card:hover {
+  transform: scale(1.03) translateY(-4px);
+}
+
+/* Amélioration des transitions */
+.group:hover .animate-shimmer {
+  animation-play-state: running;
+}
+
+/* Responsive pour le grid 3 colonnes */
+@media (max-width: 1024px) {
+  .game-card:hover {
+    transform: scale(1.02) translateY(-2px);
+  }
+}
+
+@media (max-width: 768px) {
+  .game-card:hover {
+    transform: scale(1.01);
+  }
+}
+

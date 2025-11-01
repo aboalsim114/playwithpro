@@ -1,20 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 
 function Payment() {
   const [activeTab, setActiveTab] = useState('overview')
   const [showAddModal, setShowAddModal] = useState(false)
   const [selectedMethod, setSelectedMethod] = useState('card')
-  const [formData, setFormData] = useState({
-    cardNumber: '',
-    expiryDate: '',
-    cvv: '',
-    cardholderName: '',
-    bankName: '',
-    accountNumber: '',
-    paypalEmail: '',
-    cryptoWallet: '',
-    cryptoType: 'bitcoin'
-  })
+  
+  // SECURITY: Sensitive payment data should NEVER be stored in React state
+  // Using refs to avoid storing sensitive data in component state
+  // These refs will be cleared immediately after submission
+  const cardNumberRef = useRef(null)
+  const expiryDateRef = useRef(null)
+  const cvvRef = useRef(null)
+  const cardholderNameRef = useRef(null)
+  const bankNameRef = useRef(null)
+  const accountNumberRef = useRef(null)
+  const paypalEmailRef = useRef(null)
+  const cryptoWalletRef = useRef(null)
+  
+  // Only non-sensitive data can be stored in state
+  const [cryptoType, setCryptoType] = useState('bitcoin')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Moyens de paiement avec style élégant
   const existingPaymentMethods = [
@@ -70,28 +75,125 @@ function Payment() {
     totalBalance: '€3,680.50'
   }
 
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
-
-  const handleSubmit = (e) => {
+  // SECURITY: Send sensitive payment data directly to secure payment API
+  // Never log or store sensitive payment information
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Nouveau moyen de paiement:', formData)
+    setIsSubmitting(true)
+    
+    try {
+      // Collect sensitive data from refs (not stored in state)
+      let paymentData = {}
+      
+      if (selectedMethod === 'card') {
+        // SECURITY: Sensitive card data collected directly from refs
+        paymentData = {
+          type: 'card',
+          cardNumber: cardNumberRef.current?.value || '',
+          expiryDate: expiryDateRef.current?.value || '',
+          cvv: cvvRef.current?.value || '',
+          cardholderName: cardholderNameRef.current?.value || ''
+        }
+        
+        // Validate required fields
+        if (!paymentData.cardNumber || !paymentData.expiryDate || !paymentData.cvv || !paymentData.cardholderName) {
+          alert('Please fill in all required card fields')
+          setIsSubmitting(false)
+          return
+        }
+      } else if (selectedMethod === 'paypal') {
+        paymentData = {
+          type: 'paypal',
+          email: paypalEmailRef.current?.value || ''
+        }
+        
+        if (!paymentData.email) {
+          alert('Please enter your PayPal email')
+          setIsSubmitting(false)
+          return
+        }
+      } else if (selectedMethod === 'crypto') {
+        paymentData = {
+          type: 'crypto',
+          cryptoType: cryptoType,
+          walletAddress: cryptoWalletRef.current?.value || ''
+        }
+        
+        if (!paymentData.walletAddress) {
+          alert('Please enter your wallet address')
+          setIsSubmitting(false)
+          return
+        }
+      } else if (selectedMethod === 'bank') {
+        paymentData = {
+          type: 'bank',
+          bankName: bankNameRef.current?.value || '',
+          accountNumber: accountNumberRef.current?.value || ''
+        }
+        
+        if (!paymentData.bankName || !paymentData.accountNumber) {
+          alert('Please fill in all required bank account fields')
+          setIsSubmitting(false)
+          return
+        }
+      }
+      
+      // SECURITY: Send data directly to secure payment API/tokenization service
+      // Never store sensitive data in frontend state or logs
+      // TODO: Replace with actual secure payment API endpoint
+      const response = await fetch('/api/payments/tokenize', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add authentication headers as needed
+        },
+        body: JSON.stringify(paymentData)
+      })
+      
+      if (!response.ok) {
+        throw new Error('Payment method registration failed')
+      }
+      
+      // SECURITY: Only store the token/ID returned from secure server, not sensitive data
+      // The response should contain a tokenized payment method ID
+      await response.json()
+      
+      // SECURITY: Clear sensitive data from refs immediately after submission
+      clearSensitiveData()
+      
+      setShowAddModal(false)
+      setIsSubmitting(false)
+      
+      // Show success message (without sensitive data)
+      alert('Payment method added successfully')
+      
+      // Refresh payment methods list
+      // You would typically reload from your secure backend here
+      
+    } catch (error) {
+      setIsSubmitting(false)
+      // SECURITY: Never log sensitive payment data
+      console.error('Payment processing error:', error.message)
+      alert('Failed to add payment method. Please try again.')
+    }
+  }
+  
+  // SECURITY: Function to clear all sensitive data from refs
+  const clearSensitiveData = () => {
+    if (cardNumberRef.current) cardNumberRef.current.value = ''
+    if (expiryDateRef.current) expiryDateRef.current.value = ''
+    if (cvvRef.current) cvvRef.current.value = ''
+    if (cardholderNameRef.current) cardholderNameRef.current.value = ''
+    if (bankNameRef.current) bankNameRef.current.value = ''
+    if (accountNumberRef.current) accountNumberRef.current.value = ''
+    if (paypalEmailRef.current) paypalEmailRef.current.value = ''
+    if (cryptoWalletRef.current) cryptoWalletRef.current.value = ''
+  }
+  
+  // Handle closing modal - clear sensitive data
+  const handleCloseModal = () => {
+    clearSensitiveData()
     setShowAddModal(false)
-    setFormData({
-      cardNumber: '',
-      expiryDate: '',
-      cvv: '',
-      cardholderName: '',
-      bankName: '',
-      accountNumber: '',
-      paypalEmail: '',
-      cryptoWallet: '',
-      cryptoType: 'bitcoin'
-    })
   }
 
   const handleSetDefault = (id) => {
@@ -106,7 +208,7 @@ function Payment() {
   const formatCardNumber = (value) => {
     const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
     const matches = v.match(/\d{4,16}/g)
-    const match = matches && matches[0] || ''
+    const match = (matches && matches[0]) || ''
     const parts = []
     for (let i = 0, len = match.length; i < len; i += 4) {
       parts.push(match.substring(i, i + 4))
@@ -467,7 +569,7 @@ function Payment() {
                   Add Payment Method
                 </h2>
                 <button
-                  onClick={() => setShowAddModal(false)}
+                  onClick={handleCloseModal}
                   className="text-gray-400 hover:text-white text-2xl transition-colors"
                 >
                   ×
@@ -515,15 +617,16 @@ function Payment() {
                       <input
                         type="text"
                         name="cardNumber"
-                        value={formData.cardNumber}
+                        ref={cardNumberRef}
                         onChange={(e) => {
                           const formatted = formatCardNumber(e.target.value)
-                          setFormData({ ...formData, cardNumber: formatted })
+                          e.target.value = formatted
                         }}
                         placeholder="1234 5678 9012 3456"
                         maxLength="19"
                         className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-lg font-mono"
                         required
+                        autoComplete="cc-number"
                       />
                     </div>
                     
@@ -535,15 +638,16 @@ function Payment() {
                         <input
                           type="text"
                           name="expiryDate"
-                          value={formData.expiryDate}
+                          ref={expiryDateRef}
                           onChange={(e) => {
                             const formatted = formatExpiryDate(e.target.value)
-                            setFormData({ ...formData, expiryDate: formatted })
+                            e.target.value = formatted
                           }}
                           placeholder="MM/YY"
                           maxLength="5"
                           className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-lg font-mono"
                           required
+                          autoComplete="cc-exp"
                         />
                       </div>
                       <div>
@@ -551,14 +655,14 @@ function Payment() {
                           CVV
                         </label>
                         <input
-                          type="text"
+                          type="password"
                           name="cvv"
-                          value={formData.cvv}
-                          onChange={handleInputChange}
+                          ref={cvvRef}
                           placeholder="123"
                           maxLength="4"
                           className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-lg font-mono"
                           required
+                          autoComplete="cc-csc"
                         />
                       </div>
                     </div>
@@ -570,11 +674,11 @@ function Payment() {
                       <input
                         type="text"
                         name="cardholderName"
-                        value={formData.cardholderName}
-                        onChange={handleInputChange}
+                        ref={cardholderNameRef}
                         placeholder="John Doe"
                         className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-lg"
                         required
+                        autoComplete="cc-name"
                       />
                     </div>
                   </div>
@@ -595,11 +699,11 @@ function Payment() {
                       <input
                         type="email"
                         name="paypalEmail"
-                        value={formData.paypalEmail}
-                        onChange={handleInputChange}
+                        ref={paypalEmailRef}
                         placeholder="your@email.com"
                         className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-lg"
                         required
+                        autoComplete="email"
                       />
                     </div>
                   </div>
@@ -619,8 +723,8 @@ function Payment() {
                       </label>
                       <select
                         name="cryptoType"
-                        value={formData.cryptoType}
-                        onChange={handleInputChange}
+                        value={cryptoType}
+                        onChange={(e) => setCryptoType(e.target.value)}
                         className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-lg"
                       >
                         <option value="bitcoin">Bitcoin (BTC)</option>
@@ -636,8 +740,7 @@ function Payment() {
                       <input
                         type="text"
                         name="cryptoWallet"
-                        value={formData.cryptoWallet}
-                        onChange={handleInputChange}
+                        ref={cryptoWalletRef}
                         placeholder="1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
                         className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 font-mono text-sm"
                         required
@@ -661,8 +764,7 @@ function Payment() {
                       <input
                         type="text"
                         name="bankName"
-                        value={formData.bankName}
-                        onChange={handleInputChange}
+                        ref={bankNameRef}
                         placeholder="Bank Name"
                         className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-lg"
                         required
@@ -674,13 +776,13 @@ function Payment() {
                         Account Number
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         name="accountNumber"
-                        value={formData.accountNumber}
-                        onChange={handleInputChange}
+                        ref={accountNumberRef}
                         placeholder="1234567890"
                         className="w-full px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-lg font-mono"
                         required
+                        autoComplete="off"
                       />
                     </div>
                   </div>
@@ -690,15 +792,26 @@ function Payment() {
                 <div className="flex space-x-6 pt-8">
                   <button
                     type="submit"
-                    className="flex-1 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 backdrop-blur-sm border border-cyan-400/30 text-white font-bold py-6 px-8 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25 flex items-center justify-center space-x-3"
+                    disabled={isSubmitting}
+                    className="flex-1 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 backdrop-blur-sm border border-cyan-400/30 text-white font-bold py-6 px-8 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25 flex items-center justify-center space-x-3 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <span className="text-xl">💾</span>
-                    <span>Save Payment Method</span>
+                    {isSubmitting ? (
+                      <>
+                        <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                        <span>Processing...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-xl">💾</span>
+                        <span>Save Payment Method</span>
+                      </>
+                    )}
                   </button>
                   <button
                     type="button"
-                    onClick={() => setShowAddModal(false)}
-                    className="px-8 py-6 bg-white/5 backdrop-blur-sm border border-white/20 hover:bg-white/10 text-white font-semibold rounded-xl transition-all duration-300"
+                    onClick={handleCloseModal}
+                    disabled={isSubmitting}
+                    className="px-8 py-6 bg-white/5 backdrop-blur-sm border border-white/20 hover:bg-white/10 text-white font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Cancel
                   </button>

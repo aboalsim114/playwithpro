@@ -1,11 +1,21 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileTopBar = ({ userData }) => {
+  const navigate = useNavigate();
+
+  const handleAvatarClick = () => {
+    navigate('/user/1');
+  };
+
   return (
     <header className="bg-gray-800 border-b border-gray-700 px-6 py-4 flex items-center justify-between">
       {/* User Profile Section */}
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+        <div 
+          className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform duration-200"
+          onClick={handleAvatarClick}
+        >
           <span className="text-white font-bold">
             {userData?.username?.charAt(0) || 'U'}
           </span>

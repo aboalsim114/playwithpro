@@ -58,7 +58,6 @@ function ProfileHeader({ userData, activeTab, onTabChange }) {
 
   const tabs = [
     { id: 'overview', label: 'Vue d\'ensemble', icon: '📊' },
-    { id: 'achievements', label: 'Succès', icon: '🏆' },
     { id: 'settings', label: 'Paramètres', icon: '⚙️' }
   ]
 
@@ -141,28 +140,6 @@ function ProfileHeader({ userData, activeTab, onTabChange }) {
                 <div className="text-xs text-gray-400">Rang</div>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Progress Section */}
-        <div className="mt-6">
-          <div className="flex justify-between items-center mb-3">
-            <span className="text-white font-semibold text-sm">Progression</span>
-            <span className="text-white font-bold text-sm">
-              {Math.round((userData.xp / (userData.xp + userData.xpToNext)) * 100)}%
-            </span>
-          </div>
-          <div className="w-full bg-gray-700/30 rounded-full h-2 mb-2">
-            <div 
-              className={`h-2 rounded-full bg-gradient-to-r ${getUserTypeGradient(userData.userType)} shadow-lg`}
-              style={{ 
-                width: `${(userData.xp / (userData.xp + userData.xpToNext)) * 100}%`
-              }}
-            ></div>
-          </div>
-          <div className="flex justify-between text-xs text-gray-400">
-            <span>{userData.xp.toLocaleString()} XP</span>
-            <span>Niveau {userData.level + 1} dans {userData.xpToNext} XP</span>
           </div>
         </div>
 
